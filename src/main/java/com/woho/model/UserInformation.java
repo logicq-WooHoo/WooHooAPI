@@ -22,33 +22,32 @@ public class UserInformation {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id")
-	private String userId;
+	@Column(name="ID")
+	private Long userId;
 	
-	@NotNull
-	@Column(name="title")
-	private String title;
-	
-	@NotNull
     @Size(max = 100)
-	@Column(name="firstname")
+	@Column(name="FIRSTNAME")
 	private String firstName;
 	
-	@NotNull
     @Size(max = 100)
-	@Column(name="lastname")
+	@Column(name="LASTNAME")
 	private String lastName;
 	
-	@NotNull
-    @Size(max = 100)
-	@Column(name="profileid")
-	private String profileId;
 	
 	@Email
-	@NotNull
     @Size(max = 100)
-	@Column(name="emailid")
+	@Column(name="EMAIL")
 	private String emailId;
+	
+	@NotNull
+	@Size(max = 100)
+	@Column(name="MOBILENO")
+	private Long mobileNo;
+	
+	@NotNull
+	@Size(max = 100)
+	@Column(name="USER_TYPE")
+	private String type;
 	
 	@OneToMany(
 				mappedBy = "address", 
@@ -57,62 +56,5 @@ public class UserInformation {
 		    )
 	private List<Address> addresses = new ArrayList<>();	
 
-	public void removeAddresses(Address address) {
-		addresses.remove(address);
-		address.setUser(null);
-	}
-
-	public void addAddresses(Address address) {
-		addresses.add(address);
-		address.setUser(this);
-	}
-
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getProfile() {
-		return profileId;
-	}
-
-	public void setProfile(String profileId) {
-		this.profileId = profileId;
-	}
-
-	public String getEmailId() {
-		return emailId;
-	}
-
-	public void setEmailId(String emailId) {
-		this.emailId = emailId;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
 
 }
