@@ -13,6 +13,10 @@ public class UserInformationDaoImpl extends AbstractDAO<UserInformation> impleme
 	private static final long serialVersionUID = 1L;
 	private final Logger LOG = LoggerFactory.getLogger(getClass());
 	
+	@Override
+	public void addUser(UserInformation user) {
+		save(user);
+	}
 
 
 }

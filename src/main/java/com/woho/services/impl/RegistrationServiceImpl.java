@@ -12,10 +12,11 @@ import com.woho.service.RegistrationService;
 public class RegistrationServiceImpl implements RegistrationService{
 
 	@Autowired
-	UserInformationrDao userRepository;
+	UserInformationrDao userInformationrDao;
 	
 	@Override
 	public void register(UserInformation userInformation) {
+		userInformationrDao.addUser(userInformation);
 	}
 	
 }
