@@ -19,11 +19,11 @@ public class Address {
 	@Id
 	@Column(name="ADDRESS_ID")
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private String id;
+	private Long id;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	/*@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "userId")
-	private UserInformation user;
+	private UserInformation user;*/
 	
 	@Size(max = 100)
 	@Column(name="FLAT_NO")
@@ -70,20 +70,12 @@ public class Address {
 	@Column(name="ADDRESS_TYPE")
 	private String type;
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public UserInformation getUser() {
-		return user;
-	}
-
-	public void setUser(UserInformation user) {
-		this.user = user;
 	}
 
 	public String getFlatNo() {
@@ -174,4 +166,5 @@ public class Address {
 		this.type = type;
 	}
 
+	
 }

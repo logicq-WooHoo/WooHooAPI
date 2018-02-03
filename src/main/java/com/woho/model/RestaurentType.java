@@ -13,12 +13,29 @@ public class RestaurentType {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id")
-	private String id;
+	private Long id;
 	
 	@NotNull
 	@Column(name="type")
 	private String type;
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	//many to many between  hotel and restaurent type (id of restaurent information)
+	
 	
 }

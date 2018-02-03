@@ -17,7 +17,7 @@ public class RestaurentInformation {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="hotel_id")
-	private String hotel_id;
+	private Long hotel_id;
 	
 	@Column(name="restaurantName")
 	@NotNull
@@ -31,10 +31,43 @@ public class RestaurentInformation {
 	
 	@OneToOne
 	private Address address;
+
+	public Long getHotel_id() {
+		return hotel_id;
+	}
+
+	public void setHotel_id(Long hotel_id) {
+		this.hotel_id = hotel_id;
+	}
+
+	public String getRestaurantName() {
+		return restaurantName;
+	}
+
+	public void setRestaurantName(String restaurantName) {
+		this.restaurantName = restaurantName;
+	}
+
+	public String getRegistrationNumber() {
+		return registrationNumber;
+	}
+
+	public void setRegistrationNumber(String registrationNumber) {
+		this.registrationNumber = registrationNumber;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
 	
 	//documents
 	
 	//user id many to one relationship
 
+	
 	
 }

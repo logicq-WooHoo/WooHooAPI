@@ -13,12 +13,29 @@ public class DeliveryPartner {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id")
-	private String id;
+	private Long id;
 	
 	@NotNull
 	@Column(name="name")
 	private String name;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 	
 	//many to many between  hotel and restaurent type (id of restaurent information)
+	
 	
 }

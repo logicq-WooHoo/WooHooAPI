@@ -17,43 +17,34 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 
 @Entity
-@Table(name="UserInformation")
+@Table(name = "USERINFORMATION")
 public class UserInformation {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="ID")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ID")
 	private Long userId;
-	
-    @Size(max = 100)
-	@Column(name="FIRSTNAME")
+
+	@Size(max = 100)
+	@Column(name = "FIRSTNAME")
 	private String firstName;
-	
-    @Size(max = 100)
-	@Column(name="LASTNAME")
+
+	@Size(max = 100)
+	@Column(name = "LASTNAME")
 	private String lastName;
-	
-	
+
 	@Email
-    @Size(max = 100)
-	@Column(name="EMAIL")
+	@Size(max = 100)
+	@Column(name = "EMAIL")
 	private String emailId;
-	
-	@NotNull
-	@Size(max = 100)
-	@Column(name="MOBILENO")
+
+	@Column(name = "MOBILENO")
 	private Long mobileNo;
-	
+
 	@NotNull
 	@Size(max = 100)
-	@Column(name="USER_TYPE")
+	@Column(name = "USER_TYPE")
 	private String type;
-	
-	@OneToMany( 
-		        cascade = CascadeType.ALL, 
-		        orphanRemoval = true
-		    )
-	private List<Address> addresses = new ArrayList<>();
 
 	public Long getUserId() {
 		return userId;
@@ -103,12 +94,11 @@ public class UserInformation {
 		this.type = type;
 	}
 
-	public List<Address> getAddresses() {
-		return addresses;
-	}
-
-	public void setAddresses(List<Address> addresses) {
-		this.addresses = addresses;
-	}	
+	/*
+	 * @OneToMany( cascade = CascadeType.ALL, orphanRemoval = true ) private
+	 * List<Address> addresses = new ArrayList<>();
+	 */
 	
+	
+
 }
