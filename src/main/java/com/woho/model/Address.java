@@ -1,7 +1,5 @@
 package com.woho.model;
 
-import java.awt.Point;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,65 +8,66 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
 public class Address {
-	
+
 	@Id
-	@Column(name="ADDRESS_ID")
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "ID")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	/*@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "userId")
-	private UserInformation user;*/
-	
+
 	@Size(max = 100)
-	@Column(name="FLAT_NO")
+	@Column(name = "FLAT_NO")
 	private String flatNo;
-	
+
 	@Size(max = 100)
-	@Column(name="SOCIETY_NAME")
+	@Column(name = "SOCIETY_NAME")
 	private String societyName;
-	
+
 	@Size(max = 100)
-	@Column(name="STREET")
+	@Column(name = "STREET")
 	private String street;
-	
+
 	@Size(max = 100)
-	@Column(name="ROAD")
+	@Column(name = "ROAD")
 	private String road;
-	
-	@Size(max = 100)
-	@Column(name="CITY")
-	private String city;
-	
-	@NotNull
-	@Column(name="PIN_CODE")
-	@Size(max = 100)
-	private Long pinCode;
-	
-	@Size(max = 100)
-	@Column(name="COUNTY")
-	private String country;
-	
-	@Column(name="LOCALITY")
+
+	@Column(name = "LOCALITY")
 	@Size(max = 100)
 	private String locality;
-	
+
 	@Size(max = 100)
-	@Column(name="LANDMARK")
+	@Column(name = "LANDMARK")
 	private String landmark;
-	
+
 	@Size(max = 100)
-	@Column(name="POINT")
-	private Point point;
-	
+	@Column(name = "CITY")
+	private String city;
+
 	@Size(max = 100)
-	@Column(name="ADDRESS_TYPE")
+	@Column(name = "STATE")
+	private String state;
+
+	@Size(max = 100)
+	@Column(name = "COUNTY")
+	private String country;
+
+	@Column(name = "PINCODE", nullable = false, columnDefinition = "bigint(20) default 0")
+	private Long pinCode;
+
+	/*
+	 * @Column(name = "POINT") private Point point;
+	 */
+
+	@Size(max = 100)
+	@Column(name = "ADDRESS_TYPE")
 	private String type;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "userId")
+	private UserInformation user;
 
 	public Long getId() {
 		return id;
@@ -110,30 +109,6 @@ public class Address {
 		this.road = road;
 	}
 
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public Long getPinCode() {
-		return pinCode;
-	}
-
-	public void setPinCode(Long pinCode) {
-		this.pinCode = pinCode;
-	}
-
-	public String getCountry() {
-		return country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
-	}
-
 	public String getLocality() {
 		return locality;
 	}
@@ -150,12 +125,36 @@ public class Address {
 		this.landmark = landmark;
 	}
 
-	public Point getPoint() {
-		return point;
+	public String getCity() {
+		return city;
 	}
 
-	public void setPoint(Point point) {
-		this.point = point;
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public Long getPinCode() {
+		return pinCode;
+	}
+
+	public void setPinCode(Long pinCode) {
+		this.pinCode = pinCode;
 	}
 
 	public String getType() {
@@ -166,5 +165,12 @@ public class Address {
 		this.type = type;
 	}
 
+	public UserInformation getUser() {
+		return user;
+	}
+
+	public void setUser(UserInformation user) {
+		this.user = user;
+	}
 	
 }

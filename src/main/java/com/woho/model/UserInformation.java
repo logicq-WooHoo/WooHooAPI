@@ -1,6 +1,5 @@
 package com.woho.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -45,6 +44,9 @@ public class UserInformation {
 	@Size(max = 100)
 	@Column(name = "USER_TYPE")
 	private String type;
+
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Address> addresses;
 
 	public Long getUserId() {
 		return userId;
@@ -94,11 +96,12 @@ public class UserInformation {
 		this.type = type;
 	}
 
-	/*
-	 * @OneToMany( cascade = CascadeType.ALL, orphanRemoval = true ) private
-	 * List<Address> addresses = new ArrayList<>();
-	 */
-	
-	
+	public List<Address> getAddresses() {
+		return addresses;
+	}
 
+	public void setAddresses(List<Address> addresses) {
+		this.addresses = addresses;
+	}
+	
 }
