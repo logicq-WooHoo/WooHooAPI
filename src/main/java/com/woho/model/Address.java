@@ -1,29 +1,22 @@
 package com.woho.model;
 
-import java.awt.Point;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
+@Table(name="ADDRESS")
 public class Address {
 	
 	@Id
 	@Column(name="ADDRESS_ID")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
-	
-	/*@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "userId")
-	private UserInformation user;*/
 	
 	@Size(max = 100)
 	@Column(name="FLAT_NO")
@@ -46,9 +39,9 @@ public class Address {
 	private String city;
 	
 	@NotNull
+	@Size(min=4,max=10)
 	@Column(name="PIN_CODE")
-	@Size(max = 100)
-	private Long pinCode;
+	private String pinCode;
 	
 	@Size(max = 100)
 	@Column(name="COUNTY")
@@ -61,10 +54,6 @@ public class Address {
 	@Size(max = 100)
 	@Column(name="LANDMARK")
 	private String landmark;
-	
-	@Size(max = 100)
-	@Column(name="POINT")
-	private Point point;
 	
 	@Size(max = 100)
 	@Column(name="ADDRESS_TYPE")
@@ -118,11 +107,11 @@ public class Address {
 		this.city = city;
 	}
 
-	public Long getPinCode() {
+	public String getPinCode() {
 		return pinCode;
 	}
 
-	public void setPinCode(Long pinCode) {
+	public void setPinCode(String pinCode) {
 		this.pinCode = pinCode;
 	}
 
@@ -150,14 +139,6 @@ public class Address {
 		this.landmark = landmark;
 	}
 
-	public Point getPoint() {
-		return point;
-	}
-
-	public void setPoint(Point point) {
-		this.point = point;
-	}
-
 	public String getType() {
 		return type;
 	}
@@ -165,6 +146,4 @@ public class Address {
 	public void setType(String type) {
 		this.type = type;
 	}
-
-	
 }

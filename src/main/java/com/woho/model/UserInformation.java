@@ -1,8 +1,7 @@
 package com.woho.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
@@ -38,14 +38,20 @@ public class UserInformation {
 	@Column(name = "EMAIL")
 	private String emailId;
 
+	@NotNull
+	@Pattern(regexp="(^$|[0-9]{10})")
+	@Size(min=10,max=10)
 	@Column(name = "MOBILENO")
-	private Long mobileNo;
+	private String mobileNo;
 
 	@NotNull
 	@Size(max = 100)
 	@Column(name = "USER_TYPE")
 	private String type;
 
+	@OneToMany( cascade = CascadeType.ALL) 
+	private Set<Address> addresses = new HashSet<>();
+	
 	public Long getUserId() {
 		return userId;
 	}
@@ -78,11 +84,11 @@ public class UserInformation {
 		this.emailId = emailId;
 	}
 
-	public Long getMobileNo() {
+	public String getMobileNo() {
 		return mobileNo;
 	}
 
-	public void setMobileNo(Long mobileNo) {
+	public void setMobileNo(String mobileNo) {
 		this.mobileNo = mobileNo;
 	}
 
@@ -94,11 +100,12 @@ public class UserInformation {
 		this.type = type;
 	}
 
-	/*
-	 * @OneToMany( cascade = CascadeType.ALL, orphanRemoval = true ) private
-	 * List<Address> addresses = new ArrayList<>();
-	 */
-	
-	
+	public Set<Address> getAddresses() {
+		return addresses;
+	}
 
+	public void setAddresses(Set<Address> addresses) {
+		this.addresses = addresses;
+	}
+	
 }
