@@ -46,12 +46,12 @@ public class UserInformation {
 
 	@NotNull
 	@Size(max = 100)
-	@Column(name = "USER_TYPE")
+	@Column(name = "USERTYPE")
 	private String type;
 
-	@OneToMany( cascade = CascadeType.ALL) 
+	@OneToMany(cascade = CascadeType.ALL) 
 	private Set<Address> addresses = new HashSet<>();
-	
+
 	public Long getUserId() {
 		return userId;
 	}

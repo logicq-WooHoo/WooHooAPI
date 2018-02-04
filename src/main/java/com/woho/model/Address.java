@@ -12,26 +12,26 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name="ADDRESS")
 public class Address {
-	
+
 	@Id
-	@Column(name="ADDRESS_ID")
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "ID")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	@Size(max = 100)
-	@Column(name="FLAT_NO")
+	@Column(name = "FLATNO")
 	private String flatNo;
-	
+
 	@Size(max = 100)
-	@Column(name="SOCIETY_NAME")
+	@Column(name = "SOCIETYNAME")
 	private String societyName;
-	
+
 	@Size(max = 100)
-	@Column(name="STREET")
+	@Column(name = "STREET")
 	private String street;
-	
+
 	@Size(max = 100)
-	@Column(name="ROAD")
+	@Column(name = "ROAD")
 	private String road;
 	
 	@Size(max = 100)
@@ -40,23 +40,27 @@ public class Address {
 	
 	@NotNull
 	@Size(min=4,max=10)
-	@Column(name="PIN_CODE")
+	@Column(name="PINCODE")
 	private String pinCode;
 	
-	@Size(max = 100)
-	@Column(name="COUNTY")
-	private String country;
-	
-	@Column(name="LOCALITY")
+	@Column(name = "LOCALITY")
 	@Size(max = 100)
 	private String locality;
-	
+
 	@Size(max = 100)
-	@Column(name="LANDMARK")
+	@Column(name = "LANDMARK")
 	private String landmark;
-	
+
 	@Size(max = 100)
-	@Column(name="ADDRESS_TYPE")
+	@Column(name = "STATE")
+	private String state;
+
+	@Size(max = 100)
+	@Column(name = "COUNTY")
+	private String country;
+
+	@Size(max = 100)
+	@Column(name = "ADDRESS_TYPE")
 	private String type;
 
 	public Long getId() {
@@ -115,14 +119,6 @@ public class Address {
 		this.pinCode = pinCode;
 	}
 
-	public String getCountry() {
-		return country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
-	}
-
 	public String getLocality() {
 		return locality;
 	}
@@ -137,6 +133,22 @@ public class Address {
 
 	public void setLandmark(String landmark) {
 		this.landmark = landmark;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
 	}
 
 	public String getType() {
