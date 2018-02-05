@@ -1,23 +1,29 @@
 package com.woho.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class DeliveryPartner {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id")
+	@Column(name="ID")
 	private Long id;
 	
-	@NotNull
+	
 	@Column(name="name")
 	private String name;
+
+	
+	@ManyToMany(mappedBy = "deliveryPartners")
+	private Set<RestaurantSetup> restaurantSetup;
 
 	public Long getId() {
 		return id;
@@ -34,8 +40,14 @@ public class DeliveryPartner {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	//many to many between  hotel and restaurent type (id of restaurent information)
+
+	public Set<RestaurantSetup> getRestaurantSetup() {
+		return restaurantSetup;
+	}
+
+	public void setRestaurantSetup(Set<RestaurantSetup> restaurantSetup) {
+		this.restaurantSetup = restaurantSetup;
+	}
 	
 	
 }
