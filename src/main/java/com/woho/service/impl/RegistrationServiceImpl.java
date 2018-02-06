@@ -16,11 +16,11 @@ import com.woho.dao.UserInformationrDao;
 import com.woho.model.DeliveryPartner;
 import com.woho.model.RestaurantDetails;
 import com.woho.model.RestaurantSetup;
-import com.woho.model.RestaurentType;
+import com.woho.model.RestaurantType;
 import com.woho.model.UserInformation;
 import com.woho.service.DeliveryPartnerService;
 import com.woho.service.RegistrationService;
-import com.woho.service.RestaurentTypeService;
+import com.woho.service.RestaurantTypeService;
 import com.woho.vo.RestaurantSetupVO;
 
 @Service
@@ -40,7 +40,7 @@ public class RegistrationServiceImpl implements RegistrationService{
 	RestaurantDetailsDao restaurantDetailsDao;
 	
 	@Autowired
-	RestaurentTypeService restaurentTypeService;
+	RestaurantTypeService restaurentTypeService;
 	
 	@Autowired
 	DeliveryPartnerService deliveryPartnerService;
@@ -59,7 +59,7 @@ public class RegistrationServiceImpl implements RegistrationService{
 	@Override
 	public void registerRestaurantSetup(RestaurantSetupVO restaurantSetupVO) throws JsonProcessingException {
 		RestaurantSetup restaurantSetup=new RestaurantSetup();
-		Set<RestaurentType> restaurentTypes=new HashSet<>();
+		Set<RestaurantType> restaurentTypes=new HashSet<>();
 		Set<DeliveryPartner> deliveryPartners=new HashSet<>();
 		
 		if(null!=restaurantSetupVO.getRestaurentTypes()  || !restaurantSetupVO.getRestaurentTypes().isEmpty()){

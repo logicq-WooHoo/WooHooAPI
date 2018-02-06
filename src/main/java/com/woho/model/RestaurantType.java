@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 @Entity
-public class RestaurentType {
+public class RestaurantType {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

@@ -24,7 +24,7 @@ public class RestaurantSetup {
 		
 	@ManyToMany(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
 	@JoinTable(name = "RESTAURANTSETUP_RESTAURANTTYPE", joinColumns = @JoinColumn(name = "SETUP_ID"), inverseJoinColumns = @JoinColumn(name = "ID"))	
-	private Set<RestaurentType> restTypes;
+	private Set<RestaurantType> restTypes;
 	
 
 	@ManyToMany(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
@@ -47,11 +47,11 @@ public class RestaurantSetup {
 		this.id = id;
 	}
 
-	public Set<RestaurentType> getRestTypes() {
+	public Set<RestaurantType> getRestTypes() {
 		return restTypes;
 	}
 
-	public void setRestTypes(Set<RestaurentType> restTypes) {
+	public void setRestTypes(Set<RestaurantType> restTypes) {
 		this.restTypes = restTypes;
 	}
 

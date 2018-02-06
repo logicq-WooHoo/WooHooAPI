@@ -2,15 +2,13 @@ package com.woho.dao.impl;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import org.springframework.stereotype.Repository;
-
 import com.woho.dao.AbstractDAO;
-import com.woho.dao.RestaurentTypeDao;
-import com.woho.model.RestaurentType;
+import com.woho.dao.RestaurantTypeDao;
+import com.woho.model.RestaurantType;
 
 @Repository
-public class RestaurentTypeDaoImpl extends AbstractDAO<RestaurentType> implements RestaurentTypeDao{
+public class RestaurantTypeDaoImpl extends AbstractDAO<RestaurantType> implements RestaurantTypeDao{
 
 	/**
 	 * 
@@ -18,7 +16,7 @@ public class RestaurentTypeDaoImpl extends AbstractDAO<RestaurentType> implement
 	private static final long serialVersionUID = 4357273112572537417L;
 
 	@Override
-	public Set<RestaurentType> getRestaurantTypeByID(Set<String> ids) {
+	public Set<RestaurantType> getRestaurantTypeByID(Set<String> ids) {
 
 		StringBuilder selectQuery = new StringBuilder();
 		StringBuilder whereQuery = new StringBuilder();
@@ -36,7 +34,26 @@ public class RestaurentTypeDaoImpl extends AbstractDAO<RestaurentType> implement
 			whereQuery.append(")");
 			selectQuery.append(whereQuery);
 		}	
-		return new HashSet<RestaurentType>( executeQuery(selectQuery.toString()));
+		return new HashSet<RestaurantType>( executeQuery(selectQuery.toString()));
+	}
+	
+
+	@Override
+	public void addRestaurentType(RestaurantType restaurentType) {
+		save(restaurentType);
+		
+	}
+
+	@Override
+	public void deleteRestaurentType(RestaurantType restaurentType) {
+		delete(restaurentType);
+		
+	}
+
+	@Override
+	public void updateRestaurentType(RestaurantType restaurentType) {
+		update(restaurentType);
+		
 	}
 
 }
