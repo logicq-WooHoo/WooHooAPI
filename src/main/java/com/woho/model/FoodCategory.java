@@ -7,17 +7,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class FoodServiceType {
+public class FoodCategory {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="SERVCICETYPEID")
-	private Long serviceTypeId;
+	@Column(name="CATEGORYID")
+	private Long categoryId;
 	
-	@Column(name="SERVCICETYPE")
-	private String serviceType;
+	@Column(name="CATEGORY")
+	private String category;
 	
-	@Column(name="COMMENT")
-	private String comment;
+	@Column(name="SUBCATEGORY")
+	private String subCategory;
 	
+
 }
