@@ -1,4 +1,5 @@
 package com.woho.config;
+/*package com.woho.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
@@ -11,8 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableGlobalAuthentication
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
-	/*@Autowired
-	private AuthenticationProvider authenticationProvider;*/
+	@Autowired
+	private AuthenticationProvider authenticationProvider;
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -22,3 +23,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	}
 
 }
+*/
