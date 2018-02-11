@@ -19,7 +19,7 @@ public class FoodCategoryServiceImpl implements FoodCategoryService{
 	}
 	
 	@Override
-	public FoodCategory getFoodCategoryByID(String id) {
+	public FoodCategory getFoodCategoryByID(Long id) {
 		return foodCategoryDao.getFoodCategoryByID(id);
 	}
 

@@ -20,7 +20,7 @@ public class FoodCategoryDaoImpl extends AbstractDAO<FoodCategory> implements Fo
 	}
 
 	@Override
-	public FoodCategory getFoodCategoryByID(String id) {
+	public FoodCategory getFoodCategoryByID(Long id) {
 		return (FoodCategory)getRecordById(FoodCategory.class, id);
 	}
 

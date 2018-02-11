@@ -8,7 +8,7 @@ public interface FoodCategoryDao {
 	
 	Set<FoodCategory> getFoodCategoriesByID(Set<String> ids);
 	
-	FoodCategory getFoodCategoryByID(String id);
+	FoodCategory getFoodCategoryByID(Long id);
 	
 	void addFoodCategory(FoodCategory foodCategory);
 	

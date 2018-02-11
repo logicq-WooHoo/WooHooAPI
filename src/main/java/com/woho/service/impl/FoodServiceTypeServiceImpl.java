@@ -20,7 +20,7 @@ public class FoodServiceTypeServiceImpl implements FoodServiceTypeService{
 	}
 	
 	@Override
-	public FoodServiceType getFoodServiceTypeByID(String id) {
+	public FoodServiceType getFoodServiceTypeByID(Long id) {
 		return foodServiceTypeDao.getFoodServiceTypeByID(id);
 	}
 

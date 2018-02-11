@@ -20,7 +20,7 @@ public class FoodServiceTypeDaoImpl extends AbstractDAO<FoodServiceType> impleme
 	}
 
 	@Override
-	public FoodServiceType getFoodServiceTypeByID(String id) {
+	public FoodServiceType getFoodServiceTypeByID(Long id) {
 		return (FoodServiceType)getRecordById(FoodServiceType.class, id);
 	}
 

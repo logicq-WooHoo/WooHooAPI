@@ -9,6 +9,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.woho.model.RestaurantDetails;
 import com.woho.model.UserInformation;
 import com.woho.service.RegistrationService;
+import com.woho.vo.RestaurantMenuVO;
 import com.woho.vo.RestaurantSetupVO;
 
 @RestController
@@ -39,6 +40,11 @@ public class RegistrationController {
 	@RequestMapping(value = "/restaurant/setup", method = RequestMethod.POST, consumes = "application/json")
 	public void registerRestaurantSetup(@RequestBody RestaurantSetupVO restaurantSetupVO) throws JsonProcessingException {
 		registrationService.registerRestaurantSetup(restaurantSetupVO);
+	}
+	
+	@RequestMapping(value = "/restaurant/menu", method = RequestMethod.POST, consumes = "application/json")
+	public void registerRestaurantMenu(@RequestBody RestaurantMenuVO restaurantMenuVO) throws JsonProcessingException {
+		registrationService.registerRestaurantMenu(restaurantMenuVO);
 	}
 	
 }

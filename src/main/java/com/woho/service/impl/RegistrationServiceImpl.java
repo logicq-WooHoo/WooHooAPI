@@ -1,26 +1,33 @@
 package com.woho.service.impl;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
-
 import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.woho.dao.RestaurantDetailsDao;
+import com.woho.dao.RestaurantMenuDao;
 import com.woho.dao.RestaurantSetupDao;
 import com.woho.dao.UserInformationrDao;
 import com.woho.model.DeliveryPartner;
+import com.woho.model.FoodCategory;
+import com.woho.model.FoodServiceType;
+import com.woho.model.MenuItem;
 import com.woho.model.RestaurantDetails;
+import com.woho.model.RestaurantMenu;
 import com.woho.model.RestaurantSetup;
 import com.woho.model.RestaurantType;
 import com.woho.model.UserInformation;
 import com.woho.service.DeliveryPartnerService;
+import com.woho.service.FoodCategoryService;
+import com.woho.service.FoodServiceTypeService;
 import com.woho.service.RegistrationService;
 import com.woho.service.RestaurantTypeService;
+import com.woho.vo.MenuItemVO;
+import com.woho.vo.RestaurantMenuVO;
 import com.woho.vo.RestaurantSetupVO;
 
 @Service
@@ -45,6 +52,14 @@ public class RegistrationServiceImpl implements RegistrationService{
 	@Autowired
 	DeliveryPartnerService deliveryPartnerService;
 	
+	@Autowired
+	FoodCategoryService foodCategoryService;
+	
+	@Autowired
+	FoodServiceTypeService foodServiceTypeService;
+	
+	@Autowired
+	RestaurantMenuDao restaurantMenuDao;
 	
 	@Override
 	public void register(UserInformation userInformation) {
@@ -78,5 +93,35 @@ public class RegistrationServiceImpl implements RegistrationService{
 		
 		restaurantSetupDao.addRestaurantSetup(restaurantSetup);
 	}
-	
+
+	@Override
+	public void registerRestaurantMenu(RestaurantMenuVO restaurantMenuVO) throws JsonProcessingException {
+		
+		RestaurantMenu restaurantMenu = new RestaurantMenu();
+		
+		Iterator<MenuItemVO> iterator = restaurantMenuVO.getMenuItems().iterator();
+		
+		while(iterator.hasNext()) {
+			MenuItem menuItem = new MenuItem();
+			MenuItemVO menuItemVO = (MenuItemVO) iterator.next();
+			
+			if(null!=menuItemVO.getFoodCategoryId()) {
+				FoodCategory foodCategory = foodCategoryService.getFoodCategoryByID(menuItemVO.getFoodCategoryId());
+				menuItem.setFoodCategory(foodCategory);
+			}
+			
+			if(null!=menuItemVO.getFoodServiceTypeId()) {
+				FoodServiceType foodServiceType = foodServiceTypeService.getFoodServiceTypeByID(menuItemVO.getFoodServiceTypeId());
+				menuItem.setFoodServiceType(foodServiceType);
+			}
+			
+			menuItem.setPrice(menuItemVO.getPrice());
+			menuItem.setItemName(menuItemVO.getItemName());
+			
+			restaurantMenu.getMenuItems().add(menuItem);
+		}
+		
+		restaurantMenuDao.addRestaurantMenu(restaurantMenu);
+	}
+
 }

@@ -1,13 +1,14 @@
 package com.woho.service;
 
 import java.util.Set;
+
 import com.woho.model.FoodCategory;
 
 public interface FoodCategoryService {
 	
 	Set<FoodCategory> getFoodCategoriesByID(Set<String> ids);
 	
-	FoodCategory getFoodCategoryByID(String id);
+	FoodCategory getFoodCategoryByID(Long id);
 	
 	void addFoodCategory(FoodCategory foodCategory);
 	

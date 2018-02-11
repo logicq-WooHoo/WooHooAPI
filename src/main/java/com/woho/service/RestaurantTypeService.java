@@ -1,6 +1,7 @@
 package com.woho.service;
 
 import java.util.Set;
+
 import com.woho.model.RestaurantType;
 
 public interface RestaurantTypeService {
