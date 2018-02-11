@@ -11,7 +11,7 @@ public class RestaurantMenuDaoImpl extends AbstractDAO<RestaurantMenu> implement
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 60079151772709385L;
 
 	@Override
 	public void addRestaurantMenu(RestaurantMenu restaurantMenu) {

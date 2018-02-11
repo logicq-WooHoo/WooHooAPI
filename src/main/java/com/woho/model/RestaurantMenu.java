@@ -1,5 +1,6 @@
 package com.woho.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -17,26 +18,31 @@ public class RestaurantMenu {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "RESTAURANTMENUID")
-	private Long restaurantMenuId;
+	@Column(name = "ID")
+	private Long id;
 	
-	@OneToMany(cascade = CascadeType.ALL) 
-	private Set<MenuItem> menuItems;
-	
-	public Long getRestaurantMenuId() {
-		return restaurantMenuId;
+	@OneToMany(cascade = CascadeType.ALL)
+	private Set<MenuItem> menuItems = new HashSet<>();
+
+	public Long getId() {
+		return id;
 	}
 
-	public void setRestaurantMenuId(Long restaurantMenuId) {
-		this.restaurantMenuId = restaurantMenuId;
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Set<MenuItem> getMenuItems() {
+		return menuItems;
 	}
 
 	public void setMenuItems(Set<MenuItem> menuItems) {
 		this.menuItems = menuItems;
 	}
 
-	public Set<MenuItem> getMenuItems() {
-		return menuItems;
+	@Override
+	public String toString() {
+		return "RestaurantMenu [id=" + id + ", menuItems=" + menuItems + "]";
 	}
 	
 }
