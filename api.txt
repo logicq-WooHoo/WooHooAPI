@@ -1,0 +1,63 @@
+1. User Registration:
+POST: http://127.0.0.1:8090/api/user/registration
+{
+  "firstName": "Nana",
+  "lastName": "Patekar",
+  "mobileNo": 4586123121,
+  "type":"customer",
+  "addresses": [{
+  	"flatNo":"B301",
+  	"societyName":"Karishma",
+  	"road":"F.C. Road",
+  	"city":"Pune",
+  	"state":"Maharashtra",
+  	"country":"India",	
+  	"pinCode": 411005,
+  	"type":"user"
+  }]
+}
+
+2. Add Restaurant Details
+POST: http://127.0.0.1:8090/api/restaurant/details
+{
+  "restaurantName": "Vaishali",
+  "registrationNumber": "1058",
+  "address": {
+  	"road":"F.C. Road",
+  	"city":"Pune",
+  	"state":"Maharashtra",
+  	"country":"India",	
+  	"pinCode": 411005,
+  	"type":"restaurant"
+  },
+  "userInformation" : {
+  	"userId" : 1
+  }
+}
+
+3. Get all Restaurant Details
+GET: http://127.0.0.1:8090/api/restaurant/details/
+
+4. Get particular Restaurant Details using ID
+GET: http://127.0.0.1:8090/api/restaurant/details/1
+
+5. Update/Edit Restaurant Details
+PUT: http://127.0.0.1:8090/api/restaurant/details/2
+{
+  "restaurantName": "Roopali",
+  "registrationNumber": "1056",
+  "address": {
+  	"road":"F.C. Road",
+  	"city":"Pune",
+  	"state":"Maharashtra",
+  	"country":"India",	
+  	"pinCode": 411005,
+  	"type":"restaurant"
+  },
+  "userInformation" : {
+  	"userId" : 1
+  }
+}
+
+6. Delete Restaurant Details
+DELETE: http://127.0.0.1:8090/api/restaurant/details/3
