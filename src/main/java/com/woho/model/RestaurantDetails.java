@@ -45,6 +45,10 @@ public class RestaurantDetails {
 
 	@ManyToOne
 	private UserInformation userInformation;
+	
+	@Column(name="DOCUMENT_PATH")
+	@Size(max = 100)
+	private String documentPath;
 
 	public Long getId() {
 		return id;
@@ -86,4 +90,13 @@ public class RestaurantDetails {
 		this.userInformation = userInformation;
 	}
 
+	public String getDocumentPath() {
+		return documentPath;
+	}
+
+	public void setDocumentPath(String documentPath) {
+		this.documentPath = documentPath;
+	}
+
+	
 }

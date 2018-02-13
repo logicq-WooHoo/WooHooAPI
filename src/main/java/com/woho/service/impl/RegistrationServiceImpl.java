@@ -2,10 +2,13 @@ package com.woho.service.impl;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.woho.dao.RestaurantDetailsDao;
@@ -26,6 +29,7 @@ import com.woho.service.FoodCategoryService;
 import com.woho.service.FoodServiceTypeService;
 import com.woho.service.RegistrationService;
 import com.woho.service.RestaurantTypeService;
+import com.woho.service.StorageService;
 import com.woho.vo.MenuItemVO;
 import com.woho.vo.RestaurantMenuVO;
 import com.woho.vo.RestaurantSetupVO;
@@ -61,16 +65,70 @@ public class RegistrationServiceImpl implements RegistrationService{
 	@Autowired
 	RestaurantMenuDao restaurantMenuDao;
 	
+	@Autowired
+	StorageService storageService;
+	
 	@Override
 	public void register(UserInformation userInformation) {
 		userInformationrDao.addUser(userInformation);
 	}
 
 	@Override
-	public void registerRestaurantDetails(RestaurantDetails restaurantDetails) {
+	public void saveRestaurantDetails(RestaurantDetails restaurantDetails) {
+		/*RestaurantDetails restaurantDetails = new RestaurantDetails();
+		restaurantDetails.setAddress(restaurantDetailsVO.getAddress());
+		storageService.store(restaurantDetailsVO.getFile());
+		//storageService.loadFile(restaurantDetailsVO.getFile().getOriginalFilename());
+		//String docmentPath = restaurantDetailsVO.getFile()
+		restaurantDetails.setDocumentPath(restaurantDetailsVO.getFile().getOriginalFilename());
+		restaurantDetails.setRegistrationNumber(restaurantDetailsVO.getRegistrationNumber());
+		restaurantDetails.setRestaurantName(restaurantDetailsVO.getRestaurantName());
+		restaurantDetails.setUserInformation(restaurantDetailsVO.getUserInformation());*/
 		restaurantDetailsDao.addRestaurantDetails(restaurantDetails);
 	}
 
+	@Override
+	public RestaurantDetails getRestaurantDetails(long id) {
+		return restaurantDetailsDao.get(id);
+	}
+
+	@Override
+	public RestaurantDetails getRestaurantDetailsByRegistrationNumber(String registrationNumber) {
+		return restaurantDetailsDao.getByRegistrationNumber(registrationNumber);
+	}
+	
+	@Override
+	public List<RestaurantDetails> listAllRestaurantDetails() {
+		return restaurantDetailsDao.list();
+	}
+
+	@Override
+	public void deleteRestaurantDetails(long id) {
+		restaurantDetailsDao.delete(id);
+	}
+	
+	@Override
+	public void updateRestaurantDetails(long id, RestaurantDetails restaurantDetails) {
+		restaurantDetailsDao.update(id, restaurantDetails);
+	}
+
+	@Override
+	public boolean isRestaurantDetailsExist(RestaurantDetails restaurantDetails) {
+		return restaurantDetailsDao.isRestaurantDetailsExist(restaurantDetails);
+	}
+	
+	@Override
+	public void registerRestaurantDetailsUploadTest(MultipartFile file) {
+		RestaurantDetails restaurantDetails = new RestaurantDetails();
+		storageService.store(file);
+		//storageService.loadFile(restaurantDetailsVO.getFile().getOriginalFilename());
+		//String docmentPath = restaurantDetailsVO.getFile()
+		restaurantDetails.setDocumentPath(file.getOriginalFilename());
+		restaurantDetails.setRegistrationNumber("76998");
+		restaurantDetails.setRestaurantName("Gandharva");
+		restaurantDetailsDao.addRestaurantDetails(restaurantDetails);
+	}
+	
 	@Override
 	public void registerRestaurantSetup(RestaurantSetupVO restaurantSetupVO) throws JsonProcessingException {
 		RestaurantSetup restaurantSetup=new RestaurantSetup();

@@ -1,5 +1,7 @@
 package com.woho.dao.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.woho.dao.AbstractDAO;
@@ -24,4 +26,37 @@ public class RestaurantDetailsDaoImpl extends AbstractDAO<RestaurantDetails> imp
 		save(restaurantDetails);
 	}
 
+	@Override
+	public RestaurantDetails get(long id) {
+		return getRecordById(RestaurantDetails.class, id);
+	}
+
+	@Override
+	public RestaurantDetails getByRegistrationNumber(String registrationNumber) {
+		String sqlquery = "from RestaurantDetails where registrationNumber='" + registrationNumber + "'"; 
+		return executeQueryForUniqueRecord(sqlquery);
+	}
+	
+	@Override
+	public List<RestaurantDetails> list() {
+		return (List<RestaurantDetails>) loadClass(RestaurantDetails.class);
+	}
+
+	@Override
+	public void delete(long id) {
+		delete(getRecordById(RestaurantDetails.class, id));
+	}
+
+	@Override
+	public void update(long id, RestaurantDetails restaurantDetails) {
+		restaurantDetails.setId(id);
+		update(restaurantDetails);
+	}
+
+	@Override
+	public boolean isRestaurantDetailsExist(RestaurantDetails restaurantDetails) {
+		return getByRegistrationNumber(restaurantDetails.getRegistrationNumber())!=null;
+	}
+
+	
 }
