@@ -37,4 +37,10 @@ public class FoodCategoryServiceImpl implements FoodCategoryService{
 	public void updateFoodCategory(FoodCategory foodCategory) {
 		foodCategoryDao.updateFoodCategory(foodCategory);
 	}
+
+	@Override
+	public void getFoodCategories() {
+		// TODO Auto-generated method stub
+		
+	}
 }

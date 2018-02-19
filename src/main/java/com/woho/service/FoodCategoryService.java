@@ -15,6 +15,8 @@ public interface FoodCategoryService {
 	void deleteFoodCategory(FoodCategory foodCategory);
 	
 	void updateFoodCategory(FoodCategory foodCategory);
+	
+	void getFoodCategories();
 
 
 }
