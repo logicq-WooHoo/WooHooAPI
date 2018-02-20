@@ -1,6 +1,10 @@
 package com.woho.service.impl;
 
+import java.util.List;
 import java.util.Set;
+
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.woho.dao.FoodCategoryDao;
@@ -8,6 +12,7 @@ import com.woho.model.FoodCategory;
 import com.woho.service.FoodCategoryService;
 
 @Service
+@Transactional
 public class FoodCategoryServiceImpl implements FoodCategoryService{
 	
 	@Autowired
@@ -39,8 +44,7 @@ public class FoodCategoryServiceImpl implements FoodCategoryService{
 	}
 
 	@Override
-	public void getFoodCategories() {
-		// TODO Auto-generated method stub
-		
+	public List<FoodCategory> getFoodCategories() {
+		return foodCategoryDao.list();
 	}
 }

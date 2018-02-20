@@ -1,5 +1,6 @@
 package com.woho.service;
 
+import java.util.List;
 import java.util.Set;
 
 import com.woho.model.FoodCategory;
@@ -16,7 +17,7 @@ public interface FoodCategoryService {
 	
 	void updateFoodCategory(FoodCategory foodCategory);
 	
-	void getFoodCategories();
+	List<FoodCategory> getFoodCategories();
 
 
 }

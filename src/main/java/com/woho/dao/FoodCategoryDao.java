@@ -1,5 +1,6 @@
 package com.woho.dao;
 
+import java.util.List;
 import java.util.Set;
 
 import com.woho.model.FoodCategory;
@@ -16,4 +17,5 @@ public interface FoodCategoryDao {
 	
 	void updateFoodCategory(FoodCategory foodCategory);
 
+	List<FoodCategory> list();
 }

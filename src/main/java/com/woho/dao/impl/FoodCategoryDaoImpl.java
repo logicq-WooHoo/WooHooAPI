@@ -1,10 +1,12 @@
 package com.woho.dao.impl;
 
+import java.util.List;
 import java.util.Set;
 import org.springframework.stereotype.Repository;
 import com.woho.dao.AbstractDAO;
 import com.woho.dao.FoodCategoryDao;
 import com.woho.model.FoodCategory;
+import com.woho.model.RestaurantDetails;
 
 @Repository
 public class FoodCategoryDaoImpl extends AbstractDAO<FoodCategory> implements FoodCategoryDao{
@@ -39,4 +41,10 @@ public class FoodCategoryDaoImpl extends AbstractDAO<FoodCategory> implements Fo
 		update(foodCategory);
 	}
 
+	@Override
+	public List<FoodCategory> list() {
+		return (List<FoodCategory>) loadClass(FoodCategory.class);
+	}
+
+	
 }
