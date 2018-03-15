@@ -15,6 +15,7 @@ import com.woho.dao.RestaurantDetailsDao;
 import com.woho.dao.RestaurantMenuDao;
 import com.woho.dao.RestaurantSetupDao;
 import com.woho.dao.UserInformationrDao;
+import com.woho.model.Address;
 import com.woho.model.DeliveryPartner;
 import com.woho.model.FoodCategory;
 import com.woho.model.FoodServiceType;
@@ -118,6 +119,11 @@ public class RegistrationServiceImpl implements RegistrationService{
 	}
 	
 	@Override
+	public List<RestaurantDetails> getByAddressList(List<Address> addresses) {
+		return restaurantDetailsDao.getByAddressList(addresses);
+	}
+	
+	@Override
 	public void registerRestaurantDetailsUploadTest(MultipartFile file) {
 		RestaurantDetails restaurantDetails = new RestaurantDetails();
 		storageService.store(file);
@@ -182,4 +188,5 @@ public class RegistrationServiceImpl implements RegistrationService{
 		restaurantMenuDao.addRestaurantMenu(restaurantMenu);
 	}
 
+	
 }

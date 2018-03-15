@@ -2,6 +2,7 @@ package com.woho.dao;
 
 import java.util.List;
 
+import com.woho.model.Address;
 import com.woho.model.RestaurantDetails;
 
 /**
@@ -18,4 +19,6 @@ public interface RestaurantDetailsDao {
 	void delete(long id);
 	void update(long id, RestaurantDetails restaurantDetails);
 	public boolean isRestaurantDetailsExist(RestaurantDetails restaurantDetails);
+	
+	List<RestaurantDetails> getByAddressList(List<Address> addresses);
 }

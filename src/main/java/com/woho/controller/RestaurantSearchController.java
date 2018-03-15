@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.woho.model.FoodCategory;
+import com.woho.model.RestaurantDetails;
 import com.woho.service.FoodCategoryService;
 import com.woho.service.RestaurantSearchService;
+import com.woho.vo.RestaurantSearchVO;
 
 @RestController
 @RequestMapping("/api")
@@ -24,7 +26,8 @@ public class RestaurantSearchController {
 	FoodCategoryService foodCategoryService;
 	
 	@RequestMapping(value = "/user/restaurant/search", method = RequestMethod.POST, consumes = "application/json")
-	public void registerUSer(@RequestBody String city, String area, String foodCategory) {
+	public List<RestaurantDetails> searchRestaurant(@RequestBody RestaurantSearchVO restaurantSearchVO) throws Exception {
+		return restaurantSearchService.searchRestaurant(restaurantSearchVO);
 	}
 	
 	@RequestMapping(value = "/getFoodCategories", method = RequestMethod.GET, consumes = "application/json")

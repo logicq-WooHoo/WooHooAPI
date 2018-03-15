@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.woho.dao.AbstractDAO;
 import com.woho.dao.RestaurantDetailsDao;
+import com.woho.model.Address;
 import com.woho.model.RestaurantDetails;
 
 /**
@@ -56,6 +57,12 @@ public class RestaurantDetailsDaoImpl extends AbstractDAO<RestaurantDetails> imp
 	@Override
 	public boolean isRestaurantDetailsExist(RestaurantDetails restaurantDetails) {
 		return getByRegistrationNumber(restaurantDetails.getRegistrationNumber())!=null;
+	}
+
+	@Override
+	public List<RestaurantDetails> getByAddressList(List<Address> addresses) {
+		String hql = "from RestaurantDetails where address in (:list)";
+		return (List<RestaurantDetails>) executeQueryWithList(hql, addresses);
 	}
 
 	
