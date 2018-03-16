@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class RestaurantSetup {
@@ -38,6 +39,9 @@ public class RestaurantSetup {
 	@Lob
 	@Column(name = "DELIVERY_SERVICES",nullable = false)
 	private byte[] deliveryServices;
+	
+	@OneToOne
+	private RestaurantDetails restaurantDetails;
 
 	public Long getId() {
 		return id;
@@ -78,4 +82,6 @@ public class RestaurantSetup {
 	public void setDeliveryServices(byte[] deliveryServices) {
 		this.deliveryServices = deliveryServices;
 	}
+	
+	
 }

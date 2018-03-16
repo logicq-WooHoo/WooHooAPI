@@ -11,6 +11,8 @@ public interface FoodCategoryService {
 	
 	FoodCategory getFoodCategoryByID(Long id);
 	
+	FoodCategory getFoodCategory(String category);
+	
 	void addFoodCategory(FoodCategory foodCategory);
 	
 	void deleteFoodCategory(FoodCategory foodCategory);

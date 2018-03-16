@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.woho.dao.RestaurantDetailsDao;
 import com.woho.model.Address;
+import com.woho.model.MenuItem;
 import com.woho.model.RestaurantDetails;
 import com.woho.service.AddressService;
+import com.woho.service.MenuItemService;
 import com.woho.service.RestaurantSearchService;
 import com.woho.vo.RestaurantSearchVO;
 
@@ -22,6 +24,8 @@ public class RestaurantSearchServiceImpl implements RestaurantSearchService{
 	AddressService addressService;
 	@Autowired
 	RestaurantDetailsDao restaurantDetailsDao;
+	@Autowired
+	MenuItemService menuItemService;
 	
 	@Override
 	public void getRestaurantCities() {
@@ -51,6 +55,17 @@ public class RestaurantSearchServiceImpl implements RestaurantSearchService{
 	public List<RestaurantDetails> searchRestaurant(RestaurantSearchVO restaurantSearchVO) throws Exception {
 		restaurantSearchVO.setType("restaurant");
 		List<Address> addresses = addressService.searchAddress(restaurantSearchVO);
+		
+		
+		
+		List<RestaurantDetails> restaurantDetailsList = restaurantDetailsDao.getByAddressList(addresses);
+		restaurantDetailsList.forEach(restaurantDetails -> {
+		});
+		
+		MenuItem menuItem = menuItemService.getByFoodCategory(restaurantSearchVO.getFoodCategory());
+		
+		
+		
 		return restaurantDetailsDao.getByAddressList(addresses);
 	}
 

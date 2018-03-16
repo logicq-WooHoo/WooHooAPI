@@ -29,6 +29,11 @@ public class FoodCategoryServiceImpl implements FoodCategoryService{
 	}
 
 	@Override
+	public FoodCategory getFoodCategory(String category) {
+		return foodCategoryDao.getFoodCategory(category);
+	}
+	
+	@Override
 	public void addFoodCategory(FoodCategory foodCategory) {
 		foodCategoryDao.addFoodCategory(foodCategory);
 	}
@@ -47,4 +52,5 @@ public class FoodCategoryServiceImpl implements FoodCategoryService{
 	public List<FoodCategory> getFoodCategories() {
 		return foodCategoryDao.list();
 	}
+
 }

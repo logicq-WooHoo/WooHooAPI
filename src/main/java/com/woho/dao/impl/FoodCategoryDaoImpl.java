@@ -46,5 +46,11 @@ public class FoodCategoryDaoImpl extends AbstractDAO<FoodCategory> implements Fo
 		return (List<FoodCategory>) loadClass(FoodCategory.class);
 	}
 
+	@Override
+	public FoodCategory getFoodCategory(String category) {
+		String query = "from FoodCategory fc where category='" + category + "'";
+		return executeQueryForUniqueRecord(query);
+	}
+
 	
 }

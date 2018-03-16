@@ -49,7 +49,7 @@ public class RestaurantDetails {
 	@Column(name="DOCUMENT_PATH")
 	@Size(max = 100)
 	private String documentPath;
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -97,6 +97,5 @@ public class RestaurantDetails {
 	public void setDocumentPath(String documentPath) {
 		this.documentPath = documentPath;
 	}
-
-	
+  	
 }

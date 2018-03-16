@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -24,6 +25,9 @@ public class RestaurantMenu {
 	@OneToMany(cascade = CascadeType.ALL)
 	private Set<MenuItem> menuItems = new HashSet<>();
 
+	@OneToOne
+	private RestaurantDetails restaurantDetails;
+	
 	public Long getId() {
 		return id;
 	}
@@ -39,10 +43,19 @@ public class RestaurantMenu {
 	public void setMenuItems(Set<MenuItem> menuItems) {
 		this.menuItems = menuItems;
 	}
+	
+	public RestaurantDetails getRestaurantDetails() {
+		return restaurantDetails;
+	}
+
+	public void setRestaurantDetails(RestaurantDetails restaurantDetails) {
+		this.restaurantDetails = restaurantDetails;
+	}
 
 	@Override
 	public String toString() {
-		return "RestaurantMenu [id=" + id + ", menuItems=" + menuItems + "]";
+		return "RestaurantMenu [id=" + id + ", menuItems=" + menuItems + ", restaurantDetails=" + restaurantDetails
+				+ "]";
 	}
 	
 }
