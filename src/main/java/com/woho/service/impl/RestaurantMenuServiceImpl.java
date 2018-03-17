@@ -4,9 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.woho.dao.MenuItemDao;
+import com.woho.dao.RestaurantMenuDao;
 import com.woho.model.MenuItem;
-import com.woho.service.MenuItemService;
+import com.woho.model.RestaurantMenu;
+import com.woho.service.RestaurantMenuService;
 
 /**
  * 
@@ -16,15 +17,15 @@ import com.woho.service.MenuItemService;
 
 @Service
 @Transactional
-public class MenuItemServiceImpl implements MenuItemService{
+public class RestaurantMenuServiceImpl implements RestaurantMenuService {
 	
 	@Autowired
-	MenuItemDao menuItemDao;
+	RestaurantMenuDao restaurantMenuDao;
 
 	@Override
 	@Transactional(readOnly = true)
-	public MenuItem getByFoodCategory(String foodCategory) {
-		return menuItemDao.getByFoodCategory(foodCategory);
+	public RestaurantMenu getByMenuItem(MenuItem menuItem) {
+		return restaurantMenuDao.getByMenuItem(menuItem);
 	}
 
 }

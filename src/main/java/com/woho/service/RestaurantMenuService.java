@@ -1,9 +1,13 @@
-package com.woho.dao;
+package com.woho.service;
 
 import com.woho.model.MenuItem;
 import com.woho.model.RestaurantMenu;
 
-public interface RestaurantMenuDao {
-	void addRestaurantMenu(RestaurantMenu restaurantMenu);
+/**
+ * 
+ * @author Pankaj Labade
+ *
+ */
+public interface RestaurantMenuService {
 	RestaurantMenu getByMenuItem(MenuItem menuItem);
 }

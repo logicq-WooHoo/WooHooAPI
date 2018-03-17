@@ -4,9 +4,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -40,7 +40,6 @@ import com.woho.vo.RestaurantSetupVO;
 public class RegistrationServiceImpl implements RegistrationService{
 	
 	private ObjectMapper mapper = new ObjectMapper();
-
 
 	@Autowired
 	UserInformationrDao userInformationrDao;

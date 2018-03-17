@@ -2,7 +2,9 @@ package com.woho.dao.impl;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import org.springframework.stereotype.Repository;
+
 import com.woho.dao.AbstractDAO;
 import com.woho.dao.RestaurantTypeDao;
 import com.woho.model.RestaurantType;
