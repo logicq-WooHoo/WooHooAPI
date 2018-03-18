@@ -2,19 +2,20 @@ package com.woho.dao.impl;
 
 import java.util.List;
 import java.util.Set;
+
 import org.springframework.stereotype.Repository;
+
 import com.woho.dao.AbstractDAO;
 import com.woho.dao.FoodCategoryDao;
 import com.woho.model.FoodCategory;
-import com.woho.model.RestaurantDetails;
 
 @Repository
-public class FoodCategoryDaoImpl extends AbstractDAO<FoodCategory> implements FoodCategoryDao{
+public class FoodCategoryDaoImpl extends AbstractDAO<FoodCategory> implements FoodCategoryDao {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 3536116924386973407L;
 
 	@Override
 	public Set<FoodCategory> getFoodCategoriesByID(Set<String> ids) {
@@ -48,9 +49,8 @@ public class FoodCategoryDaoImpl extends AbstractDAO<FoodCategory> implements Fo
 
 	@Override
 	public FoodCategory getFoodCategory(String category) {
-		String query = "from FoodCategory fc where category='" + category + "'";
+		String query = "from FoodCategory where category='" + category + "'";
 		return executeQueryForUniqueRecord(query);
 	}
-
 	
 }

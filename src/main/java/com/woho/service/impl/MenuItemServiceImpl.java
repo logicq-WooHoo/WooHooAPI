@@ -1,9 +1,8 @@
 package com.woho.service.impl;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.woho.dao.MenuItemDao;
 import com.woho.model.MenuItem;
@@ -23,6 +22,7 @@ public class MenuItemServiceImpl implements MenuItemService{
 	MenuItemDao menuItemDao;
 
 	@Override
+	@Transactional(readOnly = true)
 	public MenuItem getByFoodCategory(String foodCategory) {
 		return menuItemDao.getByFoodCategory(foodCategory);
 	}

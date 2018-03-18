@@ -2,10 +2,9 @@ package com.woho.service.impl;
 
 import java.util.Set;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.woho.dao.DeliveryPartnerDao;
 import com.woho.model.DeliveryPartner;
@@ -13,11 +12,11 @@ import com.woho.service.DeliveryPartnerService;
 
 @Service
 @Transactional
-public class DeliveryPartnerServiceImpl implements DeliveryPartnerService{
+public class DeliveryPartnerServiceImpl implements DeliveryPartnerService {
 
 	@Autowired
 	DeliveryPartnerDao deliveryPartnerDao;
-	
+
 	@Override
 	public Set<DeliveryPartner> getDeliveryPartnersByID(Set<String> ids) {
 		return deliveryPartnerDao.getDeliveryPartnersByID(ids);

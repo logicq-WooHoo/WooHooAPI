@@ -41,7 +41,6 @@ public class RegistrationServiceImpl implements RegistrationService{
 	
 	private ObjectMapper mapper = new ObjectMapper();
 
-
 	@Autowired
 	UserInformationrDao userInformationrDao;
 	
