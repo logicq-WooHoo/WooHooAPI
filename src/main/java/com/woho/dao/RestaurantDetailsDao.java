@@ -12,7 +12,7 @@ import com.woho.model.RestaurantDetails;
  */
 public interface RestaurantDetailsDao {
 
-	void addRestaurantDetails(RestaurantDetails restaurantDetails);
+	RestaurantDetails addRestaurantDetails(RestaurantDetails restaurantDetails);
 	RestaurantDetails get(long id);
 	RestaurantDetails getByRegistrationNumber(String registrationNumber);
 	List<RestaurantDetails> list();

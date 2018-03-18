@@ -2,7 +2,9 @@ package com.woho.dao.impl;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import org.springframework.stereotype.Repository;
+
 import com.woho.dao.AbstractDAO;
 import com.woho.dao.RestaurantTypeDao;
 import com.woho.model.RestaurantType;
@@ -20,14 +22,14 @@ public class RestaurantTypeDaoImpl extends AbstractDAO<RestaurantType> implement
 
 		StringBuilder selectQuery = new StringBuilder();
 		StringBuilder whereQuery = new StringBuilder();
-		selectQuery.append("from RestaurentType rt ");
+		selectQuery.append("from RestaurantType rt ");
 
 		if (!ids.isEmpty()) {
 			whereQuery.append(" where");
 			whereQuery.append(" rt.id in( ");
 			
 			for (String id : ids) {
-				whereQuery.append("" + Long.parseLong(id) + "");
+				whereQuery.append(Long.parseLong(id));
 				whereQuery.append(",");
 			}
 			whereQuery=whereQuery.deleteCharAt( whereQuery.length()-1);

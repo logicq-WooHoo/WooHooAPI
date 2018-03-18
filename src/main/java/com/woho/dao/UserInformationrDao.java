@@ -4,6 +4,8 @@ import com.woho.model.UserInformation;
 
 public interface UserInformationrDao {
 
-	void addUser(UserInformation user);
+	UserInformation addUser(UserInformation user);
+	
+	UserInformation findUserByEmail(String email);
 
 }

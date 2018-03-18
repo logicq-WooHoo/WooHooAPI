@@ -42,6 +42,14 @@ public class RestaurantSetup {
 	
 	@OneToOne
 	private RestaurantDetails restaurantDetails;
+	
+	public RestaurantDetails getRestaurantDetails() {
+		return restaurantDetails;
+	}
+
+	public void setRestaurantDetails(RestaurantDetails restaurantDetails) {
+		this.restaurantDetails = restaurantDetails;
+	}
 
 	public Long getId() {
 		return id;

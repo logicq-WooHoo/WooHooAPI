@@ -3,6 +3,8 @@ package com.woho.vo;
 import java.util.List;
 import java.util.Set;
 
+import com.woho.model.RestaurantDetails;
+
 public class RestaurantSetupVO {
 
 	private Set<String> restaurentTypes;
@@ -12,6 +14,16 @@ public class RestaurantSetupVO {
 	private List<TimeDetailVO>  operationTime;
 
 	private List<TimeDetailVO>  deliveryServices;
+	
+	private RestaurantDetails restaurantDetails;
+	
+	public RestaurantDetails getRestaurantDetails() {
+		return restaurantDetails;
+	}
+
+	public void setRestaurantDetails(RestaurantDetails restaurantDetails) {
+		this.restaurantDetails = restaurantDetails;
+	}
 
 	public Set<String> getRestaurentTypes() {
 		return restaurentTypes;

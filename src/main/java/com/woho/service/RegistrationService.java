@@ -13,8 +13,8 @@ import com.woho.vo.RestaurantSetupVO;
 
 public interface RegistrationService {
 	
-	void register(UserInformation user);
-	void saveRestaurantDetails(RestaurantDetails restaurantDetails);
+	UserInformation register(UserInformation user);
+	RestaurantDetails saveRestaurantDetails(RestaurantDetails restaurantDetails);
 	RestaurantDetails getRestaurantDetails(long id);
 	RestaurantDetails getRestaurantDetailsByRegistrationNumber(String registrationNumber);
 	List<RestaurantDetails> listAllRestaurantDetails();

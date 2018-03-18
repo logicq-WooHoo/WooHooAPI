@@ -1,6 +1,9 @@
 package com.woho.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,10 +14,13 @@ import com.woho.model.DeliveryPartner;
 import com.woho.model.FoodCategory;
 import com.woho.model.FoodServiceType;
 import com.woho.model.RestaurantType;
+import com.woho.model.UserInformation;
 import com.woho.service.DeliveryPartnerService;
+import com.woho.service.FinalSetUpService;
 import com.woho.service.FoodCategoryService;
 import com.woho.service.FoodServiceTypeService;
 import com.woho.service.RestaurantTypeService;
+import com.woho.vo.FinalSetUpVO;
 
 @RestController
 @RequestMapping("/admin")
@@ -31,6 +37,10 @@ public class AdminController {
 	
 	@Autowired
 	FoodCategoryService foodCategoryService;
+	
+	@Autowired
+	FinalSetUpService finalSetUpService;
+	
 	
 	@RequestMapping(value = "/adddeliverypartner", method = RequestMethod.POST, consumes = "application/json")
 	public void createDeliveryPartner(@RequestBody DeliveryPartner deliveryPartner) throws JsonProcessingException {
@@ -109,6 +119,16 @@ public class AdminController {
 	public void updateFoodServiceType(@RequestBody FoodCategory foodCategory) throws JsonProcessingException {
 		foodCategoryService.updateFoodCategory(foodCategory);
 	}
+	
+	
+	
+	@RequestMapping(value = "/finalsetup", method = RequestMethod.POST,  produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<FinalSetUpVO> finalRestaurentSetup(@RequestBody FinalSetUpVO finalSetUpVO) throws JsonProcessingException {
 
+		finalSetUpService.finalRestaurentSetup(finalSetUpVO);
+		
+		return new ResponseEntity<FinalSetUpVO>(finalSetUpVO, HttpStatus.OK);
+	
+	}
 
 }

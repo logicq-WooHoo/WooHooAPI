@@ -23,8 +23,9 @@ public class RestaurantDetailsDaoImpl extends AbstractDAO<RestaurantDetails> imp
 	private static final long serialVersionUID = -805502462742036340L;
 
 	@Override
-	public void addRestaurantDetails(RestaurantDetails restaurantDetails) {
+	public RestaurantDetails addRestaurantDetails(RestaurantDetails restaurantDetails) {
 		save(restaurantDetails);
+		return restaurantDetails;
 	}
 
 	@Override

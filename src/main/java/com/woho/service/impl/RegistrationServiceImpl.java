@@ -4,9 +4,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -70,12 +70,12 @@ public class RegistrationServiceImpl implements RegistrationService{
 	StorageService storageService;
 	
 	@Override
-	public void register(UserInformation userInformation) {
-		userInformationrDao.addUser(userInformation);
+	public UserInformation register(UserInformation userInformation) {
+		return userInformationrDao.addUser(userInformation);
 	}
 
 	@Override
-	public void saveRestaurantDetails(RestaurantDetails restaurantDetails) {
+	public RestaurantDetails saveRestaurantDetails(RestaurantDetails restaurantDetails) {
 		/*RestaurantDetails restaurantDetails = new RestaurantDetails();
 		restaurantDetails.setAddress(restaurantDetailsVO.getAddress());
 		storageService.store(restaurantDetailsVO.getFile());
@@ -85,7 +85,7 @@ public class RegistrationServiceImpl implements RegistrationService{
 		restaurantDetails.setRegistrationNumber(restaurantDetailsVO.getRegistrationNumber());
 		restaurantDetails.setRestaurantName(restaurantDetailsVO.getRestaurantName());
 		restaurantDetails.setUserInformation(restaurantDetailsVO.getUserInformation());*/
-		restaurantDetailsDao.addRestaurantDetails(restaurantDetails);
+		return restaurantDetailsDao.addRestaurantDetails(restaurantDetails);
 	}
 
 	@Override
@@ -154,6 +154,8 @@ public class RegistrationServiceImpl implements RegistrationService{
 		
 		restaurantSetup.setOperationTime(mapper.writeValueAsBytes(restaurantSetupVO.getOperationTime()));
 		restaurantSetup.setDeliveryServices(mapper.writeValueAsBytes(restaurantSetupVO.getDeliveryServices()));
+		
+		restaurantSetup.setRestaurantDetails(restaurantSetupVO.getRestaurantDetails());
 		
 		restaurantSetupDao.addRestaurantSetup(restaurantSetup);
 	}
