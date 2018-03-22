@@ -23,6 +23,7 @@ public class FoodServiceTypeServiceImpl implements FoodServiceTypeService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public FoodServiceType getFoodServiceTypeByID(Long id) {
 		return foodServiceTypeDao.getFoodServiceTypeByID(id);
 	}

@@ -7,16 +7,22 @@ import com.woho.dao.RestaurantSetupDao;
 import com.woho.model.RestaurantSetup;
 
 @Repository
-public class RestaurantSetupDaoImpl extends AbstractDAO<RestaurantSetup> implements RestaurantSetupDao{
+public class RestaurantSetupDaoImpl extends AbstractDAO<RestaurantSetup> implements RestaurantSetupDao {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -5004998229610133268L;
+	private static final long serialVersionUID = -5323065306211922795L;
 
 	@Override
 	public void addRestaurantSetup(RestaurantSetup restaurantSetup) {
 		save(restaurantSetup);
+	}
+
+	@Override
+	public RestaurantSetup getByRestaurantId(Long restaurantId) {
+		String sqlquery = "from RestaurantSetup where restaurantDetails.id='" + restaurantId + "'"; 
+		return executeQueryForUniqueRecord(sqlquery);
 	}
 
 }

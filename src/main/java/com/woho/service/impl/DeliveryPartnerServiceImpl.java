@@ -18,6 +18,7 @@ public class DeliveryPartnerServiceImpl implements DeliveryPartnerService {
 	DeliveryPartnerDao deliveryPartnerDao;
 
 	@Override
+	@Transactional(readOnly = true)
 	public Set<DeliveryPartner> getDeliveryPartnersByID(Set<String> ids) {
 		return deliveryPartnerDao.getDeliveryPartnersByID(ids);
 	}

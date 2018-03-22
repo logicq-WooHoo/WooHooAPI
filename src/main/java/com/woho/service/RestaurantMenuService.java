@@ -1,6 +1,10 @@
 package com.woho.service;
 
+import java.util.List;
+import java.util.Set;
+
 import com.woho.model.MenuItem;
+import com.woho.model.RestaurantDetails;
 import com.woho.model.RestaurantMenu;
 
 /**
@@ -10,4 +14,5 @@ import com.woho.model.RestaurantMenu;
  */
 public interface RestaurantMenuService {
 	RestaurantMenu getByMenuItem(MenuItem menuItem);
+	List<RestaurantMenu> getByMenuItemsAndRestaurantDetails(Set<MenuItem> menuItems, Set<RestaurantDetails> restaurantDetailsSet) throws Exception;
 }

@@ -6,4 +6,5 @@ public interface RestaurantSetupDao {
 
 	void addRestaurantSetup(RestaurantSetup restaurantSetup);
 
+	RestaurantSetup getByRestaurantId(Long restaurantId);
 }

@@ -2,10 +2,9 @@ package com.woho.service.impl;
 
 import java.util.Set;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.woho.dao.RestaurantTypeDao;
 import com.woho.model.RestaurantType;

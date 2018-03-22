@@ -88,11 +88,13 @@ public class RegistrationServiceImpl implements RegistrationService{
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public RestaurantDetails getRestaurantDetails(long id) {
 		return restaurantDetailsDao.get(id);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public RestaurantDetails getRestaurantDetailsByRegistrationNumber(String registrationNumber) {
 		return restaurantDetailsDao.getByRegistrationNumber(registrationNumber);
 	}

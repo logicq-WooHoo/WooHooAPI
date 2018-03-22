@@ -19,16 +19,19 @@ public class FoodCategoryServiceImpl implements FoodCategoryService {
 	FoodCategoryDao foodCategoryDao;
 
 	@Override
+	@Transactional(readOnly = true)
 	public Set<FoodCategory> getFoodCategoriesByID(Set<String> types) {
 		return null;
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public FoodCategory getFoodCategoryByID(Long id) {
 		return foodCategoryDao.getFoodCategoryByID(id);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public FoodCategory getFoodCategory(String category) {
 		return foodCategoryDao.getFoodCategory(category);
 	}
@@ -49,6 +52,7 @@ public class FoodCategoryServiceImpl implements FoodCategoryService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<FoodCategory> getFoodCategories() {
 		return foodCategoryDao.list();
 	}

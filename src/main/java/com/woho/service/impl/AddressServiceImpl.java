@@ -19,6 +19,7 @@ public class AddressServiceImpl implements AddressService {
 	AddressDao addressDao;
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Address> searchAddress(AddressVO addressVO) throws Exception {
 		return addressDao.searchAddress(addressVO);
 	}

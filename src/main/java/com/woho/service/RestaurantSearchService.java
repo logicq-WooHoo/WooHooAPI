@@ -2,8 +2,8 @@ package com.woho.service;
 
 import java.util.List;
 
-import com.woho.model.RestaurantDetails;
 import com.woho.vo.RestaurantSearchVO;
+import com.woho.vo.RestaurantVO;
 
 public interface RestaurantSearchService {
 	
@@ -15,6 +15,6 @@ public interface RestaurantSearchService {
 	
 	public void getRestaurantsByCityAndAreaAndFoodCategory(String cityt,String area,Long foodCategoryId);
 	
-	List<RestaurantDetails> searchRestaurant(RestaurantSearchVO restaurantSearchVO) throws Exception;
+	List<RestaurantVO> searchRestaurant(RestaurantSearchVO restaurantSearchVO) throws Exception;
 
 }

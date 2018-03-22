@@ -18,6 +18,7 @@ public class RestaurantDetailsFoodCategoryServiceImpl implements RestaurantDetai
 	RestaurantDetailsFoodCategoryDao restaurantDetailsFoodCategoryDao;
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<RestaurantDetailsFoodCategory> getByFoodCategoryID(Long foodCategoryId) {
 		return restaurantDetailsFoodCategoryDao.getByFoodCategoryID(foodCategoryId);
 	}
