@@ -1,5 +1,6 @@
 package com.woho.service.impl;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,12 @@ public class FoodServiceTypeServiceImpl implements FoodServiceTypeService {
 	@Override
 	public void updateFoodServiceType(FoodServiceType foodServiceType) {
 		foodServiceTypeDao.updateFooderviceTypeCategory(foodServiceType);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<FoodServiceType> list() {
+		return foodServiceTypeDao.list();
 	}
 
 }

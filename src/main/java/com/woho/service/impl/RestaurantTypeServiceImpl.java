@@ -1,5 +1,6 @@
 package com.woho.service.impl;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +19,13 @@ public class RestaurantTypeServiceImpl implements RestaurantTypeService{
 	RestaurantTypeDao restaurentTypeDao;
 	
 	@Override
+	@Transactional(readOnly = true)
 	public Set<RestaurantType> getRestaurantTypeByID(Set<String> ids) {
 		return restaurentTypeDao.getRestaurantTypeByID(ids);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public RestaurantType getById(Long id) {
 		return restaurentTypeDao.getById(id);
 	}
@@ -41,5 +44,10 @@ public class RestaurantTypeServiceImpl implements RestaurantTypeService{
 	public void updateRestaurentType(RestaurantType restaurentType) {
 		restaurentTypeDao.updateRestaurentType(restaurentType);
 	}
-	
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<RestaurantType> list() {
+		return restaurentTypeDao.list();
+	}
 }

@@ -11,19 +11,17 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="RESTAURANT_TYPE")
+@Table(name = "RESTAURANT_TYPE")
 public class RestaurantType {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="ID")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ID")
 	private Long id;
-	
-	
-	@Column(name="type")
+
+	@Column(name = "type")
 	private String type;
-	
-	
+
 	@ManyToMany(mappedBy = "restTypes")
 	private Set<RestaurantSetup> restaurantSetup;
 
@@ -50,5 +48,10 @@ public class RestaurantType {
 	public void setRestaurantSetup(Set<RestaurantSetup> restaurantSetup) {
 		this.restaurantSetup = restaurantSetup;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "RestaurantType [id=" + id + ", type=" + type + ", restaurantSetup=" + restaurantSetup + "]";
+	}
+
 }

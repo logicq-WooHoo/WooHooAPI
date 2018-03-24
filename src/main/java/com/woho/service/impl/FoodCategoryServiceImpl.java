@@ -53,7 +53,7 @@ public class FoodCategoryServiceImpl implements FoodCategoryService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<FoodCategory> getFoodCategories() {
+	public List<FoodCategory> list() {
 		return foodCategoryDao.list();
 	}
 

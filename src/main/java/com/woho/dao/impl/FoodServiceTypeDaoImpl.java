@@ -1,5 +1,6 @@
 package com.woho.dao.impl;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.stereotype.Repository;
@@ -11,7 +12,6 @@ import com.woho.model.FoodServiceType;
 @Repository
 public class FoodServiceTypeDaoImpl extends AbstractDAO<FoodServiceType> implements FoodServiceTypeDao {
 
-	
 	/**
 	 * 
 	 */
@@ -24,7 +24,7 @@ public class FoodServiceTypeDaoImpl extends AbstractDAO<FoodServiceType> impleme
 
 	@Override
 	public FoodServiceType getFoodServiceTypeByID(Long id) {
-		return (FoodServiceType)getRecordById(FoodServiceType.class, id);
+		return (FoodServiceType) getRecordById(FoodServiceType.class, id);
 	}
 
 	@Override
@@ -40,6 +40,11 @@ public class FoodServiceTypeDaoImpl extends AbstractDAO<FoodServiceType> impleme
 	@Override
 	public void updateFooderviceTypeCategory(FoodServiceType foodServiceType) {
 		update(foodServiceType);
+	}
+
+	@Override
+	public List<FoodServiceType> list() {
+		return (List<FoodServiceType>) loadClass(FoodServiceType.class);
 	}
 
 }

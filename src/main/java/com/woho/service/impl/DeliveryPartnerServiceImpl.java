@@ -1,5 +1,6 @@
 package com.woho.service.impl;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,12 @@ public class DeliveryPartnerServiceImpl implements DeliveryPartnerService {
 	@Override
 	public void updateDeliveryPartner(DeliveryPartner deliveryPartner) {
 		deliveryPartnerDao.updateDeliveryPartner(deliveryPartner);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<DeliveryPartner> list() {
+		return deliveryPartnerDao.list();
 	}
 
 }

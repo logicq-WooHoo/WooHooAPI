@@ -61,3 +61,47 @@ PUT: http://127.0.0.1:8090/api/restaurant/details/2
 
 6. Delete Restaurant Details
 DELETE: http://127.0.0.1:8090/api/restaurant/details/3
+
+7. Add Menu
+POST: http://127.0.0.1:8090/api/restaurant/menu
+{
+	"restaurantDetailsId":1,
+	"menuItems":[
+		{
+			"foodServiceTypeId":1,
+			"foodCategoryId":1,
+			"itemName":"Poha",
+			"price":20.00
+		}]
+}
+
+8. Restaurant search
+POST: http://127.0.0.1:8090/api/user/restaurant/search
+
+8.1: Filter- foodCategory, rating
+{
+	"city":"Pune",
+	"area":"kothrud",
+	"foodCategory":"Tandoori",
+	"rating":4
+}
+
+8.2: Filter- restaurant type (American, Italian etc)
+{
+	"city":"Pune",
+	"restaurantTypeId":2
+}
+
+9. Get Food Categories (Inventory Call)
+GET: http://127.0.0.1:8090/api/getfoodcategories
+
+10. Get Delivery Partners like Food Panda, Swiggy (Inventory Call)
+GET: http://127.0.0.1:8090/api/getdeliverypartners
+
+11. Get Food Service Types  like Breakfast, Lunch etc(Inventory Call)
+GET: http://127.0.0.1:8090/api/getfoodservicetypes
+
+12. Get Restaurant Types like American, Italian etc(Inventory Call)
+GET: http://127.0.0.1:8090/api/getrestauranttypes
+
+

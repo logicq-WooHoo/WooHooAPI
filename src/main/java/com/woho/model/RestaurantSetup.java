@@ -15,6 +15,8 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class RestaurantSetup {
 	
@@ -23,13 +25,15 @@ public class RestaurantSetup {
 	@Column(name="SETUP_ID")
 	private Long id;
 		
-	@ManyToMany(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
-	@JoinTable(name = "RESTAURANTSETUP_RESTAURANTTYPE", joinColumns = @JoinColumn(name = "SETUP_ID"), inverseJoinColumns = @JoinColumn(name = "ID"))	
+	@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@JoinTable(name = "RESTAURANTSETUP_RESTAURANTTYPE", joinColumns = @JoinColumn(name = "SETUP_ID"), inverseJoinColumns = @JoinColumn(name = "ID"))
+	@JsonIgnore
 	private Set<RestaurantType> restTypes;
 	
 
-	@ManyToMany(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@JoinTable(name = "RESTAURANTSETUP_DELIVERYPARTNER", joinColumns = @JoinColumn(name = "SETUP_ID"), inverseJoinColumns = @JoinColumn(name = "ID"))
+	@JsonIgnore
 	private Set<DeliveryPartner> deliveryPartners;
 	
 	@Lob
