@@ -21,7 +21,7 @@ public class RestaurantSetupDaoImpl extends AbstractDAO<RestaurantSetup> impleme
 
 	@Override
 	public RestaurantSetup getByRestaurantId(Long restaurantId) {
-		String sqlquery = "from RestaurantSetup where restaurantDetails.id='" + restaurantId + "'"; 
+		String sqlquery = "from RestaurantSetup where restaurantDetails.id=" + restaurantId; 
 		return executeQueryForUniqueRecord(sqlquery);
 	}
 

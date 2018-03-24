@@ -14,6 +14,7 @@ public class RestaurantVO {
 	private String city;
 	private String area;
 	private Integer recommendationCount;
+	private Double rating;
 	private Set<String> deliveryPartners;
 	private Set<String> restaurantTypes;
 	
@@ -47,6 +48,12 @@ public class RestaurantVO {
 	public void setRecommendationCount(Integer recommendationCount) {
 		this.recommendationCount = recommendationCount;
 	}
+	public Double getRating() {
+		return rating;
+	}
+	public void setRating(Double rating) {
+		this.rating = rating;
+	}
 	public Set<String> getDeliveryPartners() {
 		return deliveryPartners;
 	}
@@ -63,8 +70,7 @@ public class RestaurantVO {
 	@Override
 	public String toString() {
 		return "RestaurantVO [id=" + id + ", restaurantName=" + restaurantName + ", city=" + city + ", area=" + area
-				+ ", recommendationCount=" + recommendationCount + ", deliveryPartners=" + deliveryPartners
-				+ ", restaurantTypes=" + restaurantTypes + "]";
+				+ ", recommendationCount=" + recommendationCount + ", rating=" + rating + ", deliveryPartners="
+				+ deliveryPartners + ", restaurantTypes=" + restaurantTypes + "]";
 	}
-
 }

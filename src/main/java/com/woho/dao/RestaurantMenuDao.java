@@ -9,8 +9,7 @@ import com.woho.model.RestaurantMenu;
 
 public interface RestaurantMenuDao {
 	void addRestaurantMenu(RestaurantMenu restaurantMenu);
-
 	RestaurantMenu getByMenuItem(MenuItem menuItem);
-
+	RestaurantMenu getByRestaurantId(Long restaurantId);
 	List<RestaurantMenu> getByMenuItemsAndRestaurantDetails(Set<MenuItem> menuItems, Set<RestaurantDetails> restaurantDetailsSet) throws Exception;
 }

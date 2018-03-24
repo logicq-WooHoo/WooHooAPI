@@ -12,6 +12,7 @@ import com.woho.model.DeliveryPartner;
 import com.woho.model.RestaurantSetup;
 import com.woho.model.RestaurantType;
 import com.woho.service.RestaurantSetupService;
+import com.woho.service.RestaurantTypeService;
 
 @Service
 @Transactional
@@ -19,6 +20,8 @@ public class RestaurantSetupServiceImpl implements RestaurantSetupService {
 
 	@Autowired
 	RestaurantSetupDao restaurantSetupDao;
+	@Autowired
+	RestaurantTypeService restaurantTypeService;
 
 	@Override
 	public Set<DeliveryPartner> getDeliveryPartners(Long restaurantId) {
@@ -45,6 +48,11 @@ public class RestaurantSetupServiceImpl implements RestaurantSetupService {
 		Set<RestaurantType> restaurantTypes = getRestaurantTypes(restaurantId);
 		Set<String> restaurantTypeNames = restaurantTypes.stream().map(rt -> rt.getType()).collect(Collectors.toSet());
 		return restaurantTypeNames;
+	}
+
+	@Override
+	public Set<RestaurantSetup> getByRestaurantTypeId(Long restTypeId) {
+		return restaurantTypeService.getById(restTypeId).getRestaurantSetup();
 	}
 
 }

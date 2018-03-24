@@ -21,6 +21,10 @@ public class RestaurantSearchVO extends AddressVO {
 	 * rating : 4 Star (Double value 4). See restaurant_review table for reference values.
 	 */
 	private Double rating;
+	/**
+	 * restaurantTypeId: like 1 for American
+	 */
+	private Long restaurantTypeId;
 	
 	public String getFoodCategory() {
 		return foodCategory;
@@ -40,11 +44,16 @@ public class RestaurantSearchVO extends AddressVO {
 	public void setRating(Double rating) {
 		this.rating = rating;
 	}
+	public Long getRestaurantTypeId() {
+		return restaurantTypeId;
+	}
+	public void setRestaurantTypeId(Long restaurantTypeId) {
+		this.restaurantTypeId = restaurantTypeId;
+	}
 	
 	@Override
 	public String toString() {
 		return "RestaurantSearchVO [foodCategory=" + foodCategory + ", foodServiceTypes=" + foodServiceTypes
-				+ ", rating=" + rating + "]";
+				+ ", rating=" + rating + ", restaurantTypeId=" + restaurantTypeId + "]";
 	}
-	
 }

@@ -3,6 +3,7 @@ package com.woho.service.impl;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import com.woho.model.RestaurantDetails;
 import com.woho.model.RestaurantDetailsFoodCategory;
 import com.woho.model.RestaurantMenu;
 import com.woho.model.RestaurantReview;
+import com.woho.model.RestaurantSetup;
 import com.woho.service.AddressService;
 import com.woho.service.FoodCategoryService;
 import com.woho.service.MenuItemService;
@@ -106,6 +108,13 @@ public class RestaurantSearchServiceImpl implements RestaurantSearchService {
 					.collect(Collectors.toList());
 		}
 
+		if(null != restaurantSearchVO.getRestaurantTypeId()) {
+			Set<RestaurantSetup> restaurantSetups = restaurantSetupService.getByRestaurantTypeId(restaurantSearchVO.getRestaurantTypeId());
+			restaurantDetailsList = restaurantDetailsList.stream().filter(
+					rd -> restaurantSetups.stream().anyMatch(rs -> rs.getRestaurantDetails().getId() == rd.getId()))
+					.collect(Collectors.toList());
+		}
+		
 		List<RestaurantVO> restaurantVOList = new ArrayList<>();
 		restaurantDetailsList.forEach(rd -> {
 			RestaurantVO restaurantVO = new RestaurantVO();
@@ -115,6 +124,7 @@ public class RestaurantSearchServiceImpl implements RestaurantSearchService {
 			restaurantVO.setId(rd.getId());
 			restaurantVO.setRecommendationCount(
 					restaurantReviewService.getByRestaurantId(rd.getId()).getRecommendationCount());
+			restaurantVO.setRating(restaurantReviewService.getByRestaurantId(rd.getId()).getRating());
 			restaurantVO.setRestaurantName(rd.getRestaurantName());
 			restaurantVO.setRestaurantTypes(restaurantSetupService.getRestaurantTypeNames(rd.getId()));
 			restaurantVOList.add(restaurantVO);

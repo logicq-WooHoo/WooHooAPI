@@ -43,5 +43,12 @@ public class RestaurantType {
 		this.type = type;
 	}
 
+	public Set<RestaurantSetup> getRestaurantSetup() {
+		return restaurantSetup;
+	}
+
+	public void setRestaurantSetup(Set<RestaurantSetup> restaurantSetup) {
+		this.restaurantSetup = restaurantSetup;
+	}
 	
 }

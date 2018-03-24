@@ -14,5 +14,6 @@ import com.woho.model.RestaurantMenu;
  */
 public interface RestaurantMenuService {
 	RestaurantMenu getByMenuItem(MenuItem menuItem);
+	RestaurantMenu getByRestaurantId(Long restaurantId);
 	List<RestaurantMenu> getByMenuItemsAndRestaurantDetails(Set<MenuItem> menuItems, Set<RestaurantDetails> restaurantDetailsSet) throws Exception;
 }

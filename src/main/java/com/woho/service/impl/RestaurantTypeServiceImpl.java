@@ -23,6 +23,11 @@ public class RestaurantTypeServiceImpl implements RestaurantTypeService{
 	}
 
 	@Override
+	public RestaurantType getById(Long id) {
+		return restaurentTypeDao.getById(id);
+	}
+	
+	@Override
 	public void addRestaurentType(RestaurantType restaurentType) {
 		restaurentTypeDao.addRestaurentType(restaurentType);
 	}
@@ -36,4 +41,5 @@ public class RestaurantTypeServiceImpl implements RestaurantTypeService{
 	public void updateRestaurentType(RestaurantType restaurentType) {
 		restaurentTypeDao.updateRestaurentType(restaurentType);
 	}
+	
 }

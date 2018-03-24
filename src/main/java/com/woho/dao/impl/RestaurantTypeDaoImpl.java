@@ -58,4 +58,10 @@ public class RestaurantTypeDaoImpl extends AbstractDAO<RestaurantType> implement
 		
 	}
 
+	@Override
+	public RestaurantType getById(Long id) {
+		String query = "from RestaurantType where id=" + id;
+		return executeQueryForUniqueRecord(query);
+	}
+
 }

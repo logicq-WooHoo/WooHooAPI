@@ -8,6 +8,8 @@ public interface RestaurantTypeDao {
 
 	public Set<RestaurantType> getRestaurantTypeByID(Set<String> ids);
 	
+	RestaurantType getById(Long id);
+	
 	void addRestaurentType(RestaurantType restaurentType);
 	
 	void deleteRestaurentType(RestaurantType restaurentType);

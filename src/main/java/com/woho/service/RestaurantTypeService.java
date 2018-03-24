@@ -8,6 +8,8 @@ public interface RestaurantTypeService {
 	
 	Set<RestaurantType> getRestaurantTypeByID(Set<String> types);
 	
+	RestaurantType getById(Long id);
+	
 	void addRestaurentType(RestaurantType restaurentType);
 	
 	void deleteRestaurentType(RestaurantType restaurentType);

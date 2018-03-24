@@ -31,17 +31,24 @@ public class RestaurantMenuDaoImpl extends AbstractDAO<RestaurantMenu> implement
 	public RestaurantMenu getByMenuItem(MenuItem menuItem) {
 		List<MenuItem> menuItems = Arrays.asList(menuItem);
 		String hql = "from RestaurantMenu where menuItems in (:list)";
-		List<RestaurantMenu> restaurantMenus =  (List<RestaurantMenu>) executeQueryWithList(hql, menuItems);
+		List<RestaurantMenu> restaurantMenus = (List<RestaurantMenu>) executeQueryWithList(hql, menuItems);
 		return restaurantMenus.get(0);
 	}
 
 	@Override
-	public List<RestaurantMenu> getByMenuItemsAndRestaurantDetails(Set<MenuItem> menuItems, Set<RestaurantDetails> restaurantDetailsSet) throws Exception {
-		
+	public RestaurantMenu getByRestaurantId(Long restaurantId) {
+		String query = "from RestaurantMenu where restaurantDetails.id=" + restaurantId;
+		return executeQueryForUniqueRecord(query);
+	}
+
+	@Override
+	public List<RestaurantMenu> getByMenuItemsAndRestaurantDetails(Set<MenuItem> menuItems,
+			Set<RestaurantDetails> restaurantDetailsSet) throws Exception {
+
 		Map<String, Set> values = new HashMap<>();
 		values.put("menuItems", menuItems);
 		values.put("restaurantDetails", restaurantDetailsSet);
-		
+
 		return selectWithInClause(values, RestaurantMenu.class);
 	}
 

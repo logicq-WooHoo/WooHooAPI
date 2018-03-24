@@ -7,6 +7,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -163,31 +164,34 @@ public class RegistrationServiceImpl implements RegistrationService{
 
 	@Override
 	public void registerRestaurantMenu(RestaurantMenuVO restaurantMenuVO) throws JsonProcessingException {
-		
 		RestaurantMenu restaurantMenu = new RestaurantMenu();
-		
-		Iterator<MenuItemVO> iterator = restaurantMenuVO.getMenuItems().iterator();
-		
-		while(iterator.hasNext()) {
-			MenuItem menuItem = new MenuItem();
-			MenuItemVO menuItemVO = (MenuItemVO) iterator.next();
-			
-			if(null!=menuItemVO.getFoodCategoryId()) {
-				FoodCategory foodCategory = foodCategoryService.getFoodCategoryByID(menuItemVO.getFoodCategoryId());
-				menuItem.setFoodCategory(foodCategory);
-			}
-			
-			if(null!=menuItemVO.getFoodServiceTypeId()) {
-				FoodServiceType foodServiceType = foodServiceTypeService.getFoodServiceTypeByID(menuItemVO.getFoodServiceTypeId());
-				menuItem.setFoodServiceType(foodServiceType);
-			}
-			
-			menuItem.setPrice(menuItemVO.getPrice());
-			menuItem.setItemName(menuItemVO.getItemName());
-			
-			restaurantMenu.getMenuItems().add(menuItem);
+		if (!StringUtils.isEmpty(restaurantMenuVO.getRestaurantId())) {
+			restaurantMenu.setRestaurantDetails(restaurantDetailsDao.get(restaurantMenuVO.getRestaurantId()));
 		}
 		
+		if (null != restaurantMenuVO.getMenuItems()) {
+			Iterator<MenuItemVO> iterator = restaurantMenuVO.getMenuItems().iterator();
+			
+			while(iterator.hasNext()) {
+				MenuItem menuItem = new MenuItem();
+				MenuItemVO menuItemVO = (MenuItemVO) iterator.next();
+				
+				if(null!=menuItemVO.getFoodCategoryId()) {
+					FoodCategory foodCategory = foodCategoryService.getFoodCategoryByID(menuItemVO.getFoodCategoryId());
+					menuItem.setFoodCategory(foodCategory);
+				}
+				
+				if(null!=menuItemVO.getFoodServiceTypeId()) {
+					FoodServiceType foodServiceType = foodServiceTypeService.getFoodServiceTypeByID(menuItemVO.getFoodServiceTypeId());
+					menuItem.setFoodServiceType(foodServiceType);
+				}
+				
+				menuItem.setPrice(menuItemVO.getPrice());
+				menuItem.setItemName(menuItemVO.getItemName());
+				
+				restaurantMenu.getMenuItems().add(menuItem);
+			}
+		}
 		restaurantMenuDao.addRestaurantMenu(restaurantMenu);
 	}
 
