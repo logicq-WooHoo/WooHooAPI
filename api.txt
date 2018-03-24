@@ -92,7 +92,7 @@ POST: http://127.0.0.1:8090/api/user/restaurant/search
 	"restaurantTypeId":2
 }
 
-9. Get Food Categories (Inventory Call)
+9. Get Food Categories like Tandoori, Chinees (Inventory Call)
 GET: http://127.0.0.1:8090/api/getfoodcategories
 
 10. Get Delivery Partners like Food Panda, Swiggy (Inventory Call)
