@@ -28,35 +28,28 @@ public class DocumentDaoImpl extends AbstractDAO<Document> implements DocumentDa
 	
 	@Override
 	public Document get(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return getRecordById(Document.class, id);
 	}
 
 	@Override
 	public List<Document> list() {
-		// TODO Auto-generated method stub
-		return null;
+		return (List<Document>) loadClass(Document.class);
 	}
 
 	@Override
 	public void delete(long id) {
-		// TODO Auto-generated method stub
-		
+		delete(getRecordById(Document.class, id));
 	}
 
 	@Override
 	public void update(long id, Document document) {
-		// TODO Auto-generated method stub
-		
+		document.setId(id);
+		update(document);
 	}
 
 	@Override
 	public boolean isDocumentExist(Document document) {
-		// TODO Auto-generated method stub
-		return false;
+		return get(document.getId())!=null;
 	}
-
-	
-
 	
 }

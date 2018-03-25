@@ -21,6 +21,7 @@ import com.woho.service.FoodServiceTypeService;
 import com.woho.service.RestaurantMenuService;
 import com.woho.service.RestaurantSearchService;
 import com.woho.service.RestaurantTypeService;
+import com.woho.vo.RestaurantMenuVO;
 import com.woho.vo.RestaurantSearchVO;
 import com.woho.vo.RestaurantVO;
 
@@ -47,8 +48,8 @@ public class RestaurantSearchController {
 	}
 	
 	@RequestMapping(value = "/user/restaurant/selectmenu", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public RestaurantMenu selectMenu(@RequestBody Long restaurantId) throws Exception {
-		return restaurantMenuService.getByRestaurantId(restaurantId);
+	public RestaurantMenu selectMenu(@RequestBody RestaurantMenuVO restaurantMenuVO) throws Exception {
+		return restaurantMenuService.getByRestaurantId(restaurantMenuVO.getRestaurantId());
 	}
 	
 	@RequestMapping(value = "/getfoodcategories", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

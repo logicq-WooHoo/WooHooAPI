@@ -34,8 +34,7 @@ public class RestaurantMenuServiceImpl implements RestaurantMenuService {
 
 	@Override
 	public RestaurantMenu getByRestaurantId(Long restaurantId) {
-		// TODO Auto-generated method stub
-		return null;
+		return restaurantMenuDao.getByRestaurantId(restaurantId);
 	}
 	
 	@Override

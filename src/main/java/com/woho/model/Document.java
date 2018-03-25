@@ -27,7 +27,7 @@ public class Document {
 	
 	@Size(max = 100)
 	@Column(name = "FILE_SIZE")
-	private String fileSize;
+	private Long fileSize;
 	
 	@Size(max = 100)
 	@Column(name = "FILE_TYPE")
@@ -57,11 +57,11 @@ public class Document {
 		this.filePath = filePath;
 	}
 
-	public String getFileSize() {
+	public Long getFileSize() {
 		return fileSize;
 	}
 
-	public void setFileSize(String fileSize) {
+	public void setFileSize(Long fileSize) {
 		this.fileSize = fileSize;
 	}
 
@@ -78,5 +78,4 @@ public class Document {
 		return "Document [id=" + id + ", filename=" + filename + ", filePath=" + filePath + ", fileSize=" + fileSize
 				+ ", fileType=" + fileType + "]";
 	}
-	
 }

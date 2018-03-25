@@ -20,36 +20,31 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "RESTAURANT_DETAILS")
 public class RestaurantDetails {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="ID")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ID")
 	private Long id;
-	
-	@Column(name="RESTAURANT_NAME")
+
+	@Column(name = "RESTAURANT_NAME")
 	@NotNull
 	@Size(max = 100)
 	private String restaurantName;
-	
-	@Column(name="REGISTRATION_NUMBER")
+
+	@Column(name = "REGISTRATION_NUMBER")
 	@NotNull
 	@Size(max = 100)
 	private String registrationNumber;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	private Address address;
 
-	//documents
-	
-	//user id many to one relationship
+	@OneToOne(cascade = CascadeType.ALL)
+	private Document document;
 
 	@ManyToOne
 	private UserInformation userInformation;
-	
-	@Column(name="DOCUMENT_PATH")
-	@Size(max = 100)
-	private String documentPath;
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -82,6 +77,14 @@ public class RestaurantDetails {
 		this.address = address;
 	}
 
+	public Document getDocument() {
+		return document;
+	}
+
+	public void setDocument(Document document) {
+		this.document = document;
+	}
+
 	public UserInformation getUserInformation() {
 		return userInformation;
 	}
@@ -90,12 +93,10 @@ public class RestaurantDetails {
 		this.userInformation = userInformation;
 	}
 
-	public String getDocumentPath() {
-		return documentPath;
+	@Override
+	public String toString() {
+		return "RestaurantDetails [id=" + id + ", restaurantName=" + restaurantName + ", registrationNumber="
+				+ registrationNumber + ", address=" + address + ", document=" + document + ", userInformation="
+				+ userInformation + "]";
 	}
-
-	public void setDocumentPath(String documentPath) {
-		this.documentPath = documentPath;
-	}
-  	
 }

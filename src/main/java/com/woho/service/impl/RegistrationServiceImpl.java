@@ -131,7 +131,7 @@ public class RegistrationServiceImpl implements RegistrationService{
 		storageService.store(file);
 		//storageService.loadFile(restaurantDetailsVO.getFile().getOriginalFilename());
 		//String docmentPath = restaurantDetailsVO.getFile()
-		restaurantDetails.setDocumentPath(file.getOriginalFilename());
+		//restaurantDetails.setDocumentPath(file.getOriginalFilename());
 		restaurantDetails.setRegistrationNumber("76998");
 		restaurantDetails.setRestaurantName("Gandharva");
 		restaurantDetailsDao.addRestaurantDetails(restaurantDetails);
