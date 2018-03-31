@@ -92,6 +92,19 @@ POST: http://127.0.0.1:8090/api/user/restaurant/search
 	"restaurantTypeId":2
 }
 
+8.3 :
+{
+	"latitude":18.5075353,
+	"longitude":73.807182
+}
+
+8.4:
+{
+	"restaurantIds":[1,2]
+}
+
+Response:
+
 9. Get Food Categories like Tandoori, Chinees (Inventory Call)
 GET: http://127.0.0.1:8090/api/getfoodcategories
 
@@ -107,3 +120,10 @@ GET: http://127.0.0.1:8090/api/getrestauranttypes
 13. Select Restaurant Menu, after search restaurant
 POST: http://127.0.0.1:8090/api/user/restaurant/selectmenu
 {"restaurantId":1}
+
+14. Get Restaurant Ids on the basis of latitude and longitude. On UI, Italian=3 (count)
+POST: http://127.0.0.1:8090/api/user/restaurant/searchtype
+{
+	"latitude":18.5075353,
+	"longitude":73.807182
+}

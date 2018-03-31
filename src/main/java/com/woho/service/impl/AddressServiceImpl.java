@@ -29,7 +29,8 @@ public class AddressServiceImpl implements AddressService {
 			}
 
 			if (!StringUtils.isEmpty(addressVO.getLatitude()) && !StringUtils.isEmpty(addressVO.getLongitude())) {
-				addresses = addressDao.searchAddress(addressVO.getLatitude(), addressVO.getLongitude());
+				addresses = addressDao.searchAddress(addressVO.getLatitude(), addressVO.getLongitude(),
+						addressVO.getType());
 			}
 		}
 		return addresses;

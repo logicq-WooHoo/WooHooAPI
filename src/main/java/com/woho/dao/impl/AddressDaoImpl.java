@@ -43,22 +43,17 @@ public class AddressDaoImpl extends AbstractDAO<Address> implements AddressDao {
 		return executeQuery(selectQuery.toString());
 	}
 
+	/**
+	 * Search address using latitude, longitude.
+	 * Reference: http://spinczyk.net/blog/2009/10/04/radius-search-with-google-maps-and-mysql/
+	 */
 	@Override
-	public List<Address> searchAddress(Double latitude, Double longitude) throws Exception {
+	public List<Address> searchAddress(Double latitude, Double longitude, String type) throws Exception {
 		StringBuilder selectQuery = new StringBuilder();
 		StringBuilder whereQuery = new StringBuilder();
 		if (!StringUtils.isEmpty(latitude) && !StringUtils.isEmpty(longitude)) {
-			//selectQuery.append("SELECT *");
-			/*selectQuery.append("SELECT *, ACOS( SIN( RADIANS( `latitude` ) ) * SIN( RADIANS(");
-			selectQuery.append(latitude);
-			selectQuery.append(") ) + COS( RADIANS( `latitude` ) ) * COS( RADIANS(");
-			selectQuery.append(latitude);
-			selectQuery.append(")) * COS( RADIANS( `longitude` ) - RADIANS(");
-			selectQuery.append(longitude);
-			selectQuery.append("))) * 6380 AS `distance` from Address ");*/
 			selectQuery.append(" from Address ");
 			whereQuery.append("where ");
-
 			whereQuery.append("ACOS( SIN( RADIANS(latitude) ) * SIN( RADIANS(");
 			whereQuery.append(latitude);
 			whereQuery.append(") ) + COS( RADIANS(latitude) ) * COS( RADIANS(");
@@ -66,6 +61,9 @@ public class AddressDaoImpl extends AbstractDAO<Address> implements AddressDao {
 			whereQuery.append(")) * COS( RADIANS(longitude) - RADIANS(");
 			whereQuery.append(longitude);
 			whereQuery.append("))) * 6380 < 5");
+			if (!StringUtils.isEmpty(type)) {
+				whereQuery.append(" and type='").append(type + "'");
+			}
 		} else {
 			throw new Exception("Latitude/Longitude can not be Null");
 		}

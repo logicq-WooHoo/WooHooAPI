@@ -2,7 +2,6 @@ package com.woho.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -45,10 +44,11 @@ public class RestaurantSearchController {
 	@Autowired
 	FoodServiceTypeService foodServiceTypeService;
 	@Autowired
-	RestaurantTypeService restaurantTypeService; 
-	
+	RestaurantTypeService restaurantTypeService;
+
 	@RequestMapping(value = "/user/restaurant/searchtype", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, List<Long>> searchRestaurantTypes(@RequestBody RestaurantSearchVO restaurantSearchVO) throws Exception {
+	public Map<String, List<Long>> searchRestaurantTypes(@RequestBody RestaurantSearchVO restaurantSearchVO)
+			throws Exception {
 		List<RestaurantVO> restaurantVOs = restaurantSearchService.searchRestaurant(restaurantSearchVO);
 		Map<String, List<Long>> restTypeCountMap = new HashMap<>();
 		restaurantVOs.forEach(rest -> {
@@ -61,38 +61,38 @@ public class RestaurantSearchController {
 				} else {
 					List<Long> restIds = new ArrayList<>();
 					restIds.add(rest.getId());
-					restTypeCountMap.put(rt,restIds);
+					restTypeCountMap.put(rt, restIds);
 				}
 			});
 		});
 		return restTypeCountMap;
 	}
-	
+
 	@RequestMapping(value = "/user/restaurant/search", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public List<RestaurantVO> searchRestaurant(@RequestBody RestaurantSearchVO restaurantSearchVO) throws Exception {
 		return restaurantSearchService.searchRestaurant(restaurantSearchVO);
 	}
-	
+
 	@RequestMapping(value = "/user/restaurant/selectmenu", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public RestaurantMenu selectMenu(@RequestBody RestaurantMenuVO restaurantMenuVO) throws Exception {
 		return restaurantMenuService.getByRestaurantId(restaurantMenuVO.getRestaurantId());
 	}
-	
+
 	@RequestMapping(value = "/getfoodcategories", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<FoodCategory> getFoodCategories() throws JsonProcessingException {
 		return foodCategoryService.list();
 	}
-	
+
 	@RequestMapping(value = "/getdeliverypartners", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<DeliveryPartner> getDeliveryPartners() throws Exception {
 		return deliveryPartnerService.list();
 	}
-	
+
 	@RequestMapping(value = "/getfoodservicetypes", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<FoodServiceType> getFoodServiceTypes() throws Exception {
 		return foodServiceTypeService.list();
 	}
-	
+
 	@RequestMapping(value = "/getrestauranttypes", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<RestaurantType> getRestaurantTypes() throws Exception {
 		return restaurantTypeService.list();

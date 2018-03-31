@@ -127,19 +127,21 @@ public class RestaurantSearchServiceImpl implements RestaurantSearchService {
 
 	private List<RestaurantVO> generateRestaurantVOList(List<RestaurantDetails> restaurantDetailsList) {
 		List<RestaurantVO> restaurantVOList = new ArrayList<>();
-		restaurantDetailsList.forEach(rd -> {
-			RestaurantVO restaurantVO = new RestaurantVO();
-			restaurantVO.setArea(rd.getAddress().getLocality());
-			restaurantVO.setCity(rd.getAddress().getCity());
-			restaurantVO.setDeliveryPartners(restaurantSetupService.getDeliveryPartnerNames(rd.getId()));
-			restaurantVO.setId(rd.getId());
-			restaurantVO.setRecommendationCount(
-					restaurantReviewService.getByRestaurantId(rd.getId()).getRecommendationCount());
-			restaurantVO.setRating(restaurantReviewService.getByRestaurantId(rd.getId()).getRating());
-			restaurantVO.setRestaurantName(rd.getRestaurantName());
-			restaurantVO.setRestaurantTypes(restaurantSetupService.getRestaurantTypeNames(rd.getId()));
-			restaurantVOList.add(restaurantVO);
-		});
+		if (null != restaurantDetailsList) {
+			restaurantDetailsList.forEach(rd -> {
+				RestaurantVO restaurantVO = new RestaurantVO();
+				restaurantVO.setArea(rd.getAddress().getLocality());
+				restaurantVO.setCity(rd.getAddress().getCity());
+				restaurantVO.setDeliveryPartners(restaurantSetupService.getDeliveryPartnerNames(rd.getId()));
+				restaurantVO.setId(rd.getId());
+				restaurantVO.setRecommendationCount(
+						restaurantReviewService.getByRestaurantId(rd.getId()).getRecommendationCount());
+				restaurantVO.setRating(restaurantReviewService.getByRestaurantId(rd.getId()).getRating());
+				restaurantVO.setRestaurantName(rd.getRestaurantName());
+				restaurantVO.setRestaurantTypes(restaurantSetupService.getRestaurantTypeNames(rd.getId()));
+				restaurantVOList.add(restaurantVO);
+			});
+		}
 		return restaurantVOList;
 	}
 
