@@ -59,6 +59,12 @@ public class Address {
 	@Column(name = "COUNTY")
 	private String country;
 
+	@Column(name = "LATITUDE", nullable = false)
+	private Double latitude;
+	
+	@Column(name = "LONGITUDE", nullable = false)
+	private Double longitude;
+	
 	@Size(max = 100)
 	@Column(name = "ADDRESS_TYPE")
 	private String type;
@@ -149,6 +155,22 @@ public class Address {
 
 	public void setCountry(String country) {
 		this.country = country;
+	}
+
+	public Double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
+
+	public Double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
 	}
 
 	public String getType() {
