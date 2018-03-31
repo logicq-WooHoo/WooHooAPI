@@ -1,6 +1,11 @@
 package com.woho.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -41,6 +46,27 @@ public class RestaurantSearchController {
 	FoodServiceTypeService foodServiceTypeService;
 	@Autowired
 	RestaurantTypeService restaurantTypeService; 
+	
+	@RequestMapping(value = "/user/restaurant/searchtype", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, List<Long>> searchRestaurantTypes(@RequestBody RestaurantSearchVO restaurantSearchVO) throws Exception {
+		List<RestaurantVO> restaurantVOs = restaurantSearchService.searchRestaurant(restaurantSearchVO);
+		Map<String, List<Long>> restTypeCountMap = new HashMap<>();
+		restaurantVOs.forEach(rest -> {
+			Set<String> restTypes = rest.getRestaurantTypes();
+			restTypes.forEach(rt -> {
+				if (restTypeCountMap.containsKey(rt)) {
+					List<Long> restIds = restTypeCountMap.get(rt);
+					restIds.add(rest.getId());
+					restTypeCountMap.put(rt, restIds);
+				} else {
+					List<Long> restIds = new ArrayList<>();
+					restIds.add(rest.getId());
+					restTypeCountMap.put(rt,restIds);
+				}
+			});
+		});
+		return restTypeCountMap;
+	}
 	
 	@RequestMapping(value = "/user/restaurant/search", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public List<RestaurantVO> searchRestaurant(@RequestBody RestaurantSearchVO restaurantSearchVO) throws Exception {

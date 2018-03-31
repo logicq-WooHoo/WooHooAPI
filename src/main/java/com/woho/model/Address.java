@@ -68,6 +68,8 @@ public class Address {
 	@Size(max = 100)
 	@Column(name = "ADDRESS_TYPE")
 	private String type;
+	
+	private Double distance;
 
 	public Long getId() {
 		return id;
@@ -180,4 +182,13 @@ public class Address {
 	public void setType(String type) {
 		this.type = type;
 	}
+
+	public Double getDistance() {
+		return distance;
+	}
+
+	public void setDistance(Double distance) {
+		this.distance = distance;
+	}
+	
 }

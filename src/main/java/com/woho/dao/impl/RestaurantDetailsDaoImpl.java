@@ -66,5 +66,11 @@ public class RestaurantDetailsDaoImpl extends AbstractDAO<RestaurantDetails> imp
 		return (List<RestaurantDetails>) executeQueryWithList(hql, addresses);
 	}
 
+	@Override
+	public List<RestaurantDetails> getByIdList(List<Long> ids) {
+		String hql = "from RestaurantDetails where id in (:list)";
+		return (List<RestaurantDetails>) executeQueryWithList(hql, ids);
+	}
+
 	
 }

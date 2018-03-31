@@ -21,4 +21,5 @@ public interface RestaurantDetailsDao {
 	public boolean isRestaurantDetailsExist(RestaurantDetails restaurantDetails);
 	
 	List<RestaurantDetails> getByAddressList(List<Address> addresses);
+	List<RestaurantDetails> getByIdList(List<Long> ids);
 }

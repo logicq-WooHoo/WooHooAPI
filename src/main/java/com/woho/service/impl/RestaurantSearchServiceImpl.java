@@ -80,8 +80,14 @@ public class RestaurantSearchServiceImpl implements RestaurantSearchService {
 	@Transactional(readOnly = true)
 	public List<RestaurantVO> searchRestaurant(RestaurantSearchVO restaurantSearchVO) throws Exception {
 		restaurantSearchVO.setType("restaurant");
+		List<RestaurantDetails> restaurantDetailsList = null;
+		if (null != restaurantSearchVO.getRestaurantIds()) {
+			restaurantDetailsList = restaurantDetailsService.getByIdList(restaurantSearchVO.getRestaurantIds());
+		}
 		List<Address> addresses = addressService.searchAddress(restaurantSearchVO);
-		List<RestaurantDetails> restaurantDetailsList = restaurantDetailsService.getByAddressList(addresses);
+		if (null != addresses) {
+			restaurantDetailsList = restaurantDetailsService.getByAddressList(addresses);
+		}
 		if (!StringUtils.isEmpty(restaurantSearchVO.getFoodCategory())) {
 			FoodCategory foodCategory = foodCategoryService.getFoodCategory(restaurantSearchVO.getFoodCategory());
 			List<RestaurantDetailsFoodCategory> restaurantDetailsFoodCategoryList = restaurantDetailsFoodCategoryService
@@ -108,13 +114,18 @@ public class RestaurantSearchServiceImpl implements RestaurantSearchService {
 					.collect(Collectors.toList());
 		}
 
-		if(null != restaurantSearchVO.getRestaurantTypeId()) {
-			Set<RestaurantSetup> restaurantSetups = restaurantSetupService.getByRestaurantTypeId(restaurantSearchVO.getRestaurantTypeId());
+		if (null != restaurantSearchVO.getRestaurantTypeId()) {
+			Set<RestaurantSetup> restaurantSetups = restaurantSetupService
+					.getByRestaurantTypeId(restaurantSearchVO.getRestaurantTypeId());
 			restaurantDetailsList = restaurantDetailsList.stream().filter(
 					rd -> restaurantSetups.stream().anyMatch(rs -> rs.getRestaurantDetails().getId() == rd.getId()))
 					.collect(Collectors.toList());
 		}
-		
+
+		return generateRestaurantVOList(restaurantDetailsList);
+	}
+
+	private List<RestaurantVO> generateRestaurantVOList(List<RestaurantDetails> restaurantDetailsList) {
 		List<RestaurantVO> restaurantVOList = new ArrayList<>();
 		restaurantDetailsList.forEach(rd -> {
 			RestaurantVO restaurantVO = new RestaurantVO();
