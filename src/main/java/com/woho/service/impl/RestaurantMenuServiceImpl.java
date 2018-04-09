@@ -42,5 +42,14 @@ public class RestaurantMenuServiceImpl implements RestaurantMenuService {
 			throws Exception {
 		return restaurantMenuDao.getByMenuItemsAndRestaurantDetails(menuItems, restaurantDetailsSet);
 	}
+
+	@Override
+	public Set<MenuItem> getMenuItemsByRestaurantId(Long restaurantId) {
+		RestaurantMenu restaurantMenu = getByRestaurantId(restaurantId);
+		if (null != restaurantMenu) {
+			return restaurantMenu.getMenuItems();
+		}
+		return null;
+	}
 	
 }

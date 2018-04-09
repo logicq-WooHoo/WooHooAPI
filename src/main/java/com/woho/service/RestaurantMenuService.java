@@ -16,4 +16,5 @@ public interface RestaurantMenuService {
 	RestaurantMenu getByMenuItem(MenuItem menuItem);
 	RestaurantMenu getByRestaurantId(Long restaurantId);
 	List<RestaurantMenu> getByMenuItemsAndRestaurantDetails(Set<MenuItem> menuItems, Set<RestaurantDetails> restaurantDetailsSet) throws Exception;
+	Set<MenuItem> getMenuItemsByRestaurantId(Long restaurantId);
 }

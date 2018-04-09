@@ -118,8 +118,8 @@ GET: http://127.0.0.1:8090/api/getfoodservicetypes
 GET: http://127.0.0.1:8090/api/getrestauranttypes
 
 13. Select Restaurant Menu, after search restaurant
-POST: http://127.0.0.1:8090/api/user/restaurant/selectmenu
-{"restaurantId":1}
+GET: http://127.0.0.1:8090/api/user/restaurant/selectmenu/{restaurantId}
+GET: http://127.0.0.1:8090/api/user/restaurant/selectmenu/1
 
 14. Get Restaurant Ids on the basis of latitude and longitude. On UI, Italian=3 (count)
 POST: http://127.0.0.1:8090/api/user/restaurant/searchtype
