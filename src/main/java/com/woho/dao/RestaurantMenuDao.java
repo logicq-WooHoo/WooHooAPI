@@ -10,6 +10,7 @@ import com.woho.model.RestaurantMenu;
 public interface RestaurantMenuDao {
 	void addRestaurantMenu(RestaurantMenu restaurantMenu);
 	RestaurantMenu getByMenuItem(MenuItem menuItem);
+	List<RestaurantMenu> getByMenuItems(Set<MenuItem> menuItems);
 	RestaurantMenu getByRestaurantId(Long restaurantId);
 	List<RestaurantMenu> getByMenuItemsAndRestaurantDetails(Set<MenuItem> menuItems, Set<RestaurantDetails> restaurantDetailsSet) throws Exception;
 }

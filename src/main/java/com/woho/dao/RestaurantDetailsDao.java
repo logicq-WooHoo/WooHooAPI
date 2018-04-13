@@ -22,4 +22,5 @@ public interface RestaurantDetailsDao {
 	
 	List<RestaurantDetails> getByAddressList(List<Address> addresses);
 	List<RestaurantDetails> getByIdList(List<Long> ids);
+	List<RestaurantDetails> findByRestaurantName(String restaurantName);
 }

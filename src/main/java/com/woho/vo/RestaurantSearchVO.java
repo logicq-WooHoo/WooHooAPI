@@ -31,6 +31,8 @@ public class RestaurantSearchVO extends AddressVO {
 	private Long restaurantTypeId;
 
 	private List<Long> restaurantIds;
+	
+	private String restaurantName;
 
 	public String getFoodCategory() {
 		return foodCategory;
@@ -72,10 +74,18 @@ public class RestaurantSearchVO extends AddressVO {
 		this.restaurantIds = restaurantIds;
 	}
 
+	public String getRestaurantName() {
+		return restaurantName;
+	}
+
+	public void setRestaurantName(String restaurantName) {
+		this.restaurantName = restaurantName;
+	}
+
 	@Override
 	public String toString() {
 		return "RestaurantSearchVO [foodCategory=" + foodCategory + ", foodServiceTypes=" + foodServiceTypes
 				+ ", rating=" + rating + ", restaurantTypeId=" + restaurantTypeId + ", restaurantIds=" + restaurantIds
-				+ "]";
+				+ ", restaurantName=" + restaurantName + "]";
 	}
 }

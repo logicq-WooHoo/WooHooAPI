@@ -86,4 +86,10 @@ public class RestaurantDetailsDaoImpl extends AbstractDAO<RestaurantDetails> imp
 		return (List<RestaurantDetails>) executeQueryWithList(hql, ids);
 	}
 
+	@Override
+	public List<RestaurantDetails> findByRestaurantName(String restaurantName) {
+		String hql = "from RestaurantDetails where restaurantName like :restaurantName";
+		return selectWithLikeClause(hql, "restaurantName", restaurantName);
+	}
+
 }

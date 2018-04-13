@@ -29,6 +29,9 @@ public class MenuItem {
 	@Column(name="PRICE")
 	private Double price;
 
+	@Column(name="IS_VEG")
+	private Boolean isVeg;
+
 	public Long getId() {
 		return id;
 	}
@@ -68,5 +71,18 @@ public class MenuItem {
 	public void setPrice(Double price) {
 		this.price = price;
 	}
-	
+
+	public Boolean getIsVeg() {
+		return isVeg;
+	}
+
+	public void setIsVeg(Boolean isVeg) {
+		this.isVeg = isVeg;
+	}
+
+	@Override
+	public String toString() {
+		return "MenuItem [id=" + id + ", foodServiceType=" + foodServiceType + ", foodCategory=" + foodCategory
+				+ ", itemName=" + itemName + ", price=" + price + ", isVeg=" + isVeg + "]";
+	}
 }

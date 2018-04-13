@@ -52,4 +52,12 @@ public class RestaurantMenuDaoImpl extends AbstractDAO<RestaurantMenu> implement
 		return selectWithInClause(values, RestaurantMenu.class);
 	}
 
+	@Override
+	public List<RestaurantMenu> getByMenuItems(Set<MenuItem> menuItems) {
+		String hql = "select rm from RestaurantMenu rm " +
+                "join rm.menuItems mi " +
+                "where mi = (:set) ";
+		return (List<RestaurantMenu>) executeQueryWithSet(hql, menuItems);
+	}
+
 }

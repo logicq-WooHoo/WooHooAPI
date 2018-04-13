@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import com.woho.dao.RestaurantSetupDao;
 import com.woho.model.DeliveryPartner;
@@ -32,9 +33,10 @@ public class RestaurantSetupServiceImpl implements RestaurantSetupService {
 	@Override
 	public Set<String> getDeliveryPartnerNames(Long restaurantId) {
 		Set<DeliveryPartner> deliveryPartners = getDeliveryPartners(restaurantId);
-		Set<String> deliveryPartnerNames = deliveryPartners.stream().map(dp -> dp.getName())
-				.collect(Collectors.toSet());
-		return deliveryPartnerNames;
+		if (!CollectionUtils.isEmpty(deliveryPartners)) {
+			return deliveryPartners.stream().map(dp -> dp.getName()).collect(Collectors.toSet());
+		}
+		return null;
 	}
 
 	@Override
@@ -46,8 +48,10 @@ public class RestaurantSetupServiceImpl implements RestaurantSetupService {
 	@Override
 	public Set<String> getRestaurantTypeNames(Long restaurantId) {
 		Set<RestaurantType> restaurantTypes = getRestaurantTypes(restaurantId);
-		Set<String> restaurantTypeNames = restaurantTypes.stream().map(rt -> rt.getType()).collect(Collectors.toSet());
-		return restaurantTypeNames;
+		if (!CollectionUtils.isEmpty(restaurantTypes)) {
+			return restaurantTypes.stream().map(rt -> rt.getType()).collect(Collectors.toSet());
+		}
+		return null;
 	}
 
 	@Override

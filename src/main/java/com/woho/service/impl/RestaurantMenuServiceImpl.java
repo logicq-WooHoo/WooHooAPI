@@ -51,5 +51,10 @@ public class RestaurantMenuServiceImpl implements RestaurantMenuService {
 		}
 		return null;
 	}
+
+	@Override
+	public List<RestaurantMenu> getByMenuItems(Set<MenuItem> menuItems) {
+		return restaurantMenuDao.getByMenuItems(menuItems);
+	}
 	
 }

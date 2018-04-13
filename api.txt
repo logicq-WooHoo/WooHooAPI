@@ -103,7 +103,30 @@ POST: http://127.0.0.1:8090/api/user/restaurant/search
 	"restaurantIds":[1,2]
 }
 
-Response:
+8.5:
+{
+	"city":"Pune",
+	"foodServiceTypes":["Lunch","Breakfast"]
+}
+
+8.6: restaurant search on the basis of menu:
+{
+	"city":"Pune",
+	"foodCategory":"aloo methi"
+}
+
+or 
+
+{
+	"city":"Pune",
+	"foodCategory":"aloo"
+}
+
+8.7: restaurant search on the basis of restaurant name:
+{
+	"city":"Pune",
+    "restaurantName": "Hotel Kina"
+}
 
 9. Get Food Categories like Tandoori, Chinees (Inventory Call)
 GET: http://127.0.0.1:8090/api/getfoodcategories

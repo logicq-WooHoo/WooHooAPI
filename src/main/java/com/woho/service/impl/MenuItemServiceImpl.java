@@ -18,7 +18,7 @@ import com.woho.service.MenuItemService;
 
 @Service
 @Transactional
-public class MenuItemServiceImpl implements MenuItemService{
+public class MenuItemServiceImpl implements MenuItemService {
 	
 	@Autowired
 	MenuItemDao menuItemDao;
@@ -32,6 +32,11 @@ public class MenuItemServiceImpl implements MenuItemService{
 	@Override
 	public List<MenuItem> getByFoodServiceTypes(List<String> foodServiceTypes) {
 		return menuItemDao.getByFoodServiceTypes(foodServiceTypes);
+	}
+
+	@Override
+	public List<MenuItem> findByMenuItem(String menuItem) {
+		return menuItemDao.findByMenuItem(menuItem);
 	}
 
 }

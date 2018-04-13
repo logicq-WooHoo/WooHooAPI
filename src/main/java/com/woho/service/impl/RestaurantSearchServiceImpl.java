@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import com.woho.dao.RestaurantDetailsDao;
@@ -79,64 +81,90 @@ public class RestaurantSearchServiceImpl implements RestaurantSearchService {
 	@Override
 	@Transactional(readOnly = true)
 	public List<RestaurantVO> searchRestaurant(RestaurantSearchVO restaurantSearchVO) throws Exception {
+		List<MenuItem> menuItems = new ArrayList<>();
 		restaurantSearchVO.setType("restaurant");
 		List<RestaurantDetails> restaurantDetailsList = null;
-		if (null != restaurantSearchVO.getRestaurantIds()) {
+		if (!CollectionUtils.isEmpty(restaurantSearchVO.getRestaurantIds())) {
 			restaurantDetailsList = restaurantDetailsService.getByIdList(restaurantSearchVO.getRestaurantIds());
 		}
 		List<Address> addresses = addressService.searchAddress(restaurantSearchVO);
-		if (null != addresses) {
+		if (!CollectionUtils.isEmpty(addresses)) {
 			restaurantDetailsList = restaurantDetailsService.getByAddressList(addresses);
 		}
 		if (!StringUtils.isEmpty(restaurantSearchVO.getFoodCategory())) {
 			FoodCategory foodCategory = foodCategoryService.getFoodCategory(restaurantSearchVO.getFoodCategory());
-			List<RestaurantDetailsFoodCategory> restaurantDetailsFoodCategoryList = restaurantDetailsFoodCategoryService
-					.getByFoodCategoryID(foodCategory.getCategoryId());
+			if (!ObjectUtils.isEmpty(foodCategory)) {
+				List<RestaurantDetailsFoodCategory> restaurantDetailsFoodCategoryList = restaurantDetailsFoodCategoryService
+						.getByFoodCategoryID(foodCategory.getCategoryId());
+				if (!CollectionUtils.isEmpty(restaurantDetailsFoodCategoryList)) {
+					restaurantDetailsList = restaurantDetailsList.stream()
+							.filter(rd -> restaurantDetailsFoodCategoryList.stream()
+									.anyMatch(rdFd -> rdFd.getRestId() == rd.getId()))
+							.collect(Collectors.toList());
+				}
+			}
+			menuItems.addAll(menuItemService.findByMenuItem(restaurantSearchVO.getFoodCategory()));
+		}
+
+		if (!CollectionUtils.isEmpty(restaurantSearchVO.getFoodServiceTypes())) {
+			menuItems.addAll(
+					menuItemService.getByFoodServiceTypes(new ArrayList(restaurantSearchVO.getFoodServiceTypes())));
+
+		}
+
+		if (!menuItems.isEmpty()) {
+			List<RestaurantMenu> restaurantMenus = restaurantMenuService
+					.getByMenuItems(new HashSet<MenuItem>(menuItems));
 			restaurantDetailsList = restaurantDetailsList.stream().filter(
-					rd -> restaurantDetailsFoodCategoryList.stream().anyMatch(rdFd -> rdFd.getRestId() == rd.getId()))
-					.collect(Collectors.toList());
-		}
-		if (null != restaurantSearchVO.getFoodServiceTypes() && !restaurantSearchVO.getFoodServiceTypes().isEmpty()) {
-			List<MenuItem> menuItems = menuItemService
-					.getByFoodServiceTypes(new ArrayList(restaurantSearchVO.getFoodServiceTypes()));
-
-			List<RestaurantMenu> restaurantMenus = restaurantMenuService.getByMenuItemsAndRestaurantDetails(
-					new HashSet<MenuItem>(menuItems), new HashSet<RestaurantDetails>(restaurantDetailsList));
-
-			restaurantDetailsList = restaurantMenus.stream().map(rm -> rm.getRestaurantDetails())
+					rd -> restaurantMenus.stream().anyMatch(rm -> rm.getRestaurantDetails().getId() == rd.getId()))
 					.collect(Collectors.toList());
 		}
 
-		if (null != restaurantSearchVO.getRating()) {
+		if (!ObjectUtils.isEmpty(restaurantSearchVO.getRating())) {
 			List<RestaurantReview> restaurantReviews = restaurantReviewService.get(restaurantSearchVO.getRating(),
 					restaurantDetailsList);
 			restaurantDetailsList = restaurantReviews.stream().map(rr -> rr.getRestaurantDetails())
 					.collect(Collectors.toList());
 		}
 
-		if (null != restaurantSearchVO.getRestaurantTypeId()) {
+		if (!ObjectUtils.isEmpty(restaurantSearchVO.getRestaurantTypeId())) {
 			Set<RestaurantSetup> restaurantSetups = restaurantSetupService
 					.getByRestaurantTypeId(restaurantSearchVO.getRestaurantTypeId());
-			restaurantDetailsList = restaurantDetailsList.stream().filter(
-					rd -> restaurantSetups.stream().anyMatch(rs -> rs.getRestaurantDetails().getId() == rd.getId()))
-					.collect(Collectors.toList());
+			if (!CollectionUtils.isEmpty(restaurantSetups)) {
+				restaurantDetailsList = restaurantDetailsList.stream().filter(
+						rd -> restaurantSetups.stream().anyMatch(rs -> rs.getRestaurantDetails().getId() == rd.getId()))
+						.collect(Collectors.toList());
+			}
 		}
 
+		if (!ObjectUtils.isEmpty(restaurantSearchVO.getRestaurantName())) {
+			List<RestaurantDetails> rds = restaurantDetailsService
+					.findByRestaurantName(restaurantSearchVO.getRestaurantName());
+			restaurantDetailsList = restaurantDetailsList.stream()
+					.filter(rd -> rds.stream().anyMatch(rdsbyname -> rdsbyname.getId() == rd.getId()))
+					.collect(Collectors.toList());
+		}
 		return generateRestaurantVOList(restaurantDetailsList);
 	}
 
 	private List<RestaurantVO> generateRestaurantVOList(List<RestaurantDetails> restaurantDetailsList) {
 		List<RestaurantVO> restaurantVOList = new ArrayList<>();
-		if (null != restaurantDetailsList) {
+		if (!CollectionUtils.isEmpty(restaurantDetailsList)) {
 			restaurantDetailsList.forEach(rd -> {
 				RestaurantVO restaurantVO = new RestaurantVO();
 				restaurantVO.setArea(rd.getAddress().getLocality());
 				restaurantVO.setCity(rd.getAddress().getCity());
 				restaurantVO.setDeliveryPartners(restaurantSetupService.getDeliveryPartnerNames(rd.getId()));
 				restaurantVO.setId(rd.getId());
-				restaurantVO.setRecommendationCount(
-						restaurantReviewService.getByRestaurantId(rd.getId()).getRecommendationCount());
-				restaurantVO.setRating(restaurantReviewService.getByRestaurantId(rd.getId()).getRating());
+				RestaurantReview restaurantReview = restaurantReviewService.getByRestaurantId(rd.getId());
+				if (!ObjectUtils.isEmpty(restaurantReview)) {
+					if (!ObjectUtils.isEmpty(restaurantReview.getRecommendationCount())) {
+						restaurantVO.setRecommendationCount(restaurantReview.getRecommendationCount());
+					}
+					if (!ObjectUtils.isEmpty(restaurantReview.getRating())) {
+						restaurantVO.setRating(restaurantReview.getRating());
+					}
+				}
 				restaurantVO.setRestaurantName(rd.getRestaurantName());
 				restaurantVO.setRestaurantTypes(restaurantSetupService.getRestaurantTypeNames(rd.getId()));
 				restaurantVOList.add(restaurantVO);

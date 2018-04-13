@@ -33,5 +33,11 @@ public class MenuItemDaoImpl extends AbstractDAO<MenuItem> implements MenuItemDa
 		return (List<MenuItem>) executeQueryWithList(hql, foodServiceTypes);
 	}
 
+	@Override
+	public List<MenuItem> findByMenuItem(String itemName) {
+		String hql = "from MenuItem where itemName like :itemName";
+		return selectWithLikeClause(hql, "itemName", itemName);
+	}
+
 	
 }

@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -135,8 +136,7 @@ public class AbstractDAO<T> implements Serializable {
 	}
 
 	/**
-	 * This method executes mysql smart alarm procedures based on configured
-	 * policy.
+	 * This method executes mysql smart alarm procedures based on configured policy.
 	 */
 	public int executeProcedure(Class clazz, String queryString) {
 		Query query = getSession().createSQLQuery(queryString).addEntity(clazz);
@@ -144,8 +144,8 @@ public class AbstractDAO<T> implements Serializable {
 	}
 
 	/**
-	 * Unused method : This select will fetch record according to page size and
-	 * page number.
+	 * Unused method : This select will fetch record according to page size and page
+	 * number.
 	 * 
 	 * @param sqlquery
 	 * @param currentpage
@@ -265,6 +265,12 @@ public class AbstractDAO<T> implements Serializable {
 		return query.list();
 	}
 
+	public List<?> executeQueryWithSet(String sqlquery, Set<?> set) {
+		Query query = getSession().createQuery(sqlquery);
+		query.setParameterList("set", set);
+		return query.list();
+	}
+
 	public List<T> selectWithInClause(Map<String, Set> values, Class claz) throws Exception {
 		Criteria cr = getSession().createCriteria(claz);
 		values.forEach((k, v) -> {
@@ -280,6 +286,18 @@ public class AbstractDAO<T> implements Serializable {
 			});
 		}
 	}
-	
-	
+
+	public List<T> selectWithLikeClause(Class claz, String searchColumn, String searchValue) {
+		Criteria crit = getSession().createCriteria(claz);
+		crit.add(Restrictions.like(searchColumn, "%" + searchValue + "%"));
+		return crit.list();
+	}
+
+	public List<T> selectWithLikeClause(String hql, String searchColumn, String searchValue) {
+		Query query = getSession().createQuery(hql);
+		query.setParameter(searchColumn, "%" + searchValue + "%");
+		query.setMaxResults(10);
+		return query.list();
+	}
+
 }
