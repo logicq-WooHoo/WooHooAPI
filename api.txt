@@ -98,12 +98,12 @@ POST: http://127.0.0.1:8090/api/user/restaurant/search
 	"longitude":73.807182
 }
 
-8.4:
+8.4: restaurant search on the basis of restaurantIds:
 {
 	"restaurantIds":[1,2]
 }
 
-8.5:
+8.5: restaurant search on the basis of foodServiceTypes:
 {
 	"city":"Pune",
 	"foodServiceTypes":["Lunch","Breakfast"]
@@ -150,3 +150,19 @@ POST: http://127.0.0.1:8090/api/user/restaurant/searchtype
 	"latitude":18.5075353,
 	"longitude":73.807182
 }
+
+15: Get Order Tracking Ids of a User
+GET: http://127.0.0.1:8090/api/user/getpastorders/{userId}
+GET: http://127.0.0.1:8090/api/user/getpastorders/2
+
+Response:
+[
+    {
+        "trackingId": "BM9TN9",
+        "timestamp": 1523780352000
+    }
+]
+
+16: Get order details using tracking id
+GET: http://127.0.0.1:8090/api/user/getorderdetails/{trackingId}
+GET: http://127.0.0.1:8090/api/user/getorderdetails/BM9TN9

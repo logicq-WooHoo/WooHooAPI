@@ -100,8 +100,8 @@ public class AbstractDAO<T> implements Serializable {
 	 * @param clazz
 	 * @return
 	 */
-	public List<T> executeQuery(String sqlquery) {
-		Query query = getSession().createQuery(sqlquery);
+	public List<T> executeQuery(String hql) {
+		Query query = getSession().createQuery(hql);
 		return (List<T>) query.list();
 	}
 
