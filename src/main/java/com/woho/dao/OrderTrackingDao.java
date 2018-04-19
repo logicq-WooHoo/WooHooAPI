@@ -12,4 +12,5 @@ import com.woho.model.OrderTracking;
 public interface OrderTrackingDao {
 	OrderTracking get(String trackingId);
 	List<OrderTracking> getByUserId(Long userId);
+	void add(OrderTracking orderTracking);
 }

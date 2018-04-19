@@ -13,6 +13,8 @@ public class OrderTrackingVO {
 
 	private Date timestamp;
 
+	private CartVO orderJson;
+
 	public String getTrackingId() {
 		return trackingId;
 	}
@@ -29,9 +31,17 @@ public class OrderTrackingVO {
 		this.timestamp = timestamp;
 	}
 
-	@Override
-	public String toString() {
-		return "OrderTrackingVO [trackingId=" + trackingId + ", timestamp=" + timestamp + "]";
+	public CartVO getOrderJson() {
+		return orderJson;
 	}
 
+	public void setOrderJson(CartVO orderJson) {
+		this.orderJson = orderJson;
+	}
+
+	@Override
+	public String toString() {
+		return "OrderTrackingVO [trackingId=" + trackingId + ", timestamp=" + timestamp + ", orderJson=" + orderJson
+				+ "]";
+	}
 }

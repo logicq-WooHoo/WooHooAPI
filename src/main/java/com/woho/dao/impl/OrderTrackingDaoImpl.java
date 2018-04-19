@@ -32,4 +32,9 @@ public class OrderTrackingDaoImpl extends AbstractDAO<OrderTracking> implements 
 		return getRecordById(OrderTracking.class, id);
 	}
 
+	@Override
+	public void add(OrderTracking orderTracking) {
+		save(orderTracking);
+	}
+
 }

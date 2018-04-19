@@ -1,13 +1,13 @@
 package com.woho.model;
 
+import java.util.Arrays;
 import java.util.Date;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -34,13 +34,13 @@ public class OrderTracking {
 	@Column(name = "TIMESTAMP", nullable = false)
 	private Date timestamp;
 
+	@Lob
+	@Column(name = "ORDER_JSON", nullable = false)
+	private byte[] orderJson;
+
 	@OneToOne(fetch = FetchType.LAZY)
 	@NotNull
 	private UserInformation userInformation;
-	
-	@OneToMany
-	@NotNull
-	private Set<OrderDetails> orderDetails;
 
 	public String getId() {
 		return id;
@@ -58,6 +58,14 @@ public class OrderTracking {
 		this.timestamp = timestamp;
 	}
 
+	public byte[] getOrderJson() {
+		return orderJson;
+	}
+
+	public void setOrderJson(byte[] orderJson) {
+		this.orderJson = orderJson;
+	}
+
 	public UserInformation getUserInformation() {
 		return userInformation;
 	}
@@ -66,11 +74,9 @@ public class OrderTracking {
 		this.userInformation = userInformation;
 	}
 
-	public Set<OrderDetails> getOrderDetails() {
-		return orderDetails;
-	}
-
-	public void setOrderDetails(Set<OrderDetails> orderDetails) {
-		this.orderDetails = orderDetails;
+	@Override
+	public String toString() {
+		return "OrderTracking [id=" + id + ", timestamp=" + timestamp + ", orderJson=" + Arrays.toString(orderJson)
+				+ ", userInformation=" + userInformation + "]";
 	}
 }

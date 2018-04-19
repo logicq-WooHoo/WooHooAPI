@@ -9,25 +9,29 @@ import com.woho.dao.UserInformationrDao;
 import com.woho.model.UserInformation;
 
 @Repository
-public class UserInformationDaoImpl extends AbstractDAO<UserInformation> implements UserInformationrDao  {
-	
+public class UserInformationDaoImpl extends AbstractDAO<UserInformation> implements UserInformationrDao {
+
 	private static final long serialVersionUID = 1L;
 	private final Logger LOG = LoggerFactory.getLogger(getClass());
-	
+
 	@Override
 	public UserInformation addUser(UserInformation user) {
 		save(user);
 		return user;
 	}
 
-	
 	@Override
 	public UserInformation findUserByEmail(String email) {
-		
+
 		StringBuilder selectQuery = new StringBuilder();
-		selectQuery.append("from UserInformation u where u.emailId='"+email+"'");
+		selectQuery.append("from UserInformation u where u.emailId='" + email + "'");
 		return executeQueryForUniqueRecord(selectQuery.toString());
-		
+
+	}
+
+	@Override
+	public UserInformation get(Long id) {
+		return getRecordById(UserInformation.class, id);
 	}
 
 }

@@ -151,18 +151,57 @@ POST: http://127.0.0.1:8090/api/user/restaurant/searchtype
 	"longitude":73.807182
 }
 
-15: Get Order Tracking Ids of a User
+15. Place Order
+POST: http://127.0.0.1:8090/api/user/placeorder
+{
+  "deliveryAddress": "B 602, Sentosa Elysium, Shankar Kalat Nagar, Wakad, Pimpri-Chinchwad, Pune, 411057, Maharashtra, India",
+  "orderDetails": [
+    {
+      "deliveryPartner": "Swiggy",
+      "menuItems": [
+        {
+          "id": 1,
+          "itemName": "Aloo methi",
+          "price": 150,
+          "quantity": 2,
+          "totalPrice": 300
+        }
+      ],
+      "restaurantId": 1,
+      "restaurantName": "Hotel Kinara"
+    },
+    {
+      "deliveryPartner": "Swiggy",
+      "menuItems": [
+        {
+          "id": 2,
+          "itemName": "Kaju Masala",
+          "price": 200,
+          "quantity": 1,
+          "totalPrice": 200
+        }
+      ],
+      "restaurantId": 2,
+      "restaurantName": "Samartha Veg"
+    }
+  ],
+  "paymentDetails": {
+    "deliveryCharges": 0,
+    "discount": 0,
+    "grandTotal": 590,
+    "subTotal": 500,
+    "tax": 90
+  },
+  "userId": 2
+}
+
+16. Get past orders
 GET: http://127.0.0.1:8090/api/user/getpastorders/{userId}
 GET: http://127.0.0.1:8090/api/user/getpastorders/2
 
-Response:
-[
-    {
-        "trackingId": "BM9TN9",
-        "timestamp": 1523780352000
-    }
-]
+17. Reorder
+GET: http://127.0.0.1:8090/api/user/reorder/{trackingId}
+GET: http://127.0.0.1:8090/api/user/reorder/BM9TN9
 
-16: Get order details using tracking id
-GET: http://127.0.0.1:8090/api/user/getorderdetails/{trackingId}
-GET: http://127.0.0.1:8090/api/user/getorderdetails/BM9TN9
+
+
