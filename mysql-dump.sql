@@ -185,35 +185,6 @@ INSERT INTO `menu_item` VALUES (1,'Aloo methi',150,6,2,''),(2,'Kaju Masala',200
 UNLOCK TABLES;
 
 --
--- Table structure for table `order_details`
---
-
-DROP TABLE IF EXISTS `order_details`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `order_details` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `order_json` longblob NOT NULL,
-  `delivery_addresses_id` bigint(20) DEFAULT NULL,
-  `restaurant_details_id` bigint(20) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FKmr391nd89uxl8w9wlnm86rxm5` (`delivery_addresses_id`),
-  KEY `FKm44jpf0ss9k71pckimhjdblpq` (`restaurant_details_id`),
-  CONSTRAINT `FKm44jpf0ss9k71pckimhjdblpq` FOREIGN KEY (`restaurant_details_id`) REFERENCES `restaurant_details` (`id`),
-  CONSTRAINT `FKmr391nd89uxl8w9wlnm86rxm5` FOREIGN KEY (`delivery_addresses_id`) REFERENCES `address` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `order_details`
---
-
-LOCK TABLES `order_details` WRITE;
-/*!40000 ALTER TABLE `order_details` DISABLE KEYS */;
-/*!40000 ALTER TABLE `order_details` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `order_tracking`
 --
 
@@ -222,9 +193,9 @@ DROP TABLE IF EXISTS `order_tracking`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `order_tracking` (
   `id` varchar(255) NOT NULL,
+  `order_json` longblob NOT NULL,
   `timestamp` datetime NOT NULL,
   `user_information_id` bigint(20) NOT NULL,
-  `order_json` longblob NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FKp5w0ej13m1l8xg6lii5yavibu` (`user_information_id`),
   CONSTRAINT `FKp5w0ej13m1l8xg6lii5yavibu` FOREIGN KEY (`user_information_id`) REFERENCES `userinformation` (`id`)
@@ -237,8 +208,40 @@ CREATE TABLE `order_tracking` (
 
 LOCK TABLES `order_tracking` WRITE;
 /*!40000 ALTER TABLE `order_tracking` DISABLE KEYS */;
-INSERT INTO `order_tracking` VALUES ('6P9OCY','2018-04-20 04:38:32',2,'{\n	\"deliveryAddress\" : \"B 602, Sentosa Elysium, Shankar Kalat Nagar, Wakad, Pimpri-Chinchwad, Pune, 411057, Maharashtra, India\",\n	\"orderDetails\" : [\n		{\n			\"deliveryPartner\" : \"Swiggy\",\n			\"menuItems\" : [\n				{\n					\"id\" : 1,\n					\"itemName\" : \"Aloo methi\",\n					\"price\" : 150,\n					\"quantity\" : 2,\n					\"totalPrice\" : 300\n				}\n			],\n			\"restaurantId\" : 1,\n			\"restaurantName\" : \"Hotel Kinara\"\n		},\n		{\n			\"deliveryPartner\" : \"Swiggy\",\n			\"menuItems\" : [\n				{\n					\"id\" : 2,\n					\"itemName\" : \"Kaju Masala\",\n					\"price\" : 200,\n					\"quantity\" : 1,\n					\"totalPrice\" : 200\n				}\n			],\n			\"restaurantId\" : 2,\n			\"restaurantName\" : \"Samartha Veg\"\n		}\n	],\n	\"paymentDetails\" : {\n		\"deliveryCharges\" : 0,\n		\"discount\" : 0,\n		\"grandTotal\" : 590,\n		\"subTotal\" : 500,\n		\"tax\" : 90\n	}\n}'),('BM9TN9','2018-04-15 13:49:12',2,'{\n	\"deliveryAddress\" : \"B 602, Sentosa Elysium, Shankar Kalat Nagar, Wakad, Pimpri-Chinchwad, Pune, 411057, Maharashtra, India\",\n	\"orderDetails\" : [\n		{\n			\"deliveryPartner\" : \"Swiggy\",\n			\"menuItems\" : [\n				{\n					\"id\" : 1,\n					\"itemName\" : \"Aloo methi\",\n					\"price\" : 150,\n					\"quantity\" : 2,\n					\"totalPrice\" : 300\n				}\n			],\n			\"restaurantId\" : 1,\n			\"restaurantName\" : \"Hotel Kinara\"\n		},\n		{\n			\"deliveryPartner\" : \"Swiggy\",\n			\"menuItems\" : [\n				{\n					\"id\" : 2,\n					\"itemName\" : \"Kaju Masala\",\n					\"price\" : 200,\n					\"quantity\" : 1,\n					\"totalPrice\" : 200\n				}\n			],\n			\"restaurantId\" : 2,\n			\"restaurantName\" : \"Samartha Veg\"\n		}\n	],\n	\"paymentDetails\" : {\n		\"deliveryCharges\" : 0,\n		\"discount\" : 0,\n		\"grandTotal\" : 590,\n		\"subTotal\" : 500,\n		\"tax\" : 90\n	}\n}'),('iCUQMi','2018-04-20 04:21:50',2,'{\"orderDetails\":[{\"restaurantId\":2,\"restaurantName\":\"Samartha Veg\",\"deliveryPartner\":\"Swiggy\",\"menuItems\":[{\"id\":2,\"foodServiceTypeId\":null,\"foodCategoryId\":null,\"itemName\":\"Kaju Masala\",\"price\":200.0,\"quantity\":\"1\",\"totalPrice\":200.0}]},{\"restaurantId\":1,\"restaurantName\":\"Hotel Kinara\",\"deliveryPartner\":\"Swiggy\",\"menuItems\":[{\"id\":1,\"foodServiceTypeId\":null,\"foodCategoryId\":null,\"itemName\":\"Aloo methi\",\"price\":150.0,\"quantity\":\"2\",\"totalPrice\":300.0}]}],\"deliveryAddress\":\"B 602, Sentosa Elysium, Shankar Kalat Nagar, Wakad, Pimpri-Chinchwad, Pune, 411057, Maharashtra, India\",\"paymentDetails\":{\"subTotal\":500.0,\"grandTotal\":590.0,\"deliveryCharges\":0.0,\"tax\":90.0,\"discount\":0.0},\"userId\":2}');
+INSERT INTO `order_tracking` VALUES ('67Uhsc','{\"orderDetails\":[{\"restaurantId\":2,\"restaurantName\":\"Samartha Veg\",\"deliveryPartner\":\"Swiggy\",\"menuItems\":[{\"id\":2,\"foodServiceTypeId\":null,\"foodCategoryId\":null,\"itemName\":\"Kaju Masala\",\"price\":200.0,\"quantity\":\"1\",\"totalPrice\":200.0}]},{\"restaurantId\":1,\"restaurantName\":\"Hotel Kinara\",\"deliveryPartner\":\"Swiggy\",\"menuItems\":[{\"id\":1,\"foodServiceTypeId\":null,\"foodCategoryId\":null,\"itemName\":\"Aloo methi\",\"price\":150.0,\"quantity\":\"2\",\"totalPrice\":300.0}]}],\"deliveryAddress\":\"B 602, Sentosa Elysium, Shankar Kalat Nagar, Wakad, Pimpri-Chinchwad, Pune, 411057, Maharashtra, India\",\"paymentDetails\":{\"subTotal\":500.0,\"grandTotal\":590.0,\"deliveryCharges\":0.0,\"tax\":90.0,\"discount\":0.0},\"userId\":2}','2018-04-24 01:19:55',2);
 /*!40000 ALTER TABLE `order_tracking` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `paymentcard`
+--
+
+DROP TABLE IF EXISTS `paymentcard`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `paymentcard` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `card_number` bigint(20) NOT NULL,
+  `card_type` varchar(255) NOT NULL,
+  `cvv` int(11) NOT NULL,
+  `expire_on` varchar(255) NOT NULL,
+  `user_information_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_ibbe36o7y69ory4n68i0cc0y9` (`card_number`),
+  UNIQUE KEY `UKak362x65optqe9ek0jlwjdyes` (`card_number`),
+  KEY `FKagt99kwjkpspij95box5rpx3y` (`user_information_id`),
+  CONSTRAINT `FKagt99kwjkpspij95box5rpx3y` FOREIGN KEY (`user_information_id`) REFERENCES `userinformation` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `paymentcard`
+--
+
+LOCK TABLES `paymentcard` WRITE;
+/*!40000 ALTER TABLE `paymentcard` DISABLE KEYS */;
+INSERT INTO `paymentcard` VALUES (1,2345123456789023,'debit',123,'07/19',2);
+/*!40000 ALTER TABLE `paymentcard` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -397,7 +400,7 @@ CREATE TABLE `restaurant_setup` (
   PRIMARY KEY (`setup_id`),
   KEY `FK715wydd7xge7ukb8tmfvhn9tv` (`restaurant_details_id`),
   CONSTRAINT `FK715wydd7xge7ukb8tmfvhn9tv` FOREIGN KEY (`restaurant_details_id`) REFERENCES `restaurant_details` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -539,6 +542,7 @@ CREATE TABLE `userinformation_addresses` (
 
 LOCK TABLES `userinformation_addresses` WRITE;
 /*!40000 ALTER TABLE `userinformation_addresses` DISABLE KEYS */;
+INSERT INTO `userinformation_addresses` VALUES (2,7);
 /*!40000 ALTER TABLE `userinformation_addresses` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -551,4 +555,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-04-20  4:44:14
+-- Dump completed on 2018-04-24  2:05:30
