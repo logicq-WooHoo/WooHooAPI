@@ -15,7 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.woho.dao.RestaurantDetailsDao;
 import com.woho.dao.RestaurantMenuDao;
 import com.woho.dao.RestaurantSetupDao;
-import com.woho.dao.UserInformationrDao;
+import com.woho.dao.UserInformationDao;
 import com.woho.model.Address;
 import com.woho.model.DeliveryPartner;
 import com.woho.model.FoodCategory;
@@ -43,7 +43,7 @@ public class RegistrationServiceImpl implements RegistrationService{
 	private ObjectMapper mapper = new ObjectMapper();
 
 	@Autowired
-	UserInformationrDao userInformationrDao;
+	UserInformationDao userInformationrDao;
 	
 	@Autowired
 	RestaurantSetupDao restaurantSetupDao;

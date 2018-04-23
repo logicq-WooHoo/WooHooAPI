@@ -203,5 +203,17 @@ GET: http://127.0.0.1:8090/api/user/getpastorders/2
 GET: http://127.0.0.1:8090/api/user/reorder/{trackingId}
 GET: http://127.0.0.1:8090/api/user/reorder/BM9TN9
 
+18. Save Payment Card Details
+POST: http://127.0.0.1:8090/api/user/savecarddetails
+{
+	"cardType":"debit",
+	"cardNumber": 2345123456789023,
+	"expireOn": "07/19",
+	"cvv": 123,
+	"userId":2
+}
 
+19. Get User Profile
+GET: http://127.0.0.1:8090/api/user/getmyprofile/{userId}
+GET: http://127.0.0.1:8090/api/user/getmyprofile/2
 

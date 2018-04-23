@@ -39,8 +39,8 @@ public class UserInformation {
 	private String emailId;
 
 	@NotNull
-	@Pattern(regexp="(^$|[0-9]{10})")
-	@Size(min=10,max=10)
+	@Pattern(regexp = "(^$|[0-9]{10})")
+	@Size(min = 10, max = 10)
 	@Column(name = "MOBILENO")
 	private String mobileNo;
 
@@ -49,9 +49,9 @@ public class UserInformation {
 	@Column(name = "USERTYPE")
 	private String type;
 
-	@OneToMany(cascade = CascadeType.ALL) 
+	@OneToMany(cascade = CascadeType.ALL)
 	private Set<Address> addresses = new HashSet<>();
-
+	
 	public Long getUserId() {
 		return userId;
 	}
@@ -107,5 +107,5 @@ public class UserInformation {
 	public void setAddresses(Set<Address> addresses) {
 		this.addresses = addresses;
 	}
-	
+
 }

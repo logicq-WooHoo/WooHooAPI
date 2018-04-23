@@ -1,5 +1,12 @@
 package com.woho.vo;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.woho.model.UserInformation;
+
+@JsonInclude(Include.NON_NULL)
 public class UserVO {
 
 	private String firstName;
@@ -11,6 +18,10 @@ public class UserVO {
 	private String mobileNo;
 
 	private String type;
+
+	private UserInformation userInformation;
+
+	private List<PaymentCardVO> paymentCards;
 
 	public String getFirstName() {
 		return firstName;
@@ -51,5 +62,28 @@ public class UserVO {
 	public void setType(String type) {
 		this.type = type;
 	}
-	
+
+	public UserInformation getUserInformation() {
+		return userInformation;
+	}
+
+	public void setUserInformation(UserInformation userInformation) {
+		this.userInformation = userInformation;
+	}
+
+	public List<PaymentCardVO> getPaymentCards() {
+		return paymentCards;
+	}
+
+	public void setPaymentCards(List<PaymentCardVO> paymentCards) {
+		this.paymentCards = paymentCards;
+	}
+
+	@Override
+	public String toString() {
+		return "UserVO [firstName=" + firstName + ", lastName=" + lastName + ", emailId=" + emailId + ", mobileNo="
+				+ mobileNo + ", type=" + type + ", userInformation=" + userInformation + ", paymentCards="
+				+ paymentCards + "]";
+	}
+
 }

@@ -18,15 +18,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.woho.dao.OrderDetailsDao;
 import com.woho.dao.OrderTrackingDao;
-import com.woho.dao.UserInformationrDao;
+import com.woho.dao.PaymentCardDao;
+import com.woho.dao.UserInformationDao;
 import com.woho.helper.ObjectFactory;
 import com.woho.model.OrderTracking;
+import com.woho.model.PaymentCard;
 import com.woho.model.UserInformation;
 import com.woho.service.UserService;
 import com.woho.vo.CartVO;
 import com.woho.vo.OrderTrackingVO;
+import com.woho.vo.PaymentCardVO;
 import com.woho.vo.UserVO;
 
 @Service
@@ -34,9 +36,11 @@ import com.woho.vo.UserVO;
 public class UserServiceImpl implements UserService {
 
 	@Autowired
-	UserInformationrDao userInformationrDao;
+	UserInformationDao userInformationDao;
 	@Autowired
 	OrderTrackingDao orderTrackingDao;
+	@Autowired
+	PaymentCardDao paymentCardDao;
 
 	private ObjectMapper objectMapper = ObjectFactory.getObjectMapper();
 
@@ -47,7 +51,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserInformation getUser(UserVO userVO) {
 
-		UserInformation userInformation = userInformationrDao.findUserByEmail(userVO.getEmailId());
+		UserInformation userInformation = userInformationDao.findUserByEmail(userVO.getEmailId());
 
 		return userInformation;
 
@@ -109,10 +113,10 @@ public class UserServiceImpl implements UserService {
 		orderTracking.setOrderJson(objectMapper.writeValueAsBytes(cartVO));
 		orderTracking.setTimestamp(new Date());
 		if (!ObjectUtils.isEmpty(cartVO.getUserId())) {
-			orderTracking.setUserInformation(userInformationrDao.get(cartVO.getUserId()));
+			orderTracking.setUserInformation(userInformationDao.get(cartVO.getUserId()));
 		}
 		orderTrackingDao.add(orderTracking);
-		
+
 	}
 
 	@Override
@@ -124,6 +128,42 @@ public class UserServiceImpl implements UserService {
 		orderTracking.setUserInformation(dbOrderTracking.getUserInformation());
 		orderTracking.setOrderJson(dbOrderTracking.getOrderJson());
 		orderTrackingDao.add(orderTracking);
+	}
+
+	@Override
+	public void saveCardDetails(PaymentCardVO paymentCardVO) {
+		PaymentCard paymentCard = new PaymentCard();
+		if (!ObjectUtils.isEmpty(paymentCardVO)) {
+			paymentCard.setCardNumber(paymentCardVO.getCardNumber());
+			paymentCard.setCardType(paymentCardVO.getCardType());
+			paymentCard.setCvv(paymentCardVO.getCvv());
+			paymentCard.setExpireOn(paymentCardVO.getExpireOn());
+			paymentCard.setUserInformation(userInformationDao.get(paymentCardVO.getUserId()));
+			paymentCardDao.addPaymentCard(paymentCard);
+		}
+	}
+
+	@Override
+	public UserInformation getUser(Long id) {
+		return userInformationDao.get(id);
+	}
+
+	@Override
+	public UserVO getMyProfile(Long userId) {
+		UserVO userVO = new UserVO();
+		userVO.setUserInformation(userInformationDao.get(userId));
+		List<PaymentCardVO> paymentCardVOs = new ArrayList<>();
+		List<PaymentCard> paymentCards = paymentCardDao.getByUserId(userId);
+		paymentCards.forEach(paymentCard -> {
+			PaymentCardVO paymentCardVO = new PaymentCardVO();
+			paymentCardVO.setCardNumber(paymentCard.getCardNumber());
+			paymentCardVO.setCardType(paymentCard.getCardType());
+			paymentCardVO.setCvv(paymentCard.getCvv());
+			paymentCardVO.setExpireOn(paymentCard.getExpireOn());
+			paymentCardVOs.add(paymentCardVO);
+		});
+		userVO.setPaymentCards(paymentCardVOs);
+		return userVO;
 	}
 
 }

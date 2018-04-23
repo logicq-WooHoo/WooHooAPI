@@ -33,9 +33,9 @@ public class RegistrationController {
 	 * @param type
 	 * @param user
 	 */
-	@RequestMapping(value = "/user/registration", method = RequestMethod.POST, consumes = "application/json")
-	public void registerUSer(@RequestBody UserInformation userInformation) {
-		registrationService.register(userInformation);
+	@RequestMapping(value = "/user/registration", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public UserInformation registerUser(@RequestBody UserInformation userInformation) {
+		return registrationService.register(userInformation);
 	}
 
 	/**
@@ -57,7 +57,7 @@ public class RegistrationController {
 
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
-	
+
 	/**
 	 * Retrieve Single RestaurantDetails
 	 * 
@@ -78,6 +78,7 @@ public class RegistrationController {
 
 	/**
 	 * Retrieve All RestaurantDetails
+	 * 
 	 * @return
 	 */
 	@RequestMapping(value = "/restaurant/details/", method = RequestMethod.GET)
@@ -85,51 +86,54 @@ public class RegistrationController {
 		List<RestaurantDetails> restaurantDetailsList = registrationService.listAllRestaurantDetails();
 		if (restaurantDetailsList.isEmpty()) {
 			return new ResponseEntity<List<RestaurantDetails>>(HttpStatus.NO_CONTENT);// You many decide to return
-																			// HttpStatus.NOT_FOUND
+			// HttpStatus.NOT_FOUND
 		}
 		return new ResponseEntity<List<RestaurantDetails>>(restaurantDetailsList, HttpStatus.OK);
 	}
 
 	/**
 	 * Delete a RestaurantDetails
+	 * 
 	 * @param id
 	 * @return RestaurantDetails
 	 */
 	@RequestMapping(value = "/restaurant/details/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<RestaurantDetails> deleteRestaurantDetails(@PathVariable("id") long id) {
 		System.out.println("Fetching & Deleting RestaurantDetails with id " + id);
-		 
+
 		RestaurantDetails restaurantDetails = registrationService.getRestaurantDetails(id);
-        if (restaurantDetails == null) {
-            System.out.println("Unable to delete. RestaurantDetails with id " + id + " not found");
-            return new ResponseEntity<RestaurantDetails>(HttpStatus.NOT_FOUND);
-        }
- 
-        registrationService.deleteRestaurantDetails(id);
-        return new ResponseEntity<RestaurantDetails>(HttpStatus.NO_CONTENT);
+		if (restaurantDetails == null) {
+			System.out.println("Unable to delete. RestaurantDetails with id " + id + " not found");
+			return new ResponseEntity<RestaurantDetails>(HttpStatus.NOT_FOUND);
+		}
+
+		registrationService.deleteRestaurantDetails(id);
+		return new ResponseEntity<RestaurantDetails>(HttpStatus.NO_CONTENT);
 	}
 
-    /**
-     * Update a RestaurantDetails
-     * @param id
-     * @param user
-     * @return RestaurantDetails
-     */
+	/**
+	 * Update a RestaurantDetails
+	 * 
+	 * @param id
+	 * @param user
+	 * @return RestaurantDetails
+	 */
 	@RequestMapping(value = "/restaurant/details/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<RestaurantDetails> updateRestaurantDetails(@PathVariable("id") long id, @RequestBody RestaurantDetails restaurantDetails) {
-        System.out.println("Updating RestaurantDetails " + id);
-         
-        RestaurantDetails currentRestaurantDetails = registrationService.getRestaurantDetails(id);
-         
-        if (currentRestaurantDetails==null) {
-            System.out.println("RestaurantDetails with id " + id + " not found");
-            return new ResponseEntity<RestaurantDetails>(HttpStatus.NOT_FOUND);
-        }
- 
-        registrationService.updateRestaurantDetails(id, restaurantDetails);
-        return new ResponseEntity<RestaurantDetails>(restaurantDetails, HttpStatus.OK);
-    }
-	
+	public ResponseEntity<RestaurantDetails> updateRestaurantDetails(@PathVariable("id") long id,
+			@RequestBody RestaurantDetails restaurantDetails) {
+		System.out.println("Updating RestaurantDetails " + id);
+
+		RestaurantDetails currentRestaurantDetails = registrationService.getRestaurantDetails(id);
+
+		if (currentRestaurantDetails == null) {
+			System.out.println("RestaurantDetails with id " + id + " not found");
+			return new ResponseEntity<RestaurantDetails>(HttpStatus.NOT_FOUND);
+		}
+
+		registrationService.updateRestaurantDetails(id, restaurantDetails);
+		return new ResponseEntity<RestaurantDetails>(restaurantDetails, HttpStatus.OK);
+	}
+
 	/**
 	 * 
 	 * @param file
@@ -139,15 +143,16 @@ public class RegistrationController {
 	public void registerRestaurantDetailsUploadTest(@RequestParam("file") MultipartFile file, Model model) {
 		registrationService.registerRestaurantDetailsUploadTest(file);
 	}
-	
+
 	@RequestMapping(value = "/restaurant/setup", method = RequestMethod.POST, consumes = "application/json")
-	public void registerRestaurantSetup(@RequestBody RestaurantSetupVO restaurantSetupVO) throws JsonProcessingException {
+	public void registerRestaurantSetup(@RequestBody RestaurantSetupVO restaurantSetupVO)
+			throws JsonProcessingException {
 		registrationService.registerRestaurantSetup(restaurantSetupVO);
 	}
-	
+
 	@RequestMapping(value = "/restaurant/menu", method = RequestMethod.POST, consumes = "application/json")
 	public void registerRestaurantMenu(@RequestBody RestaurantMenuVO restaurantMenuVO) throws JsonProcessingException {
 		registrationService.registerRestaurantMenu(restaurantMenuVO);
 	}
-	
+
 }

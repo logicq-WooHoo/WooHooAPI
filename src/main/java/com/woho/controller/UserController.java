@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.woho.service.UserService;
 import com.woho.vo.CartVO;
 import com.woho.vo.OrderTrackingVO;
+import com.woho.vo.PaymentCardVO;
+import com.woho.vo.UserVO;
 
 @RestController
 @RequestMapping("/api")
@@ -27,11 +29,6 @@ public class UserController {
 		return userService.getpastorders(userId);
 	}
 
-	/*@RequestMapping(value = "/user/getorderdetails/{trackingId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Set<OrderDetailsVO> getOrderDetails(@PathVariable("trackingId") String trackingId) throws Exception {
-		return userService.getOrderDetails(trackingId);
-	}*/
-	
 	@RequestMapping(value = "/user/placeorder", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public void placeOrder(@RequestBody CartVO cartVO) throws Exception {
 		userService.placeOrder(cartVO);;
@@ -45,5 +42,15 @@ public class UserController {
 	@RequestMapping(value = "/user/gettotalbillwithtax", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, Double> getTotalBillWithTax(Double subTotal) throws Exception {
 		return userService.getTotalBillWithTax(subTotal);
+	}
+	
+	@RequestMapping(value = "/user/savecarddetails", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public void saveCardDetails(@RequestBody PaymentCardVO paymentCardVO) throws Exception {
+		userService.saveCardDetails(paymentCardVO);
+	}
+	
+	@RequestMapping(value = "/user/getmyprofile/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public UserVO getMyProfile(@PathVariable("userId") Long userId) throws Exception {
+		return userService.getMyProfile(userId);
 	}
 }

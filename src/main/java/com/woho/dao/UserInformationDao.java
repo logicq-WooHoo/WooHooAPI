@@ -2,7 +2,7 @@ package com.woho.dao;
 
 import com.woho.model.UserInformation;
 
-public interface UserInformationrDao {
+public interface UserInformationDao {
 
 	UserInformation addUser(UserInformation user);
 

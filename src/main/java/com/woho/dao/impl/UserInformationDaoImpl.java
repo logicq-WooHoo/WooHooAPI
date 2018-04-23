@@ -5,11 +5,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.woho.dao.AbstractDAO;
-import com.woho.dao.UserInformationrDao;
+import com.woho.dao.UserInformationDao;
 import com.woho.model.UserInformation;
 
 @Repository
-public class UserInformationDaoImpl extends AbstractDAO<UserInformation> implements UserInformationrDao {
+public class UserInformationDaoImpl extends AbstractDAO<UserInformation> implements UserInformationDao {
 
 	private static final long serialVersionUID = 1L;
 	private final Logger LOG = LoggerFactory.getLogger(getClass());
