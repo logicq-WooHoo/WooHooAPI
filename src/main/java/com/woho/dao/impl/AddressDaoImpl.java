@@ -44,8 +44,8 @@ public class AddressDaoImpl extends AbstractDAO<Address> implements AddressDao {
 	}
 
 	/**
-	 * Search address using latitude, longitude.
-	 * Reference: http://spinczyk.net/blog/2009/10/04/radius-search-with-google-maps-and-mysql/
+	 * Search address using latitude, longitude. Reference:
+	 * http://spinczyk.net/blog/2009/10/04/radius-search-with-google-maps-and-mysql/
 	 */
 	@Override
 	public List<Address> searchAddress(Double latitude, Double longitude, String type) throws Exception {
@@ -69,5 +69,10 @@ public class AddressDaoImpl extends AbstractDAO<Address> implements AddressDao {
 		}
 		selectQuery.append(whereQuery);
 		return executeQuery(selectQuery.toString());
+	}
+
+	@Override
+	public Address get(Long id) {
+		return getRecordById(Address.class, id);
 	}
 }

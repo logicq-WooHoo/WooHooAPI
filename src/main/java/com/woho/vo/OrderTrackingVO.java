@@ -1,47 +1,28 @@
 package com.woho.vo;
 
-import java.util.Date;
-
 /**
  * 
  * @author Pankaj Labade
  *
  */
 public class OrderTrackingVO {
+	private String OrderTrackingId;
+	private RestaurantMenuVO orderDetails;
 
-	private String trackingId;
-
-	private Date timestamp;
-
-	private CartVO orderJson;
-
-	public String getTrackingId() {
-		return trackingId;
+	public String getOrderTrackingId() {
+		return OrderTrackingId;
 	}
 
-	public void setTrackingId(String trackingId) {
-		this.trackingId = trackingId;
+	public void setOrderTrackingId(String orderTrackingId) {
+		OrderTrackingId = orderTrackingId;
 	}
 
-	public Date getTimestamp() {
-		return timestamp;
+	public RestaurantMenuVO getOrderDetails() {
+		return orderDetails;
 	}
 
-	public void setTimestamp(Date timestamp) {
-		this.timestamp = timestamp;
+	public void setOrderDetails(RestaurantMenuVO orderDetails) {
+		this.orderDetails = orderDetails;
 	}
 
-	public CartVO getOrderJson() {
-		return orderJson;
-	}
-
-	public void setOrderJson(CartVO orderJson) {
-		this.orderJson = orderJson;
-	}
-
-	@Override
-	public String toString() {
-		return "OrderTrackingVO [trackingId=" + trackingId + ", timestamp=" + timestamp + ", orderJson=" + orderJson
-				+ "]";
-	}
 }

@@ -26,20 +26,20 @@ CREATE TABLE `address` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `city` varchar(100) DEFAULT NULL,
   `county` varchar(100) DEFAULT NULL,
+  `distance` double DEFAULT NULL,
   `flatno` varchar(100) DEFAULT NULL,
   `landmark` varchar(100) DEFAULT NULL,
-  `latitude` double NOT NULL,
+  `latitude` double DEFAULT NULL,
   `locality` varchar(100) DEFAULT NULL,
-  `longitude` double NOT NULL,
+  `longitude` double DEFAULT NULL,
   `pincode` varchar(10) NOT NULL,
   `road` varchar(100) DEFAULT NULL,
   `societyname` varchar(100) DEFAULT NULL,
   `state` varchar(100) DEFAULT NULL,
   `street` varchar(100) DEFAULT NULL,
   `address_type` varchar(100) DEFAULT NULL,
-  `distance` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -48,7 +48,7 @@ CREATE TABLE `address` (
 
 LOCK TABLES `address` WRITE;
 /*!40000 ALTER TABLE `address` DISABLE KEYS */;
-INSERT INTO `address` VALUES (1,'Pune','India',NULL,NULL,18.507535,'Kothrud',73.771311,'411038','Paud Road',NULL,'Maharashtra',NULL,'restaurant',NULL),(2,'Pune','India',NULL,NULL,18.507593,'Kothrud',73.806104,'411038','Paud Road',NULL,'Maharashtra',NULL,'restaurant',NULL),(3,'Pune','India',NULL,NULL,18.508539,'Kothrud',73.797661,'411038','Paud Road',NULL,'Maharashtra',NULL,'restaurant',NULL),(4,'Pune','India',NULL,NULL,18.601254,'Wakad',73.761843,'411057','Kaspate Wasti Road',NULL,'Maharashtra',NULL,'restaurant',NULL),(5,'Pune','India',NULL,NULL,18.564927,'Old Sangvi',73.739287,'411027','CQAE Road',NULL,'Maharashtra',NULL,'restaurant',NULL),(6,'Pune','India',NULL,NULL,18.5014554,'Kothrud',73.7458715,'411038','Rahul Nagar Road',NULL,'Maharashtra',NULL,'restaurant',NULL),(7,'Pune','India','B 602','',18.601254,'Wakad',73.761843,'411057',NULL,'Sentosa Elysium','Maharashtra',NULL,'user',NULL);
+INSERT INTO `address` VALUES (1,'Pune','India',NULL,'B301',NULL,NULL,NULL,NULL,'411005','F.C. Road','Karishma','Maharashtra',NULL,'user'),(2,'Pune','India',NULL,'D306',NULL,NULL,NULL,NULL,'411005','J.M. Road','Gandharva','Maharashtra',NULL,'owner'),(3,'Pune','India',NULL,NULL,NULL,18.507535,'Kothrud',73.771311,'411038','F.C. Road',NULL,'Maharashtra',NULL,'restaurant'),(4,'Pune','India',NULL,NULL,NULL,18.507593,'Kothrud',73.806104,'411038','M.G. Road',NULL,'Maharashtra',NULL,'restaurant');
 /*!40000 ALTER TABLE `address` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -185,6 +185,63 @@ INSERT INTO `menu_item` VALUES (1,'Aloo methi',150,6,2,''),(2,'Kaju Masala',200
 UNLOCK TABLES;
 
 --
+-- Table structure for table `order_details`
+--
+
+DROP TABLE IF EXISTS `order_details`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `order_details` (
+  `id` varchar(255) NOT NULL,
+  `timestamp` datetime NOT NULL,
+  `delivery_addresses_id` bigint(20) DEFAULT NULL,
+  `user_information_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKmr391nd89uxl8w9wlnm86rxm5` (`delivery_addresses_id`),
+  KEY `FK6ow1wblga3mwmfwfvjldhg6f7` (`user_information_id`),
+  CONSTRAINT `FK6ow1wblga3mwmfwfvjldhg6f7` FOREIGN KEY (`user_information_id`) REFERENCES `userinformation` (`id`),
+  CONSTRAINT `FKmr391nd89uxl8w9wlnm86rxm5` FOREIGN KEY (`delivery_addresses_id`) REFERENCES `address` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `order_details`
+--
+
+LOCK TABLES `order_details` WRITE;
+/*!40000 ALTER TABLE `order_details` DISABLE KEYS */;
+INSERT INTO `order_details` VALUES ('2FV8l8','2018-04-26 01:12:17',1,1);
+/*!40000 ALTER TABLE `order_details` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `order_details_order_trackings`
+--
+
+DROP TABLE IF EXISTS `order_details_order_trackings`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `order_details_order_trackings` (
+  `order_details_id` varchar(255) NOT NULL,
+  `order_trackings_id` varchar(255) NOT NULL,
+  UNIQUE KEY `UK_dmkrwnsf52a45cf125k2m9nlc` (`order_trackings_id`),
+  KEY `FKbaw3rq2b64fbsqcugfeep2y8x` (`order_details_id`),
+  CONSTRAINT `FK788m50tew9qth69agayk1063f` FOREIGN KEY (`order_trackings_id`) REFERENCES `order_tracking` (`id`),
+  CONSTRAINT `FKbaw3rq2b64fbsqcugfeep2y8x` FOREIGN KEY (`order_details_id`) REFERENCES `order_details` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `order_details_order_trackings`
+--
+
+LOCK TABLES `order_details_order_trackings` WRITE;
+/*!40000 ALTER TABLE `order_details_order_trackings` DISABLE KEYS */;
+INSERT INTO `order_details_order_trackings` VALUES ('2FV8l8','jR5pbk'),('2FV8l8','SBoEkc');
+/*!40000 ALTER TABLE `order_details_order_trackings` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `order_tracking`
 --
 
@@ -194,11 +251,10 @@ DROP TABLE IF EXISTS `order_tracking`;
 CREATE TABLE `order_tracking` (
   `id` varchar(255) NOT NULL,
   `order_json` longblob NOT NULL,
-  `timestamp` datetime NOT NULL,
-  `user_information_id` bigint(20) NOT NULL,
+  `restaurant_details_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `FKp5w0ej13m1l8xg6lii5yavibu` (`user_information_id`),
-  CONSTRAINT `FKp5w0ej13m1l8xg6lii5yavibu` FOREIGN KEY (`user_information_id`) REFERENCES `userinformation` (`id`)
+  KEY `FK2ka6hdpw2q0e84ybqbvflc3j9` (`restaurant_details_id`),
+  CONSTRAINT `FK2ka6hdpw2q0e84ybqbvflc3j9` FOREIGN KEY (`restaurant_details_id`) REFERENCES `restaurant_details` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -208,7 +264,7 @@ CREATE TABLE `order_tracking` (
 
 LOCK TABLES `order_tracking` WRITE;
 /*!40000 ALTER TABLE `order_tracking` DISABLE KEYS */;
-INSERT INTO `order_tracking` VALUES ('67Uhsc','{\"orderDetails\":[{\"restaurantId\":2,\"restaurantName\":\"Samartha Veg\",\"deliveryPartner\":\"Swiggy\",\"menuItems\":[{\"id\":2,\"foodServiceTypeId\":null,\"foodCategoryId\":null,\"itemName\":\"Kaju Masala\",\"price\":200.0,\"quantity\":\"1\",\"totalPrice\":200.0}]},{\"restaurantId\":1,\"restaurantName\":\"Hotel Kinara\",\"deliveryPartner\":\"Swiggy\",\"menuItems\":[{\"id\":1,\"foodServiceTypeId\":null,\"foodCategoryId\":null,\"itemName\":\"Aloo methi\",\"price\":150.0,\"quantity\":\"2\",\"totalPrice\":300.0}]}],\"deliveryAddress\":\"B 602, Sentosa Elysium, Shankar Kalat Nagar, Wakad, Pimpri-Chinchwad, Pune, 411057, Maharashtra, India\",\"paymentDetails\":{\"subTotal\":500.0,\"grandTotal\":590.0,\"deliveryCharges\":0.0,\"tax\":90.0,\"discount\":0.0},\"userId\":2}','2018-04-24 01:19:55',2);
+INSERT INTO `order_tracking` VALUES ('jR5pbk','{\"restaurantId\":2,\"restaurantName\":\"Samartha Veg\",\"deliveryPartnerId\":2,\"deliveryPartnerName\":\"Swiggy\",\"menuItems\":[{\"id\":2,\"foodServiceTypeId\":null,\"foodCategoryId\":null,\"itemName\":\"Kaju Masala\",\"price\":200.0,\"quantity\":\"1\",\"totalPrice\":200.0}],\"paymentDetails\":{\"subTotal\":200.0,\"grandTotal\":236.0,\"deliveryCharges\":0.0,\"tax\":36.0,\"discount\":0.0}}',2),('SBoEkc','{\"restaurantId\":1,\"restaurantName\":\"Hotel Kinara\",\"deliveryPartnerId\":2,\"deliveryPartnerName\":\"Swiggy\",\"menuItems\":[{\"id\":1,\"foodServiceTypeId\":null,\"foodCategoryId\":null,\"itemName\":\"Aloo methi\",\"price\":150.0,\"quantity\":\"2\",\"totalPrice\":300.0}],\"paymentDetails\":{\"subTotal\":300.0,\"grandTotal\":354.0,\"deliveryCharges\":0.0,\"tax\":54.0,\"discount\":0.0}}',1);
 /*!40000 ALTER TABLE `order_tracking` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -231,7 +287,7 @@ CREATE TABLE `paymentcard` (
   UNIQUE KEY `UKak362x65optqe9ek0jlwjdyes` (`card_number`),
   KEY `FKagt99kwjkpspij95box5rpx3y` (`user_information_id`),
   CONSTRAINT `FKagt99kwjkpspij95box5rpx3y` FOREIGN KEY (`user_information_id`) REFERENCES `userinformation` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -240,7 +296,6 @@ CREATE TABLE `paymentcard` (
 
 LOCK TABLES `paymentcard` WRITE;
 /*!40000 ALTER TABLE `paymentcard` DISABLE KEYS */;
-INSERT INTO `paymentcard` VALUES (1,2345123456789023,'debit',123,'07/19',2);
 /*!40000 ALTER TABLE `paymentcard` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -265,7 +320,7 @@ CREATE TABLE `restaurant_details` (
   CONSTRAINT `FKfg5ptvp2j47e2vcsckl4lnqo6` FOREIGN KEY (`document_id`) REFERENCES `document` (`id`),
   CONSTRAINT `FKnduux7tmkdfrkc9lg99fjat1w` FOREIGN KEY (`user_information_id`) REFERENCES `userinformation` (`id`),
   CONSTRAINT `FKp1yg7j7qnxt4yshqwgbxvqrrh` FOREIGN KEY (`address_id`) REFERENCES `address` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -274,7 +329,7 @@ CREATE TABLE `restaurant_details` (
 
 LOCK TABLES `restaurant_details` WRITE;
 /*!40000 ALTER TABLE `restaurant_details` DISABLE KEYS */;
-INSERT INTO `restaurant_details` VALUES (1,'101','Hotel Kinara',1,NULL,1),(2,'102','Samartha Veg',2,NULL,1),(3,'103','Parth Veg',3,NULL,1),(4,'104','Tatva Veg',4,NULL,1),(5,'105','CQAE Are',5,NULL,1),(6,'106','Maratha Samrat Restaurant',6,NULL,1);
+INSERT INTO `restaurant_details` VALUES (1,'1058','Hotel Kinara',3,NULL,2),(2,'1059','Samartha Veg',4,NULL,2);
 /*!40000 ALTER TABLE `restaurant_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -290,7 +345,7 @@ CREATE TABLE `restaurant_details_food_category` (
   `category_id` bigint(20) DEFAULT NULL,
   `rest_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -299,7 +354,7 @@ CREATE TABLE `restaurant_details_food_category` (
 
 LOCK TABLES `restaurant_details_food_category` WRITE;
 /*!40000 ALTER TABLE `restaurant_details_food_category` DISABLE KEYS */;
-INSERT INTO `restaurant_details_food_category` VALUES (1,6,1),(2,6,2),(3,6,3),(4,6,4);
+INSERT INTO `restaurant_details_food_category` VALUES (1,6,1),(2,6,2);
 /*!40000 ALTER TABLE `restaurant_details_food_category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -316,7 +371,7 @@ CREATE TABLE `restaurant_menu` (
   PRIMARY KEY (`id`),
   KEY `FK3cdl1jv1h4kq5bjyh5l1ldatl` (`restaurant_details_id`),
   CONSTRAINT `FK3cdl1jv1h4kq5bjyh5l1ldatl` FOREIGN KEY (`restaurant_details_id`) REFERENCES `restaurant_details` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -325,7 +380,7 @@ CREATE TABLE `restaurant_menu` (
 
 LOCK TABLES `restaurant_menu` WRITE;
 /*!40000 ALTER TABLE `restaurant_menu` DISABLE KEYS */;
-INSERT INTO `restaurant_menu` VALUES (1,1),(2,2),(3,3),(4,4),(5,5);
+INSERT INTO `restaurant_menu` VALUES (1,1),(2,2);
 /*!40000 ALTER TABLE `restaurant_menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -372,7 +427,7 @@ CREATE TABLE `restaurant_review` (
   PRIMARY KEY (`id`),
   KEY `FKsnr9ly3r7vujjc7ip2oxva1ft` (`restaurant_details_id`),
   CONSTRAINT `FKsnr9ly3r7vujjc7ip2oxva1ft` FOREIGN KEY (`restaurant_details_id`) REFERENCES `restaurant_details` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -381,7 +436,7 @@ CREATE TABLE `restaurant_review` (
 
 LOCK TABLES `restaurant_review` WRITE;
 /*!40000 ALTER TABLE `restaurant_review` DISABLE KEYS */;
-INSERT INTO `restaurant_review` VALUES (1,NULL,4.2,230,1),(2,NULL,4.1,210,2),(3,NULL,4,200,3),(4,NULL,3.9,190,4);
+INSERT INTO `restaurant_review` VALUES (1,NULL,4.2,230,1),(2,NULL,4,190,2);
 /*!40000 ALTER TABLE `restaurant_review` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -400,7 +455,7 @@ CREATE TABLE `restaurant_setup` (
   PRIMARY KEY (`setup_id`),
   KEY `FK715wydd7xge7ukb8tmfvhn9tv` (`restaurant_details_id`),
   CONSTRAINT `FK715wydd7xge7ukb8tmfvhn9tv` FOREIGN KEY (`restaurant_details_id`) REFERENCES `restaurant_details` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -409,7 +464,7 @@ CREATE TABLE `restaurant_setup` (
 
 LOCK TABLES `restaurant_setup` WRITE;
 /*!40000 ALTER TABLE `restaurant_setup` DISABLE KEYS */;
-INSERT INTO `restaurant_setup` VALUES (1,'?','?',1),(2,'?','?',2),(3,'?','?',3),(4,'?','?',4),(5,'null','null',5),(6,'null','null',6);
+INSERT INTO `restaurant_setup` VALUES (1,'?','?',1),(2,'?','?',2);
 /*!40000 ALTER TABLE `restaurant_setup` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -460,7 +515,7 @@ CREATE TABLE `restaurantsetup_deliverypartner` (
 
 LOCK TABLES `restaurantsetup_deliverypartner` WRITE;
 /*!40000 ALTER TABLE `restaurantsetup_deliverypartner` DISABLE KEYS */;
-INSERT INTO `restaurantsetup_deliverypartner` VALUES (1,1),(2,1),(3,1),(5,1),(1,2),(2,2),(3,2),(5,2),(1,3),(2,3),(3,3),(5,3);
+INSERT INTO `restaurantsetup_deliverypartner` VALUES (1,1),(1,2);
 /*!40000 ALTER TABLE `restaurantsetup_deliverypartner` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -487,7 +542,7 @@ CREATE TABLE `restaurantsetup_restauranttype` (
 
 LOCK TABLES `restaurantsetup_restauranttype` WRITE;
 /*!40000 ALTER TABLE `restaurantsetup_restauranttype` DISABLE KEYS */;
-INSERT INTO `restaurantsetup_restauranttype` VALUES (1,1),(2,1),(3,1),(4,1),(5,1),(6,1),(1,2),(2,2),(3,2),(4,2),(5,2),(6,2),(1,3),(2,3),(3,3),(4,3),(5,3),(6,3),(5,4),(6,4),(5,5),(6,5),(5,6),(6,6),(5,7),(6,7),(5,8),(6,8);
+INSERT INTO `restaurantsetup_restauranttype` VALUES (1,1),(1,2),(1,3);
 /*!40000 ALTER TABLE `restaurantsetup_restauranttype` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -515,7 +570,7 @@ CREATE TABLE `userinformation` (
 
 LOCK TABLES `userinformation` WRITE;
 /*!40000 ALTER TABLE `userinformation` DISABLE KEYS */;
-INSERT INTO `userinformation` VALUES (1,'','Sunil','Shetty','7568941238','owner'),(2,NULL,'Rakesh','Sharma','8623564512','customer');
+INSERT INTO `userinformation` VALUES (1,NULL,'Nana','Patekar','4586123121','customer'),(2,NULL,'Sunil','Shetty','6712123121','owner');
 /*!40000 ALTER TABLE `userinformation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -542,7 +597,7 @@ CREATE TABLE `userinformation_addresses` (
 
 LOCK TABLES `userinformation_addresses` WRITE;
 /*!40000 ALTER TABLE `userinformation_addresses` DISABLE KEYS */;
-INSERT INTO `userinformation_addresses` VALUES (2,7);
+INSERT INTO `userinformation_addresses` VALUES (1,1),(2,2);
 /*!40000 ALTER TABLE `userinformation_addresses` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -555,4 +610,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-04-24  2:05:30
+-- Dump completed on 2018-04-26  3:07:45

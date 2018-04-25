@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.woho.model.OrderDetails;
 import com.woho.service.UserService;
 import com.woho.vo.CartVO;
-import com.woho.vo.OrderTrackingVO;
+import com.woho.vo.OrderDetailsVO;
 import com.woho.vo.PaymentCardVO;
 import com.woho.vo.UserVO;
 
@@ -25,18 +26,18 @@ public class UserController {
 	UserService userService;
 
 	@RequestMapping(value = "/user/getpastorders/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<OrderTrackingVO> getPastOrders(@PathVariable("userId") Long userId) throws Exception {
+	public List<OrderDetailsVO> getPastOrders(@PathVariable("userId") Long userId) throws Exception {
 		return userService.getpastorders(userId);
 	}
 
 	@RequestMapping(value = "/user/placeorder", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public void placeOrder(@RequestBody CartVO cartVO) throws Exception {
-		userService.placeOrder(cartVO);;
+	public OrderDetails placeOrder(@RequestBody CartVO cartVO) throws Exception {
+		return userService.placeOrder(cartVO);
 	}
 	
-	@RequestMapping(value = "/user/reorder/{trackingId}", method = RequestMethod.GET)
-	public void reOrder(@PathVariable("trackingId") String trackingId) throws Exception {
-		userService.reOrder(trackingId);
+	@RequestMapping(value = "/user/reorder/{orderId}", method = RequestMethod.GET)
+	public OrderDetailsVO reOrder(@PathVariable("orderId") String orderId) throws Exception {
+		return userService.reOrder(orderId);
 	}
 	
 	@RequestMapping(value = "/user/gettotalbillwithtax", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)

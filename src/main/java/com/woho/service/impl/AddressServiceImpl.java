@@ -35,4 +35,9 @@ public class AddressServiceImpl implements AddressService {
 		}
 		return addresses;
 	}
+
+	@Override
+	public Address get(Long id) {
+		return addressDao.get(id);
+	}
 }

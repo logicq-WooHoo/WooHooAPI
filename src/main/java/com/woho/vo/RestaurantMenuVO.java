@@ -2,6 +2,12 @@ package com.woho.vo;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.woho.model.PaymentDetails;
+
+@JsonInclude(Include.NON_NULL)
 public class RestaurantMenuVO {
 
 	private Long restaurantId;
@@ -12,8 +18,12 @@ public class RestaurantMenuVO {
 	/**
 	 * Used in placeorder call
 	 */
-	private String deliveryPartner;
+	private Long deliveryPartnerId;
+	private String deliveryPartnerName;
 	private Set<MenuItemVO> menuItems;
+
+	@JsonIgnoreProperties(ignoreUnknown = true)
+	PaymentDetails paymentDetails;
 
 	public Long getRestaurantId() {
 		return restaurantId;
@@ -31,12 +41,20 @@ public class RestaurantMenuVO {
 		this.restaurantName = restaurantName;
 	}
 
-	public String getDeliveryPartner() {
-		return deliveryPartner;
+	public Long getDeliveryPartnerId() {
+		return deliveryPartnerId;
 	}
 
-	public void setDeliveryPartner(String deliveryPartner) {
-		this.deliveryPartner = deliveryPartner;
+	public void setDeliveryPartnerId(Long deliveryPartnerId) {
+		this.deliveryPartnerId = deliveryPartnerId;
+	}
+
+	public String getDeliveryPartnerName() {
+		return deliveryPartnerName;
+	}
+
+	public void setDeliveryPartnerName(String deliveryPartnerName) {
+		this.deliveryPartnerName = deliveryPartnerName;
 	}
 
 	public Set<MenuItemVO> getMenuItems() {
@@ -47,9 +65,12 @@ public class RestaurantMenuVO {
 		this.menuItems = menuItems;
 	}
 
-	@Override
-	public String toString() {
-		return "RestaurantMenuVO [restaurantId=" + restaurantId + ", restaurantName=" + restaurantName
-				+ ", deliveryPartner=" + deliveryPartner + ", menuItems=" + menuItems + "]";
+	public PaymentDetails getPaymentDetails() {
+		return paymentDetails;
 	}
+
+	public void setPaymentDetails(PaymentDetails paymentDetails) {
+		this.paymentDetails = paymentDetails;
+	}
+
 }

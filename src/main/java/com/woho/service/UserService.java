@@ -3,8 +3,10 @@ package com.woho.service;
 import java.util.List;
 import java.util.Map;
 
+import com.woho.model.OrderDetails;
 import com.woho.model.UserInformation;
 import com.woho.vo.CartVO;
+import com.woho.vo.OrderDetailsVO;
 import com.woho.vo.OrderTrackingVO;
 import com.woho.vo.PaymentCardVO;
 import com.woho.vo.UserVO;
@@ -15,16 +17,16 @@ public interface UserService {
 
 	UserInformation getUser(Long id);
 
-	List<OrderTrackingVO> getpastorders(Long userId);
+	List<OrderDetailsVO> getpastorders(Long userId) throws Exception;
 
 	// Set<OrderDetailsVO> getOrderDetails(String trackingId);
 
-	void placeOrder(CartVO cartVO) throws Exception;
+	OrderDetails placeOrder(CartVO cartVO) throws Exception;
 	// Set<OrderDetailsVO> reOrder(String trackingId);
 
 	Map<String, Double> getTotalBillWithTax(Double subTotal);
 
-	void reOrder(String trackingId);
+	OrderDetailsVO reOrder(String trackingId);
 
 	void saveCardDetails(PaymentCardVO paymentCardVO);
 	
