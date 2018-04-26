@@ -36,6 +36,9 @@ public class RestaurantDetails {
 	@Size(max = 100)
 	private String registrationNumber;
 
+	@Column(name = "WEBSITE")
+	private String website;
+
 	@OneToOne(cascade = CascadeType.ALL)
 	private Address address;
 
@@ -69,6 +72,14 @@ public class RestaurantDetails {
 		this.registrationNumber = registrationNumber;
 	}
 
+	public String getWebsite() {
+		return website;
+	}
+
+	public void setWebsite(String website) {
+		this.website = website;
+	}
+
 	public Address getAddress() {
 		return address;
 	}
@@ -96,7 +107,7 @@ public class RestaurantDetails {
 	@Override
 	public String toString() {
 		return "RestaurantDetails [id=" + id + ", restaurantName=" + restaurantName + ", registrationNumber="
-				+ registrationNumber + ", address=" + address + ", document=" + document + ", userInformation="
-				+ userInformation + "]";
+				+ registrationNumber + ", website=" + website + ", address=" + address + ", document=" + document
+				+ ", userInformation=" + userInformation + "]";
 	}
 }

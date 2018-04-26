@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,22 +50,26 @@ public class RestaurantSearchController {
 	@RequestMapping(value = "/user/restaurant/searchtype", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, List<Long>> searchRestaurantTypes(@RequestBody RestaurantSearchVO restaurantSearchVO)
 			throws Exception {
-		List<RestaurantVO> restaurantVOs = restaurantSearchService.searchRestaurant(restaurantSearchVO);
 		Map<String, List<Long>> restTypeCountMap = new HashMap<>();
-		restaurantVOs.forEach(rest -> {
-			Set<String> restTypes = rest.getRestaurantTypes();
-			restTypes.forEach(rt -> {
-				if (restTypeCountMap.containsKey(rt)) {
-					List<Long> restIds = restTypeCountMap.get(rt);
-					restIds.add(rest.getId());
-					restTypeCountMap.put(rt, restIds);
-				} else {
-					List<Long> restIds = new ArrayList<>();
-					restIds.add(rest.getId());
-					restTypeCountMap.put(rt, restIds);
+		List<RestaurantVO> restaurantVOs = restaurantSearchService.searchRestaurant(restaurantSearchVO);
+		if (!CollectionUtils.isEmpty(restaurantVOs)) {
+			restaurantVOs.forEach(rest -> {
+				Set<String> restTypes = rest.getRestaurantTypes();
+				if (!CollectionUtils.isEmpty(restTypes)) {
+					restTypes.forEach(rt -> {
+						if (restTypeCountMap.containsKey(rt)) {
+							List<Long> restIds = restTypeCountMap.get(rt);
+							restIds.add(rest.getId());
+							restTypeCountMap.put(rt, restIds);
+						} else {
+							List<Long> restIds = new ArrayList<>();
+							restIds.add(rest.getId());
+							restTypeCountMap.put(rt, restIds);
+						}
+					});
 				}
 			});
-		});
+		}
 		return restTypeCountMap;
 	}
 

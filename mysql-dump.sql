@@ -313,6 +313,7 @@ CREATE TABLE `restaurant_details` (
   `address_id` bigint(20) DEFAULT NULL,
   `document_id` bigint(20) DEFAULT NULL,
   `user_information_id` bigint(20) DEFAULT NULL,
+  `website` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKp1yg7j7qnxt4yshqwgbxvqrrh` (`address_id`),
   KEY `FKfg5ptvp2j47e2vcsckl4lnqo6` (`document_id`),
@@ -329,7 +330,7 @@ CREATE TABLE `restaurant_details` (
 
 LOCK TABLES `restaurant_details` WRITE;
 /*!40000 ALTER TABLE `restaurant_details` DISABLE KEYS */;
-INSERT INTO `restaurant_details` VALUES (1,'1058','Hotel Kinara',3,NULL,2),(2,'1059','Samartha Veg',4,NULL,2);
+INSERT INTO `restaurant_details` VALUES (1,'1058','Hotel Kinara',3,NULL,2,'http://www.kinara.com'),(2,'1059','Samartha Veg',4,NULL,2,'http://www.samarthaveg.com');
 /*!40000 ALTER TABLE `restaurant_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -542,7 +543,7 @@ CREATE TABLE `restaurantsetup_restauranttype` (
 
 LOCK TABLES `restaurantsetup_restauranttype` WRITE;
 /*!40000 ALTER TABLE `restaurantsetup_restauranttype` DISABLE KEYS */;
-INSERT INTO `restaurantsetup_restauranttype` VALUES (1,1),(1,2),(1,3);
+INSERT INTO `restaurantsetup_restauranttype` VALUES (1,1),(2,1),(1,2),(2,2),(1,3),(2,3);
 /*!40000 ALTER TABLE `restaurantsetup_restauranttype` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -610,4 +611,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-04-26  3:07:45
+-- Dump completed on 2018-04-27  0:23:24
