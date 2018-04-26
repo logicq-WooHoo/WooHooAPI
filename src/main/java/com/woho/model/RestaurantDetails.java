@@ -36,6 +36,10 @@ public class RestaurantDetails {
 	@Size(max = 100)
 	private String registrationNumber;
 
+	@Column(name = "PHONE")
+	@Size(max = 20)
+	private String phone;
+
 	@Column(name = "WEBSITE")
 	private String website;
 
@@ -70,6 +74,14 @@ public class RestaurantDetails {
 
 	public void setRegistrationNumber(String registrationNumber) {
 		this.registrationNumber = registrationNumber;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	public String getWebsite() {
@@ -107,7 +119,7 @@ public class RestaurantDetails {
 	@Override
 	public String toString() {
 		return "RestaurantDetails [id=" + id + ", restaurantName=" + restaurantName + ", registrationNumber="
-				+ registrationNumber + ", website=" + website + ", address=" + address + ", document=" + document
-				+ ", userInformation=" + userInformation + "]";
+				+ registrationNumber + ", phone=" + phone + ", website=" + website + ", address=" + address
+				+ ", document=" + document + ", userInformation=" + userInformation + "]";
 	}
 }

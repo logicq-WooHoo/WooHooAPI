@@ -167,6 +167,25 @@ public class RestaurantSearchServiceImpl implements RestaurantSearchService {
 				}
 				restaurantVO.setRestaurantName(rd.getRestaurantName());
 				restaurantVO.setRestaurantTypes(restaurantSetupService.getRestaurantTypeNames(rd.getId()));
+
+				if (!ObjectUtils.isEmpty(rd.getPhone())) {
+					restaurantVO.setPhone(rd.getPhone());
+				}
+				if (!ObjectUtils.isEmpty(rd.getWebsite())) {
+					restaurantVO.setWebsite(rd.getWebsite());
+				}
+				if (!ObjectUtils.isEmpty(rd.getDocument())) {
+					if (!ObjectUtils.isEmpty(rd.getDocument().getId())) {
+						restaurantVO.setDocumentId(rd.getDocument().getId());
+					}
+					if (!ObjectUtils.isEmpty(rd.getDocument().getFilename())) {
+						restaurantVO.setDocumentName(rd.getDocument().getFilename());
+					}
+					if (!ObjectUtils.isEmpty(rd.getDocument().getFilePath())) {
+						restaurantVO.setDocumentFilePath(rd.getDocument().getFilePath());
+					}
+				}
+
 				restaurantVOList.add(restaurantVO);
 			});
 		}
