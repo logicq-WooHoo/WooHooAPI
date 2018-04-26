@@ -90,7 +90,7 @@ CREATE TABLE `document` (
   `file_type` varchar(100) DEFAULT NULL,
   `file_name` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -99,6 +99,7 @@ CREATE TABLE `document` (
 
 LOCK TABLES `document` WRITE;
 /*!40000 ALTER TABLE `document` DISABLE KEYS */;
+INSERT INTO `document` VALUES (3,'http://localhost:8090/asserts/kinara.img',NULL,NULL,'kinara.img'),(4,'http://localhost:8090/asserts/samartha.img',NULL,NULL,'samartha.img');
 /*!40000 ALTER TABLE `document` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -287,7 +288,7 @@ CREATE TABLE `paymentcard` (
   UNIQUE KEY `UKak362x65optqe9ek0jlwjdyes` (`card_number`),
   KEY `FKagt99kwjkpspij95box5rpx3y` (`user_information_id`),
   CONSTRAINT `FKagt99kwjkpspij95box5rpx3y` FOREIGN KEY (`user_information_id`) REFERENCES `userinformation` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -296,6 +297,7 @@ CREATE TABLE `paymentcard` (
 
 LOCK TABLES `paymentcard` WRITE;
 /*!40000 ALTER TABLE `paymentcard` DISABLE KEYS */;
+INSERT INTO `paymentcard` VALUES (1,2345123456789023,'debit',123,'07/19',1);
 /*!40000 ALTER TABLE `paymentcard` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -314,6 +316,7 @@ CREATE TABLE `restaurant_details` (
   `document_id` bigint(20) DEFAULT NULL,
   `user_information_id` bigint(20) DEFAULT NULL,
   `website` varchar(255) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKp1yg7j7qnxt4yshqwgbxvqrrh` (`address_id`),
   KEY `FKfg5ptvp2j47e2vcsckl4lnqo6` (`document_id`),
@@ -330,7 +333,7 @@ CREATE TABLE `restaurant_details` (
 
 LOCK TABLES `restaurant_details` WRITE;
 /*!40000 ALTER TABLE `restaurant_details` DISABLE KEYS */;
-INSERT INTO `restaurant_details` VALUES (1,'1058','Hotel Kinara',3,NULL,2,'http://www.kinara.com'),(2,'1059','Samartha Veg',4,NULL,2,'http://www.samarthaveg.com');
+INSERT INTO `restaurant_details` VALUES (1,'1058','Hotel Kinara',3,3,2,'http://www.hotelkinara.com','020253111'),(2,'1059','Samartha Veg',4,4,2,'http://www.samarthaveg.com','020285412');
 /*!40000 ALTER TABLE `restaurant_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -516,7 +519,7 @@ CREATE TABLE `restaurantsetup_deliverypartner` (
 
 LOCK TABLES `restaurantsetup_deliverypartner` WRITE;
 /*!40000 ALTER TABLE `restaurantsetup_deliverypartner` DISABLE KEYS */;
-INSERT INTO `restaurantsetup_deliverypartner` VALUES (1,1),(1,2);
+INSERT INTO `restaurantsetup_deliverypartner` VALUES (1,1),(2,1),(1,2);
 /*!40000 ALTER TABLE `restaurantsetup_deliverypartner` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -611,4 +614,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-04-27  0:23:24
+-- Dump completed on 2018-04-27  3:53:28
