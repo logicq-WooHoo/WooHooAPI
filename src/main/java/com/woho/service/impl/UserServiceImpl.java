@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -16,6 +17,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -25,14 +27,17 @@ import com.woho.dao.OrderTrackingDao;
 import com.woho.dao.PaymentCardDao;
 import com.woho.dao.UserInformationDao;
 import com.woho.helper.ObjectFactory;
+import com.woho.model.MenuItem;
 import com.woho.model.OrderDetails;
 import com.woho.model.OrderTracking;
 import com.woho.model.PaymentCard;
 import com.woho.model.UserInformation;
 import com.woho.service.AddressService;
+import com.woho.service.MenuItemService;
 import com.woho.service.RegistrationService;
 import com.woho.service.UserService;
 import com.woho.vo.CartVO;
+import com.woho.vo.MenuItemVO;
 import com.woho.vo.OrderDetailsVO;
 import com.woho.vo.OrderTrackingVO;
 import com.woho.vo.PaymentCardVO;
@@ -55,6 +60,8 @@ public class UserServiceImpl implements UserService {
 	AddressService addressService;
 	@Autowired
 	RegistrationService registrationService;
+	@Autowired
+	MenuItemService menuItemService;
 
 	private ObjectMapper objectMapper = ObjectFactory.getObjectMapper();
 
@@ -174,61 +181,75 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public OrderDetailsVO reOrder(String orderId) {
-		//List<OrderDetailsVO> orderDetailsVOList = new ArrayList<OrderDetailsVO>();
-		
 		OrderDetails dbOrderDetails = orderDetailsDao.get(orderId);
-		
-		//List<OrderDetails> orderDetailsList = orderDetailsDao.getByUserId(userId);
-		//orderDetailsList.forEach(orderDetails -> {
-			OrderDetailsVO orderDetailsVO = new OrderDetailsVO();
-			orderDetailsVO.setOrderId(dbOrderDetails.getId());
-			orderDetailsVO.setTimestamp(dbOrderDetails.getTimestamp());
-			orderDetailsVO.setUserId(dbOrderDetails.getUserInformation().getUserId());
-			orderDetailsVO.setDeliveryAddresses(dbOrderDetails.getDeliveryAddresses());
+		OrderDetailsVO orderDetailsVO = new OrderDetailsVO();
+		orderDetailsVO.setOrderId(dbOrderDetails.getId());
+		orderDetailsVO.setTimestamp(dbOrderDetails.getTimestamp());
+		orderDetailsVO.setUserId(dbOrderDetails.getUserInformation().getUserId());
+		orderDetailsVO.setDeliveryAddresses(dbOrderDetails.getDeliveryAddresses());
 
-			List<OrderTrackingVO> orderTrackingVOList = new ArrayList<OrderTrackingVO>();
-			List<OrderTracking> orderTrackings = dbOrderDetails.getOrderTrackings();
-			orderTrackings.forEach(orderTracking -> {
-				OrderTrackingVO orderTrackingVO = new OrderTrackingVO();
-				orderTrackingVO.setOrderTrackingId(orderTracking.getId());
-				try {
-					orderTrackingVO.setOrderDetails(
-							objectMapper.readValue(new String(orderTracking.getOrderJson()), RestaurantMenuVO.class));
-				} catch (IOException e) {
-					e.printStackTrace();
+		List<OrderTrackingVO> orderTrackingVOList = new ArrayList<OrderTrackingVO>();
+		List<OrderTracking> orderTrackings = dbOrderDetails.getOrderTrackings();
+		orderTrackings.forEach(orderTracking -> {
+			OrderTrackingVO orderTrackingVO = new OrderTrackingVO();
+			orderTrackingVO.setOrderTrackingId(orderTracking.getId());
+			try {
+
+				RestaurantMenuVO restaurantMenuVO = objectMapper.readValue(new String(orderTracking.getOrderJson()),
+						RestaurantMenuVO.class);
+				Set<MenuItemVO> menuItemVOs = restaurantMenuVO.getMenuItems();
+				if (!CollectionUtils.isEmpty(menuItemVOs)) {
+					List<Long> menuItemIds = menuItemVOs.stream().map(MenuItemVO::getId).collect(Collectors.toList());
+					if (!CollectionUtils.isEmpty(menuItemIds)) {
+						List<MenuItem> menuItems = menuItemService.getByIds(menuItemIds);
+						/**
+						 * ? what if reordered menu is no longer supported by restaurant ?
+						 */
+						// Read more:
+						// http://javarevisited.blogspot.com/2016/04/10-examples-of-converting-list-to-map.html#ixzz5DzBFoTkG
+						Map<Long, Double> menuDBResults = menuItems.stream()
+								.collect(Collectors.toMap(menu -> menu.getId(), menu -> menu.getPrice()));
+
+						menuItemVOs = menuItemVOs.stream().map(menuItemVO -> {
+							menuItemVO.setPrice(menuDBResults.get(menuItemVO.getId()));
+							menuItemVO.setTotalPrice(menuDBResults.get(menuItemVO.getId()) * menuItemVO.getQuantity());
+							return menuItemVO;
+						}).collect(Collectors.toSet());
+					}
 				}
-				orderTrackingVOList.add(orderTrackingVO);
-			});
-			orderDetailsVO.setOrderTrackings(orderTrackingVOList);
-			//orderDetailsVOList.add(orderDetailsVO);
-		//});
 
-		return orderDetailsVO;
-		
-		/*OrderDetails dbOrderDetails = orderDetailsDao.get(orderId);
-
-		OrderDetails orderDetails = new OrderDetails();
-		orderDetails.setId(dbOrderDetails.getId());
-		orderDetails.setTimestamp(new Date());
-		orderDetails.setUserInformation(dbOrderDetails.getUserInformation());
-		orderDetails.setDeliveryAddresses(dbOrderDetails.getDeliveryAddresses());
-
-		List<OrderTracking> orderTrackings = new ArrayList<>();
-
-		List<OrderTracking> dbOrderTrackings = dbOrderDetails.getOrderTrackings();
-		dbOrderTrackings.forEach(dbOrderTracking -> {
-			OrderTracking orderTracking = new OrderTracking();
-			orderTracking.setId(dbOrderTracking.getId());
-			orderTracking.setRestaurantDetails(dbOrderTracking.getRestaurantDetails());
-			orderTracking.setOrderJson(dbOrderTracking.getOrderJson()); // todo: need to add updated, if change in menu
-																		// price
-			orderTrackings.add(orderTracking);
+				orderTrackingVO.setOrderDetails(restaurantMenuVO);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			orderTrackingVOList.add(orderTrackingVO);
 		});
+		orderDetailsVO.setOrderTrackings(orderTrackingVOList);
+		return orderDetailsVO;
 
-		orderDetails.setOrderTrackings(orderTrackings);
-
-		//orderDetailsDao.add(orderDetails);
-		return orderDetails;*/
+		/*
+		 * OrderDetails dbOrderDetails = orderDetailsDao.get(orderId);
+		 * 
+		 * OrderDetails orderDetails = new OrderDetails();
+		 * orderDetails.setId(dbOrderDetails.getId()); orderDetails.setTimestamp(new
+		 * Date());
+		 * orderDetails.setUserInformation(dbOrderDetails.getUserInformation());
+		 * orderDetails.setDeliveryAddresses(dbOrderDetails.getDeliveryAddresses());
+		 * 
+		 * List<OrderTracking> orderTrackings = new ArrayList<>();
+		 * 
+		 * List<OrderTracking> dbOrderTrackings = dbOrderDetails.getOrderTrackings();
+		 * dbOrderTrackings.forEach(dbOrderTracking -> { OrderTracking orderTracking =
+		 * new OrderTracking(); orderTracking.setId(dbOrderTracking.getId());
+		 * orderTracking.setRestaurantDetails(dbOrderTracking.getRestaurantDetails());
+		 * orderTracking.setOrderJson(dbOrderTracking.getOrderJson()); // todo: need to
+		 * add updated, if change in menu // price orderTrackings.add(orderTracking);
+		 * });
+		 * 
+		 * orderDetails.setOrderTrackings(orderTrackings);
+		 * 
+		 * //orderDetailsDao.add(orderDetails); return orderDetails;
+		 */
 	}
 
 	@Override

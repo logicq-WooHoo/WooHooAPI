@@ -39,5 +39,11 @@ public class MenuItemDaoImpl extends AbstractDAO<MenuItem> implements MenuItemDa
 		return selectWithLikeClause(hql, "itemName", itemName);
 	}
 
+	@Override
+	public List<MenuItem> getByIds(List<Long> ids) {
+		String hql = "from MenuItem where id in (:list)";
+		return (List<MenuItem>) executeQueryWithList(hql, ids);
+	}
+
 	
 }

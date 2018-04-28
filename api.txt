@@ -122,7 +122,13 @@ or
 	"foodCategory":"aloo"
 }
 
-8.7: restaurant search on the basis of restaurant name:
+8.7  Same key foodCategory used for restaurant name while searching restaurant
+{
+	"city":"Pune",
+	"foodCategory":"kinara"
+}
+
+8.8: restaurant search on the basis of restaurant name:
 {
 	"city":"Pune",
     "restaurantName": "Hotel Kina"

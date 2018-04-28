@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name="ADDRESS")
+@Table(name = "ADDRESS")
 public class Address {
 
 	@Id
@@ -33,16 +33,16 @@ public class Address {
 	@Size(max = 100)
 	@Column(name = "ROAD")
 	private String road;
-	
+
 	@Size(max = 100)
-	@Column(name="CITY")
+	@Column(name = "CITY")
 	private String city;
-	
+
 	@NotNull
-	@Size(min=4,max=10)
-	@Column(name="PINCODE")
+	@Size(min = 4, max = 10)
+	@Column(name = "PINCODE")
 	private String pinCode;
-	
+
 	@Column(name = "LOCALITY")
 	@Size(max = 100)
 	private String locality;
@@ -61,14 +61,22 @@ public class Address {
 
 	@Column(name = "LATITUDE")
 	private Double latitude;
-	
+
 	@Column(name = "LONGITUDE")
 	private Double longitude;
-	
+
 	@Size(max = 100)
 	@Column(name = "ADDRESS_TYPE")
 	private String type;
-	
+
+	@Size(max = 100)
+	@Column(name = "STATE_CODE")
+	private String stateCode;
+
+	@Size(max = 100)
+	@Column(name = "COUNTRY_CODE")
+	private String countryCode;
+
 	private Double distance;
 
 	public Long getId() {
@@ -190,5 +198,21 @@ public class Address {
 	public void setDistance(Double distance) {
 		this.distance = distance;
 	}
-	
+
+	public String getStateCode() {
+		return stateCode;
+	}
+
+	public void setStateCode(String stateCode) {
+		this.stateCode = stateCode;
+	}
+
+	public String getCountryCode() {
+		return countryCode;
+	}
+
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
+	}
+
 }

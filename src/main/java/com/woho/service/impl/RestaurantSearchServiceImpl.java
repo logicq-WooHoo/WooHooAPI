@@ -92,6 +92,9 @@ public class RestaurantSearchServiceImpl implements RestaurantSearchService {
 			restaurantDetailsList = restaurantDetailsService.getByAddressList(addresses);
 		}
 		if (!StringUtils.isEmpty(restaurantSearchVO.getFoodCategory())) {
+			/**
+			 * Here foodCategory key can contain values for foodCategory/menu/restaurantname
+			 */
 			FoodCategory foodCategory = foodCategoryService.getFoodCategory(restaurantSearchVO.getFoodCategory());
 			if (!ObjectUtils.isEmpty(foodCategory)) {
 				List<RestaurantDetailsFoodCategory> restaurantDetailsFoodCategoryList = restaurantDetailsFoodCategoryService
@@ -103,6 +106,15 @@ public class RestaurantSearchServiceImpl implements RestaurantSearchService {
 							.collect(Collectors.toList());
 				}
 			}
+			
+			List<RestaurantDetails> rds = restaurantDetailsService
+					.findByRestaurantName(restaurantSearchVO.getFoodCategory());
+			if (!CollectionUtils.isEmpty(restaurantDetailsList) && !CollectionUtils.isEmpty(rds)) {
+				restaurantDetailsList = restaurantDetailsList.stream()
+						.filter(rd -> rds.stream().anyMatch(rdsbyname -> rdsbyname.getId() == rd.getId()))
+						.collect(Collectors.toList());
+			}
+			
 			menuItems.addAll(menuItemService.findByMenuItem(restaurantSearchVO.getFoodCategory()));
 		}
 

@@ -11,6 +11,10 @@ import com.woho.model.MenuItem;
  */
 public interface MenuItemService {
 	MenuItem getByFoodCategory(String foodCategory);
+
 	List<MenuItem> getByFoodServiceTypes(List<String> foodServiceTypes);
+
+	List<MenuItem> getByIds(List<Long> ids);
+
 	List<MenuItem> findByMenuItem(String menuItem);
 }

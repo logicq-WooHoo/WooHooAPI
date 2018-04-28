@@ -38,6 +38,8 @@ CREATE TABLE `address` (
   `state` varchar(100) DEFAULT NULL,
   `street` varchar(100) DEFAULT NULL,
   `address_type` varchar(100) DEFAULT NULL,
+  `state_code` varchar(100) DEFAULT NULL,
+  `country_code` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -48,7 +50,7 @@ CREATE TABLE `address` (
 
 LOCK TABLES `address` WRITE;
 /*!40000 ALTER TABLE `address` DISABLE KEYS */;
-INSERT INTO `address` VALUES (1,'Pune','India',NULL,'B301',NULL,NULL,NULL,NULL,'411005','F.C. Road','Karishma','Maharashtra',NULL,'user'),(2,'Pune','India',NULL,'D306',NULL,NULL,NULL,NULL,'411005','J.M. Road','Gandharva','Maharashtra',NULL,'owner'),(3,'Pune','India',NULL,NULL,NULL,18.507535,'Kothrud',73.771311,'411038','F.C. Road',NULL,'Maharashtra',NULL,'restaurant'),(4,'Pune','India',NULL,NULL,NULL,18.507593,'Kothrud',73.806104,'411038','M.G. Road',NULL,'Maharashtra',NULL,'restaurant');
+INSERT INTO `address` VALUES (1,'Pune','India',NULL,'B301',NULL,NULL,NULL,NULL,'411005','F.C. Road','Karishma','Maharashtra',NULL,'user',NULL,NULL),(2,'Pune','India',NULL,'D306',NULL,NULL,NULL,NULL,'411005','J.M. Road','Gandharva','Maharashtra',NULL,'owner',NULL,NULL),(3,'Pune','India',NULL,NULL,NULL,18.507535,'Kothrud',73.771311,'411038','F.C. Road',NULL,'Maharashtra',NULL,'restaurant',NULL,NULL),(4,'Pune','India',NULL,NULL,NULL,18.507593,'Kothrud',73.806104,'411038','M.G. Road',NULL,'Maharashtra',NULL,'restaurant',NULL,NULL);
 /*!40000 ALTER TABLE `address` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -167,6 +169,7 @@ CREATE TABLE `menu_item` (
   `food_category_categoryid` bigint(20) DEFAULT NULL,
   `food_service_type_food_servcicetype_id` bigint(20) DEFAULT NULL,
   `is_veg` bit(1) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`menu_item_id`),
   KEY `FK85i18h83s5wk1gsty2pkmik0x` (`food_category_categoryid`),
   KEY `FKjniedvdsjxlva5tajvogugbgy` (`food_service_type_food_servcicetype_id`),
@@ -181,7 +184,7 @@ CREATE TABLE `menu_item` (
 
 LOCK TABLES `menu_item` WRITE;
 /*!40000 ALTER TABLE `menu_item` DISABLE KEYS */;
-INSERT INTO `menu_item` VALUES (1,'Aloo methi',150,6,2,''),(2,'Kaju Masala',200,6,2,'');
+INSERT INTO `menu_item` VALUES (1,'Aloo methi',160,6,2,'',NULL),(2,'Kaju Masala',210,6,2,'',NULL);
 /*!40000 ALTER TABLE `menu_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -265,7 +268,7 @@ CREATE TABLE `order_tracking` (
 
 LOCK TABLES `order_tracking` WRITE;
 /*!40000 ALTER TABLE `order_tracking` DISABLE KEYS */;
-INSERT INTO `order_tracking` VALUES ('jR5pbk','{\"restaurantId\":2,\"restaurantName\":\"Samartha Veg\",\"deliveryPartnerId\":2,\"deliveryPartnerName\":\"Swiggy\",\"menuItems\":[{\"id\":2,\"foodServiceTypeId\":null,\"foodCategoryId\":null,\"itemName\":\"Kaju Masala\",\"price\":200.0,\"quantity\":\"1\",\"totalPrice\":200.0}],\"paymentDetails\":{\"subTotal\":200.0,\"grandTotal\":236.0,\"deliveryCharges\":0.0,\"tax\":36.0,\"discount\":0.0}}',2),('SBoEkc','{\"restaurantId\":1,\"restaurantName\":\"Hotel Kinara\",\"deliveryPartnerId\":2,\"deliveryPartnerName\":\"Swiggy\",\"menuItems\":[{\"id\":1,\"foodServiceTypeId\":null,\"foodCategoryId\":null,\"itemName\":\"Aloo methi\",\"price\":150.0,\"quantity\":\"2\",\"totalPrice\":300.0}],\"paymentDetails\":{\"subTotal\":300.0,\"grandTotal\":354.0,\"deliveryCharges\":0.0,\"tax\":54.0,\"discount\":0.0}}',1);
+INSERT INTO `order_tracking` VALUES ('jR5pbk','{\n	\"deliveryPartnerId\" : 2,\n	\"deliveryPartnerName\" : \"Swiggy\",\n	\"menuItems\" : [\n		{\n			\"foodCategoryId\" : null,\n			\"foodServiceTypeId\" : null,\n			\"id\" : 2,\n			\"itemName\" : \"Kaju Masala\",\n			\"price\" : 200,\n			\"quantity\" : 1,\n			\"totalPrice\" : 200\n		}\n	],\n	\"paymentDetails\" : {\n		\"deliveryCharges\" : 0,\n		\"discount\" : 0,\n		\"grandTotal\" : 236,\n		\"subTotal\" : 200,\n		\"tax\" : 36\n	},\n	\"restaurantId\" : 2,\n	\"restaurantName\" : \"Samartha Veg\"\n}',2),('SBoEkc','{\n	\"deliveryPartnerId\" : 2,\n	\"deliveryPartnerName\" : \"Swiggy\",\n	\"menuItems\" : [\n		{\n			\"foodCategoryId\" : null,\n			\"foodServiceTypeId\" : null,\n			\"id\" : 1,\n			\"itemName\" : \"Aloo methi\",\n			\"price\" : 150,\n			\"quantity\" : 2,\n			\"totalPrice\" : 300\n		}\n	],\n	\"paymentDetails\" : {\n		\"deliveryCharges\" : 0,\n		\"discount\" : 0,\n		\"grandTotal\" : 354,\n		\"subTotal\" : 300,\n		\"tax\" : 54\n	},\n	\"restaurantId\" : 1,\n	\"restaurantName\" : \"Hotel Kinara\"\n}',1);
 /*!40000 ALTER TABLE `order_tracking` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -614,4 +617,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-04-27  3:53:28
+-- Dump completed on 2018-04-28 23:56:17

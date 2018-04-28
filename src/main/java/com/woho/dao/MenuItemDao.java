@@ -12,6 +12,7 @@ import com.woho.model.MenuItem;
 public interface MenuItemDao {
 	MenuItem getByFoodCategory(String foodCategory);
 	List<MenuItem> getByFoodServiceTypes(List<String> foodServiceTypes);
+	List<MenuItem> getByIds(List<Long> ids);
 	List<MenuItem> findByMenuItem(String itemName);
 	/*MenuItem get(long id);
 	List<MenuItem> list();
