@@ -231,3 +231,12 @@ POST: http://127.0.0.1:8090/api/user/savecarddetails
 19. Get User Profile
 GET: http://127.0.0.1:8090/api/user/getmyprofile/{userId}
 GET: http://127.0.0.1:8090/api/user/getmyprofile/2
+
+20. Login:
+POST: http://127.0.0.1:8090/api/login
+Headers:
+username:nana.patekar@gmail.com
+password:password
+OR
+username:4586123121
+password:password

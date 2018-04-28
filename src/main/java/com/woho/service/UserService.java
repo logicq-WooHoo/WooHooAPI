@@ -7,7 +7,6 @@ import com.woho.model.OrderDetails;
 import com.woho.model.UserInformation;
 import com.woho.vo.CartVO;
 import com.woho.vo.OrderDetailsVO;
-import com.woho.vo.OrderTrackingVO;
 import com.woho.vo.PaymentCardVO;
 import com.woho.vo.UserVO;
 
@@ -29,7 +28,9 @@ public interface UserService {
 	OrderDetailsVO reOrder(String trackingId);
 
 	void saveCardDetails(PaymentCardVO paymentCardVO);
-	
-	UserVO getMyProfile (Long userId);
+
+	UserVO getMyProfile(Long userId);
+
+	UserInformation authenticateUser(String username, String password);
 
 }

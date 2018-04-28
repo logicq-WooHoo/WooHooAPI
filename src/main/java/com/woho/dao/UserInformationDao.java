@@ -8,6 +8,10 @@ public interface UserInformationDao {
 
 	UserInformation findUserByEmail(String email);
 
+	UserInformation findUserByEmailorMobile(String userName);
+	
 	UserInformation get(Long id);
+	
+	UserInformation authenticateUser(String username, String password);
 
 }

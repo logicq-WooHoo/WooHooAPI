@@ -288,4 +288,9 @@ public class UserServiceImpl implements UserService {
 		return userVO;
 	}
 
+	@Override
+	public UserInformation authenticateUser(String username, String password) {
+		return userInformationDao.authenticateUser(username, password);
+	}
+
 }

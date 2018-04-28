@@ -9,6 +9,8 @@ import com.woho.model.UserInformation;
 @JsonInclude(Include.NON_NULL)
 public class UserVO {
 
+	private String username;
+
 	private String firstName;
 
 	private String lastName;
@@ -22,6 +24,14 @@ public class UserVO {
 	private UserInformation userInformation;
 
 	private List<PaymentCardVO> paymentCards;
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
 	public String getFirstName() {
 		return firstName;
@@ -81,9 +91,9 @@ public class UserVO {
 
 	@Override
 	public String toString() {
-		return "UserVO [firstName=" + firstName + ", lastName=" + lastName + ", emailId=" + emailId + ", mobileNo="
-				+ mobileNo + ", type=" + type + ", userInformation=" + userInformation + ", paymentCards="
-				+ paymentCards + "]";
+		return "UserVO [username=" + username + ", firstName=" + firstName + ", lastName=" + lastName + ", emailId="
+				+ emailId + ", mobileNo=" + mobileNo + ", type=" + type + ", userInformation=" + userInformation
+				+ ", paymentCards=" + paymentCards + "]";
 	}
 
 }

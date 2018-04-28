@@ -567,7 +567,9 @@ CREATE TABLE `userinformation` (
   `lastname` varchar(100) DEFAULT NULL,
   `mobileno` varchar(10) NOT NULL,
   `usertype` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
+  `password` varchar(15) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UKrjgfi8v0wggcisv95rw4yvu1g` (`email`,`mobileno`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -577,7 +579,7 @@ CREATE TABLE `userinformation` (
 
 LOCK TABLES `userinformation` WRITE;
 /*!40000 ALTER TABLE `userinformation` DISABLE KEYS */;
-INSERT INTO `userinformation` VALUES (1,NULL,'Nana','Patekar','4586123121','customer'),(2,NULL,'Sunil','Shetty','6712123121','owner');
+INSERT INTO `userinformation` VALUES (1,'nana.patekar@gmail.com','Nana','Patekar','4586123121','customer','password'),(2,'sunil.shetty@gmail.com','Sunil','Shetty','6712123121','owner','');
 /*!40000 ALTER TABLE `userinformation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -617,4 +619,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-04-28 23:56:17
+-- Dump completed on 2018-04-29  3:20:04

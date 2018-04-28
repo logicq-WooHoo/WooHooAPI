@@ -10,14 +10,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonInclude(Include.NON_NULL)
 @Entity
-@Table(name = "USERINFORMATION")
+@Table(name = "USERINFORMATION", uniqueConstraints = @UniqueConstraint(columnNames = { "EMAIL", "MOBILENO" }))
 public class UserInformation {
 
 	@Id
@@ -35,14 +40,19 @@ public class UserInformation {
 
 	@Email
 	@Size(max = 100)
-	@Column(name = "EMAIL")
+	@Column(name = "EMAIL", unique = true, nullable = false)
 	private String emailId;
 
 	@NotNull
 	@Pattern(regexp = "(^$|[0-9]{10})")
 	@Size(min = 10, max = 10)
-	@Column(name = "MOBILENO")
+	@Column(name = "MOBILENO", unique = true, nullable = false)
 	private String mobileNo;
+
+	@Email
+	@Size(max = 15)
+	@Column(name = "PASSWORD", nullable = false)
+	private String password;
 
 	@NotNull
 	@Size(max = 100)
@@ -51,7 +61,7 @@ public class UserInformation {
 
 	@OneToMany(cascade = CascadeType.ALL)
 	private Set<Address> addresses = new HashSet<>();
-	
+
 	public Long getUserId() {
 		return userId;
 	}
@@ -92,6 +102,14 @@ public class UserInformation {
 		this.mobileNo = mobileNo;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public String getType() {
 		return type;
 	}
@@ -106,6 +124,13 @@ public class UserInformation {
 
 	public void setAddresses(Set<Address> addresses) {
 		this.addresses = addresses;
+	}
+
+	@Override
+	public String toString() {
+		return "UserInformation [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", emailId=" + emailId + ", mobileNo=" + mobileNo + ", type=" + type + ", addresses=" + addresses
+				+ "]";
 	}
 
 }
