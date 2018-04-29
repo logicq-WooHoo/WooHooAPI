@@ -16,5 +16,7 @@ public interface MenuItemService {
 
 	List<MenuItem> getByIds(List<Long> ids);
 
+	MenuItem get(Long id);
+
 	List<MenuItem> findByMenuItem(String menuItem);
 }

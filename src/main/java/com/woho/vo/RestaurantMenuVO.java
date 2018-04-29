@@ -5,6 +5,7 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.woho.model.MenuItem;
 import com.woho.model.PaymentDetails;
 
 @JsonInclude(Include.NON_NULL)
@@ -21,6 +22,7 @@ public class RestaurantMenuVO {
 	private Long deliveryPartnerId;
 	private String deliveryPartnerName;
 	private Set<MenuItemVO> menuItems;
+	private MenuItem menuItem;
 
 	@JsonIgnoreProperties(ignoreUnknown = true)
 	PaymentDetails paymentDetails;
@@ -71,6 +73,14 @@ public class RestaurantMenuVO {
 
 	public void setPaymentDetails(PaymentDetails paymentDetails) {
 		this.paymentDetails = paymentDetails;
+	}
+
+	public MenuItem getMenuItem() {
+		return menuItem;
+	}
+
+	public void setMenuItem(MenuItem menuItem) {
+		this.menuItem = menuItem;
 	}
 
 }

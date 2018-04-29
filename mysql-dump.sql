@@ -554,6 +554,35 @@ INSERT INTO `restaurantsetup_restauranttype` VALUES (1,1),(2,1),(1,2),(2,2),(1,3
 UNLOCK TABLES;
 
 --
+-- Table structure for table `travelerpick`
+--
+
+DROP TABLE IF EXISTS `travelerpick`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `travelerpick` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `city` varchar(100) DEFAULT NULL,
+  `country_code` varchar(20) DEFAULT NULL,
+  `entity` varchar(20) DEFAULT NULL,
+  `menuid` bigint(20) DEFAULT NULL,
+  `restaurantid` bigint(20) DEFAULT NULL,
+  `state_code` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `travelerpick`
+--
+
+LOCK TABLES `travelerpick` WRITE;
+/*!40000 ALTER TABLE `travelerpick` DISABLE KEYS */;
+INSERT INTO `travelerpick` VALUES (1,'Pune','IND','food',1,1,'MAH');
+/*!40000 ALTER TABLE `travelerpick` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `userinformation`
 --
 
@@ -619,4 +648,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-04-29  3:20:04
+-- Dump completed on 2018-04-30  3:13:11

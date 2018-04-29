@@ -14,8 +14,8 @@ public interface MenuItemDao {
 	List<MenuItem> getByFoodServiceTypes(List<String> foodServiceTypes);
 	List<MenuItem> getByIds(List<Long> ids);
 	List<MenuItem> findByMenuItem(String itemName);
-	/*MenuItem get(long id);
-	List<MenuItem> list();
+	MenuItem get(Long id);
+	/*List<MenuItem> list();
 	void delete(long id);
 	void update(long id, MenuItem menuItem);
 	public boolean isMenuItemExist(MenuItem menuItem);*/

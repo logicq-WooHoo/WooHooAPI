@@ -23,7 +23,7 @@ public class MenuItemDaoImpl extends AbstractDAO<MenuItem> implements MenuItemDa
 
 	@Override
 	public MenuItem getByFoodCategory(String foodCategory) {
-		String sqlquery = "from MenuItem where foodCategory.category='" + foodCategory + "'"; 
+		String sqlquery = "from MenuItem where foodCategory.category='" + foodCategory + "'";
 		return executeQueryForUniqueRecord(sqlquery);
 	}
 
@@ -45,5 +45,9 @@ public class MenuItemDaoImpl extends AbstractDAO<MenuItem> implements MenuItemDa
 		return (List<MenuItem>) executeQueryWithList(hql, ids);
 	}
 
-	
+	@Override
+	public MenuItem get(Long id) {
+		return getRecordById(MenuItem.class, id);
+	}
+
 }

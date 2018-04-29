@@ -44,4 +44,9 @@ public class MenuItemServiceImpl implements MenuItemService {
 		return menuItemDao.getByIds(ids);
 	}
 
+	@Override
+	public MenuItem get(Long id) {
+		return menuItemDao.get(id);
+	}
+
 }

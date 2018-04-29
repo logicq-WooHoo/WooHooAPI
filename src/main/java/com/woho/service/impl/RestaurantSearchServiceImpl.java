@@ -22,6 +22,7 @@ import com.woho.model.RestaurantDetailsFoodCategory;
 import com.woho.model.RestaurantMenu;
 import com.woho.model.RestaurantReview;
 import com.woho.model.RestaurantSetup;
+import com.woho.model.TravelerPick;
 import com.woho.service.AddressService;
 import com.woho.service.FoodCategoryService;
 import com.woho.service.MenuItemService;
@@ -30,6 +31,8 @@ import com.woho.service.RestaurantMenuService;
 import com.woho.service.RestaurantReviewService;
 import com.woho.service.RestaurantSearchService;
 import com.woho.service.RestaurantSetupService;
+import com.woho.service.TravelerPickService;
+import com.woho.vo.RestaurantMenuVO;
 import com.woho.vo.RestaurantSearchVO;
 import com.woho.vo.RestaurantVO;
 
@@ -53,6 +56,8 @@ public class RestaurantSearchServiceImpl implements RestaurantSearchService {
 	RestaurantSetupService restaurantSetupService;
 	@Autowired
 	RestaurantReviewService restaurantReviewService;
+	@Autowired
+	TravelerPickService travelerPickService;
 
 	@Override
 	public void getRestaurantCities() {
@@ -106,7 +111,7 @@ public class RestaurantSearchServiceImpl implements RestaurantSearchService {
 							.collect(Collectors.toList());
 				}
 			}
-			
+
 			List<RestaurantDetails> rds = restaurantDetailsService
 					.findByRestaurantName(restaurantSearchVO.getFoodCategory());
 			if (!CollectionUtils.isEmpty(restaurantDetailsList) && !CollectionUtils.isEmpty(rds)) {
@@ -114,7 +119,7 @@ public class RestaurantSearchServiceImpl implements RestaurantSearchService {
 						.filter(rd -> rds.stream().anyMatch(rdsbyname -> rdsbyname.getId() == rd.getId()))
 						.collect(Collectors.toList());
 			}
-			
+
 			menuItems.addAll(menuItemService.findByMenuItem(restaurantSearchVO.getFoodCategory()));
 		}
 
@@ -202,6 +207,20 @@ public class RestaurantSearchServiceImpl implements RestaurantSearchService {
 			});
 		}
 		return restaurantVOList;
+	}
+
+	@Override
+	public List<RestaurantMenuVO> getTravelerPick(TravelerPick travelerPick) throws Exception {
+		List<RestaurantMenuVO> restaurantMenuVOs = new ArrayList<>();
+		List<TravelerPick> travelerPicks = travelerPickService.getByEntityAndCity(travelerPick);
+		travelerPicks.forEach(tp -> {
+			RestaurantMenuVO restaurantMenuVO = new RestaurantMenuVO();
+			restaurantMenuVO.setRestaurantId(tp.getRestaurantId());
+			restaurantMenuVO.setRestaurantName(restaurantDetailsService.get(tp.getRestaurantId()).getRestaurantName());
+			restaurantMenuVO.setMenuItem(menuItemService.get(tp.getMenuId()));
+			restaurantMenuVOs.add(restaurantMenuVO);
+		});
+		return restaurantMenuVOs;
 	}
 
 }

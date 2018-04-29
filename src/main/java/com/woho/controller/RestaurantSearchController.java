@@ -2,9 +2,11 @@ package com.woho.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -21,12 +23,14 @@ import com.woho.model.FoodCategory;
 import com.woho.model.FoodServiceType;
 import com.woho.model.MenuItem;
 import com.woho.model.RestaurantType;
+import com.woho.model.TravelerPick;
 import com.woho.service.DeliveryPartnerService;
 import com.woho.service.FoodCategoryService;
 import com.woho.service.FoodServiceTypeService;
 import com.woho.service.RestaurantMenuService;
 import com.woho.service.RestaurantSearchService;
 import com.woho.service.RestaurantTypeService;
+import com.woho.vo.RestaurantMenuVO;
 import com.woho.vo.RestaurantSearchVO;
 import com.woho.vo.RestaurantVO;
 
@@ -70,7 +74,15 @@ public class RestaurantSearchController {
 				}
 			});
 		}
-		return restTypeCountMap;
+		/**
+		 * sort by keys, a,b,c..., and return a new LinkedHashMap toMap() will returns
+		 * HashMap by default, we need LinkedHashMap to keep the order.
+		 */
+		Map<String, List<Long>> sortedRestTypeCountMap = restTypeCountMap.entrySet().stream()
+				.sorted(Map.Entry.comparingByKey()).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
+						(oldValue, newValue) -> oldValue, LinkedHashMap::new));
+
+		return sortedRestTypeCountMap;
 	}
 
 	@RequestMapping(value = "/user/restaurant/search", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -101,5 +113,16 @@ public class RestaurantSearchController {
 	@RequestMapping(value = "/getrestauranttypes", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<RestaurantType> getRestaurantTypes() throws Exception {
 		return restaurantTypeService.list();
+	}
+
+	/**
+	 * 
+	 * @param travelerPick
+	 * @return top food/things according to entity type like food/activity etc
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/getravelerpick", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<RestaurantMenuVO> geTravelerPick(@RequestBody TravelerPick travelerPick) throws Exception {
+		return restaurantSearchService.getTravelerPick(travelerPick);
 	}
 }

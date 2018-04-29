@@ -2,6 +2,8 @@ package com.woho.service;
 
 import java.util.List;
 
+import com.woho.model.TravelerPick;
+import com.woho.vo.RestaurantMenuVO;
 import com.woho.vo.RestaurantSearchVO;
 import com.woho.vo.RestaurantVO;
 
@@ -17,4 +19,5 @@ public interface RestaurantSearchService {
 	
 	List<RestaurantVO> searchRestaurant(RestaurantSearchVO restaurantSearchVO) throws Exception;
 
+	List<RestaurantMenuVO> getTravelerPick(TravelerPick travelerPick) throws Exception; 
 }

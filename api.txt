@@ -240,3 +240,11 @@ password:password
 OR
 username:4586123121
 password:password
+
+21. Get top picks from traveler in particular city
+POST: http://127.0.0.1:8090/api/getravelerpick
+{
+	"city":"Pune",
+	"entity":"food"
+}
+
