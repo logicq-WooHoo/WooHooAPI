@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -293,4 +294,44 @@ public class UserServiceImpl implements UserService {
 		return userInformationDao.authenticateUser(username, password);
 	}
 
+	@Override
+	public UserVO addUser(UserInformation userInformation) throws Exception {
+		UserVO userVO = null;
+		UserInformation dbuser = userInformationDao.findUserByEmail(userInformation.getEmailId());
+		if (ObjectUtils.isEmpty(dbuser)) {
+			validateUser(userInformation);
+			dbuser = userInformationDao.addUser(userInformation);
+			userVO = new UserVO();
+			userVO.setFirstName(dbuser.getFirstName());
+			userVO.setLastName(dbuser.getLastName());
+			userVO.setEmailId(dbuser.getEmailId());
+			userVO.setUsername(dbuser.getEmailId());
+			userVO.setType(dbuser.getType());
+			userVO.setLoginType(dbuser.getLoginType());
+		} else {
+			throw new Exception ("emailId " + userInformation.getEmailId() +  " is already registered !");
+		}
+		return userVO;
+	}
+
+	@Override
+	public void validateUser(UserInformation userInformation) throws Exception {
+		if (StringUtils.isEmpty(userInformation.getEmailId())) {
+			throw new Exception ("emailId should not be null !");
+		}
+		if (StringUtils.isEmpty(userInformation.getType())) {
+			throw new Exception ("type should not be null !");
+		}
+		if (StringUtils.isEmpty(userInformation.getLoginType())) {
+			throw new Exception ("loginType should not be null !");
+		} else {
+			if (StringUtils.isEmpty(userInformation.getPassword())) {
+				if ("woohoo".equalsIgnoreCase(userInformation.getLoginType())) {
+					throw new Exception ("Please provide password !");
+				}
+			}
+		}
+	}
+
+	
 }

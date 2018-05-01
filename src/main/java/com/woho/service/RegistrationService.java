@@ -10,10 +10,11 @@ import com.woho.model.RestaurantDetails;
 import com.woho.model.UserInformation;
 import com.woho.vo.RestaurantMenuVO;
 import com.woho.vo.RestaurantSetupVO;
+import com.woho.vo.UserVO;
 
 public interface RegistrationService {
 	
-	UserInformation register(UserInformation user);
+	UserVO register(UserInformation user) throws Exception;
 	RestaurantDetails saveRestaurantDetails(RestaurantDetails restaurantDetails);
 	RestaurantDetails getRestaurantDetails(long id);
 	RestaurantDetails getRestaurantDetailsByRegistrationNumber(String registrationNumber);

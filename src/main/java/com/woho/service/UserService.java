@@ -15,6 +15,10 @@ public interface UserService {
 	UserInformation getUser(UserVO userVO);
 
 	UserInformation getUser(Long id);
+	
+	UserVO addUser(UserInformation userInformation) throws Exception;
+	
+	void validateUser(UserInformation userInformation) throws Exception;
 
 	List<OrderDetailsVO> getpastorders(Long userId) throws Exception;
 

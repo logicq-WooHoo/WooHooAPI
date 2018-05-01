@@ -5,7 +5,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.woho.dao.UserInformationDao;
 import com.woho.service.FinalSetUpService;
 import com.woho.service.RegistrationService;
 import com.woho.vo.FinalSetUpVO;
@@ -17,15 +17,16 @@ public class FinalSetUpServiceImpl implements FinalSetUpService{
 	
 	@Autowired
 	RegistrationService registrationService;
-
+	@Autowired
+	UserInformationDao userInformationDao;
 	
 	@Override
-	public void finalRestaurentSetup(FinalSetUpVO finalSetUpVO) throws JsonProcessingException {
+	public void finalRestaurentSetup(FinalSetUpVO finalSetUpVO) throws Exception {
 
 		
 		//Adding User Information in Db
 		if(null!=finalSetUpVO.getUserInformation())
-			finalSetUpVO.setUserInformation(registrationService.register(finalSetUpVO.getUserInformation()));
+			finalSetUpVO.setUserInformation(userInformationDao.addUser(finalSetUpVO.getUserInformation()));
 		
 		
 		//Adding Restaurent Detail in Db

@@ -123,7 +123,7 @@ public class AdminController {
 	
 	
 	@RequestMapping(value = "/finalsetup", method = RequestMethod.POST,  produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<FinalSetUpVO> finalRestaurentSetup(@RequestBody FinalSetUpVO finalSetUpVO) throws JsonProcessingException {
+	public ResponseEntity<FinalSetUpVO> finalRestaurentSetup(@RequestBody FinalSetUpVO finalSetUpVO) throws Exception {
 
 		finalSetUpService.finalRestaurentSetup(finalSetUpVO);
 		

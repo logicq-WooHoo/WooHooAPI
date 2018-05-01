@@ -17,6 +17,16 @@ POST: http://127.0.0.1:8090/api/user/registration
   }]
 }
 
+OR
+
+{
+  "firstName": "Noor",
+  "lastName": "Fatima",
+  "emailId": "noor.fatima078@gmail.com",
+  "type":"customer",
+  "loginType":"FACEBOOK"
+}
+
 2. Add Restaurant Details
 POST: http://127.0.0.1:8090/api/restaurant/details
 {

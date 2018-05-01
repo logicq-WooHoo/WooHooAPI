@@ -21,6 +21,7 @@ import com.woho.model.UserInformation;
 import com.woho.service.RegistrationService;
 import com.woho.vo.RestaurantMenuVO;
 import com.woho.vo.RestaurantSetupVO;
+import com.woho.vo.UserVO;
 
 @RestController
 @RequestMapping("/api")
@@ -32,9 +33,10 @@ public class RegistrationController {
 	/**
 	 * @param type
 	 * @param user
+	 * @throws Exception 
 	 */
 	@RequestMapping(value = "/user/registration", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public UserInformation registerUser(@RequestBody UserInformation userInformation) {
+	public UserVO registerUser(@RequestBody UserInformation userInformation) throws Exception {
 		return registrationService.register(userInformation);
 	}
 

@@ -21,6 +21,8 @@ public class UserVO {
 
 	private String type;
 
+	private String loginType;
+
 	private UserInformation userInformation;
 
 	private List<PaymentCardVO> paymentCards;
@@ -89,11 +91,19 @@ public class UserVO {
 		this.paymentCards = paymentCards;
 	}
 
+	public String getLoginType() {
+		return loginType;
+	}
+
+	public void setLoginType(String loginType) {
+		this.loginType = loginType;
+	}
+
 	@Override
 	public String toString() {
 		return "UserVO [username=" + username + ", firstName=" + firstName + ", lastName=" + lastName + ", emailId="
-				+ emailId + ", mobileNo=" + mobileNo + ", type=" + type + ", userInformation=" + userInformation
-				+ ", paymentCards=" + paymentCards + "]";
+				+ emailId + ", mobileNo=" + mobileNo + ", type=" + type + ", loginType=" + loginType
+				+ ", userInformation=" + userInformation + ", paymentCards=" + paymentCards + "]";
 	}
 
 }

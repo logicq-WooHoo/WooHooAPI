@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @JsonInclude(Include.NON_NULL)
 @Entity
-@Table(name = "USERINFORMATION", uniqueConstraints = @UniqueConstraint(columnNames = { "EMAIL", "MOBILENO" }))
+@Table(name = "USERINFORMATION", uniqueConstraints = @UniqueConstraint(columnNames = { "EMAIL"}))
 public class UserInformation {
 
 	@Id
@@ -38,26 +38,30 @@ public class UserInformation {
 	@Column(name = "LASTNAME")
 	private String lastName;
 
+	@NotNull
 	@Email
 	@Size(max = 100)
 	@Column(name = "EMAIL", unique = true, nullable = false)
 	private String emailId;
 
-	@NotNull
 	@Pattern(regexp = "(^$|[0-9]{10})")
 	@Size(min = 10, max = 10)
-	@Column(name = "MOBILENO", unique = true, nullable = false)
+	@Column(name = "MOBILENO", unique = true)
 	private String mobileNo;
 
-	@Email
 	@Size(max = 15)
-	@Column(name = "PASSWORD", nullable = false)
+	@Column(name = "PASSWORD")
 	private String password;
 
 	@NotNull
 	@Size(max = 100)
 	@Column(name = "USERTYPE")
 	private String type;
+
+	@NotNull
+	@Size(max = 100)
+	@Column(name = "LOGIN_TYPE")
+	private String loginType;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	private Set<Address> addresses = new HashSet<>();
@@ -126,11 +130,19 @@ public class UserInformation {
 		this.addresses = addresses;
 	}
 
+	public String getLoginType() {
+		return loginType;
+	}
+
+	public void setLoginType(String loginType) {
+		this.loginType = loginType;
+	}
+
 	@Override
 	public String toString() {
 		return "UserInformation [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", emailId=" + emailId + ", mobileNo=" + mobileNo + ", type=" + type + ", addresses=" + addresses
-				+ "]";
+				+ ", emailId=" + emailId + ", mobileNo=" + mobileNo + ", password=" + password + ", type=" + type
+				+ ", loginType=" + loginType + ", addresses=" + addresses + "]";
 	}
 
 }

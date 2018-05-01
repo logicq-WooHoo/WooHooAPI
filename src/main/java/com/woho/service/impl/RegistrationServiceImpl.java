@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,9 +33,11 @@ import com.woho.service.FoodServiceTypeService;
 import com.woho.service.RegistrationService;
 import com.woho.service.RestaurantTypeService;
 import com.woho.service.StorageService;
+import com.woho.service.UserService;
 import com.woho.vo.MenuItemVO;
 import com.woho.vo.RestaurantMenuVO;
 import com.woho.vo.RestaurantSetupVO;
+import com.woho.vo.UserVO;
 
 @Service
 @Transactional
@@ -42,6 +45,8 @@ public class RegistrationServiceImpl implements RegistrationService{
 	
 	private ObjectMapper mapper = new ObjectMapper();
 
+	@Autowired
+	UserService userService;
 	@Autowired
 	UserInformationDao userInformationrDao;
 	
@@ -70,8 +75,8 @@ public class RegistrationServiceImpl implements RegistrationService{
 	StorageService storageService;
 	
 	@Override
-	public UserInformation register(UserInformation userInformation) {
-		return userInformationrDao.addUser(userInformation);
+	public UserVO register(UserInformation userInformation) throws Exception {
+		return userService.addUser(userInformation);
 	}
 
 	@Override
