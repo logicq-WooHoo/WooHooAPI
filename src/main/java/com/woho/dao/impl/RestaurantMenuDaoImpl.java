@@ -54,9 +54,7 @@ public class RestaurantMenuDaoImpl extends AbstractDAO<RestaurantMenu> implement
 
 	@Override
 	public List<RestaurantMenu> getByMenuItems(Set<MenuItem> menuItems) {
-		String hql = "select rm from RestaurantMenu rm " +
-                "join rm.menuItems mi " +
-                "where mi = (:set) ";
+		String hql = "select rm from RestaurantMenu rm " + "join rm.menuItems mi " + "where mi = (:set) ";
 		return (List<RestaurantMenu>) executeQueryWithSet(hql, menuItems);
 	}
 

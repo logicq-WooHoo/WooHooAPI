@@ -392,6 +392,60 @@ INSERT INTO `restaurant_menu` VALUES (1,1),(2,2);
 UNLOCK TABLES;
 
 --
+-- Table structure for table `restaurant_menu_food_categories`
+--
+
+DROP TABLE IF EXISTS `restaurant_menu_food_categories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `restaurant_menu_food_categories` (
+  `restaurant_menu_id` bigint(20) NOT NULL,
+  `food_categories_categoryid` bigint(20) NOT NULL,
+  PRIMARY KEY (`restaurant_menu_id`,`food_categories_categoryid`),
+  KEY `FKq9e445gh717fnbq6ltwgkxn7c` (`food_categories_categoryid`),
+  CONSTRAINT `FKbqkgl0nb4gl8rsba6173p5ucy` FOREIGN KEY (`restaurant_menu_id`) REFERENCES `restaurant_menu` (`id`),
+  CONSTRAINT `FKq9e445gh717fnbq6ltwgkxn7c` FOREIGN KEY (`food_categories_categoryid`) REFERENCES `food_category` (`categoryid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `restaurant_menu_food_categories`
+--
+
+LOCK TABLES `restaurant_menu_food_categories` WRITE;
+/*!40000 ALTER TABLE `restaurant_menu_food_categories` DISABLE KEYS */;
+INSERT INTO `restaurant_menu_food_categories` VALUES (1,6),(2,6);
+/*!40000 ALTER TABLE `restaurant_menu_food_categories` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `restaurant_menu_food_service_types`
+--
+
+DROP TABLE IF EXISTS `restaurant_menu_food_service_types`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `restaurant_menu_food_service_types` (
+  `restaurant_menu_id` bigint(20) NOT NULL,
+  `food_service_types_food_servcicetype_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`restaurant_menu_id`,`food_service_types_food_servcicetype_id`),
+  KEY `FKdddfuc7cw9y3ojf356tgv1ud3` (`food_service_types_food_servcicetype_id`),
+  CONSTRAINT `FK42839cf3shiqxhc2yfhn8ynxj` FOREIGN KEY (`restaurant_menu_id`) REFERENCES `restaurant_menu` (`id`),
+  CONSTRAINT `FKdddfuc7cw9y3ojf356tgv1ud3` FOREIGN KEY (`food_service_types_food_servcicetype_id`) REFERENCES `food_service_type` (`food_servcicetype_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `restaurant_menu_food_service_types`
+--
+
+LOCK TABLES `restaurant_menu_food_service_types` WRITE;
+/*!40000 ALTER TABLE `restaurant_menu_food_service_types` DISABLE KEYS */;
+INSERT INTO `restaurant_menu_food_service_types` VALUES (1,1),(1,2),(2,2);
+/*!40000 ALTER TABLE `restaurant_menu_food_service_types` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `restaurant_menu_menu_items`
 --
 
@@ -650,4 +704,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-02  2:52:00
+-- Dump completed on 2018-05-03  2:06:18

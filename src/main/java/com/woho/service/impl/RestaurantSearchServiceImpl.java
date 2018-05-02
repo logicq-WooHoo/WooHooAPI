@@ -184,6 +184,8 @@ public class RestaurantSearchServiceImpl implements RestaurantSearchService {
 				}
 				restaurantVO.setRestaurantName(rd.getRestaurantName());
 				restaurantVO.setRestaurantTypes(restaurantSetupService.getRestaurantTypeNames(rd.getId()));
+				restaurantVO.setFoodCategories(restaurantMenuService.getFoodCategoryNames(rd.getId()));
+				restaurantVO.setFoodServiceTypes(restaurantMenuService.getFoodServiceTypeNames(rd.getId()));
 
 				if (!ObjectUtils.isEmpty(rd.getPhone())) {
 					restaurantVO.setPhone(rd.getPhone());

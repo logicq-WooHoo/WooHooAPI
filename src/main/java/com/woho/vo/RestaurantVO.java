@@ -19,6 +19,8 @@ public class RestaurantVO {
 	private String website;
 	private Set<String> deliveryPartners;
 	private Set<String> restaurantTypes;
+	private Set<String> foodCategories;
+	private Set<String> foodServiceTypes;
 	private Long documentId;
 	private String documentName;
 	private String documentFilePath;
@@ -127,13 +129,30 @@ public class RestaurantVO {
 		this.documentFilePath = documentFilePath;
 	}
 
+	public Set<String> getFoodCategories() {
+		return foodCategories;
+	}
+
+	public void setFoodCategories(Set<String> foodCategories) {
+		this.foodCategories = foodCategories;
+	}
+
+	public Set<String> getFoodServiceTypes() {
+		return foodServiceTypes;
+	}
+
+	public void setFoodServiceTypes(Set<String> foodServiceTypes) {
+		this.foodServiceTypes = foodServiceTypes;
+	}
+
 	@Override
 	public String toString() {
 		return "RestaurantVO [id=" + id + ", restaurantName=" + restaurantName + ", city=" + city + ", area=" + area
 				+ ", recommendationCount=" + recommendationCount + ", rating=" + rating + ", phone=" + phone
 				+ ", website=" + website + ", deliveryPartners=" + deliveryPartners + ", restaurantTypes="
-				+ restaurantTypes + ", documentId=" + documentId + ", documentName=" + documentName
-				+ ", documentFilePath=" + documentFilePath + "]";
+				+ restaurantTypes + ", foodCategories=" + foodCategories + ", foodServiceTypes=" + foodServiceTypes
+				+ ", documentId=" + documentId + ", documentName=" + documentName + ", documentFilePath="
+				+ documentFilePath + "]";
 	}
 
 }
