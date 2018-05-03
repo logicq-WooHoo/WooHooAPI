@@ -75,4 +75,32 @@ public class AddressDaoImpl extends AbstractDAO<Address> implements AddressDao {
 	public Address get(Long id) {
 		return getRecordById(Address.class, id);
 	}
+
+	@Override
+	public Address add(Address address) {
+		save(address);
+		return address;
+	}
+
+	@Override
+	public List<Address> list() {
+		return (List<Address>) loadClass(Address.class);
+	}
+
+	@Override
+	public void delete(Long id) {
+		//delete(getRecordById(Address.class, id));
+		delete(loadRecordById(Address.class, id));
+	}
+
+	@Override
+	public void update(Long id, Address address) {
+		address.setId(id);
+		update(address);
+	}
+
+	@Override
+	public boolean isAddressExist(Long id) {
+		return getRecordById(Address.class, id) != null;
+	}
 }

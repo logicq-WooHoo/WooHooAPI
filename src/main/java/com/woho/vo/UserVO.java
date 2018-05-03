@@ -1,9 +1,11 @@
 package com.woho.vo;
 
 import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.woho.model.Address;
 import com.woho.model.UserInformation;
 
 @JsonInclude(Include.NON_NULL)
@@ -26,6 +28,10 @@ public class UserVO {
 	private UserInformation userInformation;
 
 	private List<PaymentCardVO> paymentCards;
+
+	private Set<Address> addresses;
+
+	Address address;
 
 	public String getUsername() {
 		return username;
@@ -99,11 +105,28 @@ public class UserVO {
 		this.loginType = loginType;
 	}
 
+	public Set<Address> getAddresses() {
+		return addresses;
+	}
+
+	public void setAddresses(Set<Address> addresses) {
+		this.addresses = addresses;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
 	@Override
 	public String toString() {
 		return "UserVO [username=" + username + ", firstName=" + firstName + ", lastName=" + lastName + ", emailId="
 				+ emailId + ", mobileNo=" + mobileNo + ", type=" + type + ", loginType=" + loginType
-				+ ", userInformation=" + userInformation + ", paymentCards=" + paymentCards + "]";
+				+ ", userInformation=" + userInformation + ", paymentCards=" + paymentCards + ", addresses=" + addresses
+				+ ", address=" + address + "]";
 	}
 
 }

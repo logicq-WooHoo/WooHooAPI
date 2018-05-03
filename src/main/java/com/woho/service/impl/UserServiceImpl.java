@@ -28,6 +28,7 @@ import com.woho.dao.OrderTrackingDao;
 import com.woho.dao.PaymentCardDao;
 import com.woho.dao.UserInformationDao;
 import com.woho.helper.ObjectFactory;
+import com.woho.model.Address;
 import com.woho.model.MenuItem;
 import com.woho.model.OrderDetails;
 import com.woho.model.OrderTracking;
@@ -80,7 +81,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<OrderDetailsVO> getpastorders(Long userId) throws Exception {
+	public List<OrderDetailsVO> getPastOrders(Long userId) throws Exception {
 
 		List<OrderDetailsVO> orderDetailsVOList = new ArrayList<OrderDetailsVO>();
 
@@ -309,7 +310,7 @@ public class UserServiceImpl implements UserService {
 			userVO.setType(dbuser.getType());
 			userVO.setLoginType(dbuser.getLoginType());
 		} else {
-			throw new Exception ("emailId " + userInformation.getEmailId() +  " is already registered !");
+			throw new Exception("emailId " + userInformation.getEmailId() + " is already registered !");
 		}
 		return userVO;
 	}
@@ -317,21 +318,133 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void validateUser(UserInformation userInformation) throws Exception {
 		if (StringUtils.isEmpty(userInformation.getEmailId())) {
-			throw new Exception ("emailId should not be null !");
+			throw new Exception("emailId should not be null !");
 		}
 		if (StringUtils.isEmpty(userInformation.getType())) {
-			throw new Exception ("type should not be null !");
+			throw new Exception("type should not be null !");
 		}
 		if (StringUtils.isEmpty(userInformation.getLoginType())) {
-			throw new Exception ("loginType should not be null !");
+			throw new Exception("loginType should not be null !");
 		} else {
 			if (StringUtils.isEmpty(userInformation.getPassword())) {
 				if ("woohoo".equalsIgnoreCase(userInformation.getLoginType())) {
-					throw new Exception ("Please provide password !");
+					throw new Exception("Please provide password !");
 				}
 			}
 		}
 	}
 
-	
+	@Override
+	public UserVO getUserByEmailId(String emailId) throws Exception {
+		UserVO userVO = null;
+		UserInformation dbuser = userInformationDao.findUserByEmail(emailId);
+		if (!ObjectUtils.isEmpty(dbuser)) {
+			userVO = new UserVO();
+			userVO.setFirstName(dbuser.getFirstName());
+			userVO.setLastName(dbuser.getLastName());
+			userVO.setEmailId(dbuser.getEmailId());
+			userVO.setMobileNo(dbuser.getMobileNo());
+			userVO.setUsername(dbuser.getEmailId());
+			userVO.setType(dbuser.getType());
+			userVO.setLoginType(dbuser.getLoginType());
+		} else {
+			throw new Exception("No user is registered with email " + emailId);
+		}
+		return userVO;
+	}
+
+	@Override
+	public UserVO getMyProfile(String emailId) throws Exception {
+		UserVO userVO = null;
+		UserInformation dbuser = userInformationDao.findUserByEmail(emailId);
+		if (!ObjectUtils.isEmpty(dbuser)) {
+			userVO = new UserVO();
+			userVO.setFirstName(dbuser.getFirstName());
+			userVO.setLastName(dbuser.getLastName());
+			userVO.setEmailId(dbuser.getEmailId());
+			userVO.setMobileNo(dbuser.getMobileNo());
+			userVO.setUsername(dbuser.getEmailId());
+			userVO.setType(dbuser.getType());
+			userVO.setLoginType(dbuser.getLoginType());
+			userVO.setAddresses(dbuser.getAddresses());
+
+			List<PaymentCardVO> paymentCardVOs = new ArrayList<>();
+			List<PaymentCard> paymentCards = paymentCardDao.getByUserId(dbuser.getUserId());
+			paymentCards.forEach(paymentCard -> {
+				PaymentCardVO paymentCardVO = new PaymentCardVO();
+				paymentCardVO.setCardNumber(paymentCard.getCardNumber());
+				paymentCardVO.setCardType(paymentCard.getCardType());
+				paymentCardVO.setCvv(paymentCard.getCvv());
+				paymentCardVO.setExpireOn(paymentCard.getExpireOn());
+				paymentCardVOs.add(paymentCardVO);
+			});
+
+			userVO.setPaymentCards(paymentCardVOs);
+
+		} else {
+			throw new Exception("No user is registered with email " + emailId);
+		}
+
+		return userVO;
+	}
+
+	@Override
+	public List<OrderDetailsVO> getPastOrders(String emailId) throws Exception {
+		List<OrderDetailsVO> orderDetailsVOList = new ArrayList<OrderDetailsVO>();
+
+		UserInformation dbuser = userInformationDao.findUserByEmail(emailId);
+
+		if (!ObjectUtils.isEmpty(dbuser)) {
+			List<OrderDetails> orderDetailsList = orderDetailsDao.getByUserId(dbuser.getUserId());
+			orderDetailsList.forEach(orderDetails -> {
+				OrderDetailsVO orderDetailsVO = new OrderDetailsVO();
+				orderDetailsVO.setOrderId(orderDetails.getId());
+				orderDetailsVO.setTimestamp(orderDetails.getTimestamp());
+				// orderDetailsVO.setUserId(orderDetails.getUserInformation().getUserId());
+				orderDetailsVO.setDeliveryAddresses(orderDetails.getDeliveryAddresses());
+
+				List<OrderTrackingVO> orderTrackingVOList = new ArrayList<OrderTrackingVO>();
+				List<OrderTracking> orderTrackings = orderDetails.getOrderTrackings();
+				orderTrackings.forEach(orderTracking -> {
+					OrderTrackingVO orderTrackingVO = new OrderTrackingVO();
+					orderTrackingVO.setOrderTrackingId(orderTracking.getId());
+					try {
+						orderTrackingVO.setOrderDetails(objectMapper.readValue(new String(orderTracking.getOrderJson()),
+								RestaurantMenuVO.class));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					orderTrackingVOList.add(orderTrackingVO);
+				});
+				orderDetailsVO.setOrderTrackings(orderTrackingVOList);
+				orderDetailsVOList.add(orderDetailsVO);
+			});
+		} else {
+			throw new Exception("No user is registered with email " + emailId);
+		}
+
+		return orderDetailsVOList;
+	}
+
+	@Override
+	public Set<Address> addAddress(UserVO userVO) throws Exception {
+		UserInformation dbuser = userInformationDao.findUserByEmail(userVO.getEmailId());
+		if (!ObjectUtils.isEmpty(dbuser)) {
+			Address address = addressService.add(userVO.getAddress());
+			dbuser.getAddresses().add(address);
+		} else {
+			throw new Exception("No user is registered with email " + userVO.getEmailId());
+		}
+		return dbuser.getAddresses();
+	}
+
+	@Override
+	public Set<Address> getUserAddresses(String emailId) throws Exception {
+		UserInformation dbuser = userInformationDao.findUserByEmail(emailId);
+		if (!ObjectUtils.isEmpty(dbuser)) {
+			return dbuser.getAddresses();
+		} else {
+			throw new Exception("No user is registered with email " + emailId);
+		}
+	}
 }

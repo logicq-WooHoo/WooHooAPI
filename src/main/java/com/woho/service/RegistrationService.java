@@ -7,14 +7,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.woho.model.Address;
 import com.woho.model.RestaurantDetails;
-import com.woho.model.UserInformation;
 import com.woho.vo.RestaurantMenuVO;
 import com.woho.vo.RestaurantSetupVO;
-import com.woho.vo.UserVO;
 
 public interface RegistrationService {
 	
-	UserVO register(UserInformation user) throws Exception;
+	//UserVO register(UserInformation user) throws Exception;
 	RestaurantDetails saveRestaurantDetails(RestaurantDetails restaurantDetails);
 	RestaurantDetails getRestaurantDetails(long id);
 	RestaurantDetails getRestaurantDetailsByRegistrationNumber(String registrationNumber);

@@ -2,7 +2,9 @@ package com.woho.service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import com.woho.model.Address;
 import com.woho.model.OrderDetails;
 import com.woho.model.UserInformation;
 import com.woho.vo.CartVO;
@@ -15,12 +17,12 @@ public interface UserService {
 	UserInformation getUser(UserVO userVO);
 
 	UserInformation getUser(Long id);
-	
+
 	UserVO addUser(UserInformation userInformation) throws Exception;
-	
+
 	void validateUser(UserInformation userInformation) throws Exception;
 
-	List<OrderDetailsVO> getpastorders(Long userId) throws Exception;
+	List<OrderDetailsVO> getPastOrders(Long userId) throws Exception;
 
 	// Set<OrderDetailsVO> getOrderDetails(String trackingId);
 
@@ -36,5 +38,15 @@ public interface UserService {
 	UserVO getMyProfile(Long userId);
 
 	UserInformation authenticateUser(String username, String password);
+
+	UserVO getUserByEmailId(String emailId) throws Exception;
+
+	UserVO getMyProfile(String emailId) throws Exception;
+
+	List<OrderDetailsVO> getPastOrders(String emailId) throws Exception;
+
+	Set<Address> addAddress(UserVO userVO) throws Exception;
+	
+	Set<Address> getUserAddresses(String emailId) throws Exception;
 
 }

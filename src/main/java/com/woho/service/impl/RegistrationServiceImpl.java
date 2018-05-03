@@ -26,7 +26,6 @@ import com.woho.model.RestaurantDetails;
 import com.woho.model.RestaurantMenu;
 import com.woho.model.RestaurantSetup;
 import com.woho.model.RestaurantType;
-import com.woho.model.UserInformation;
 import com.woho.service.DeliveryPartnerService;
 import com.woho.service.FoodCategoryService;
 import com.woho.service.FoodServiceTypeService;
@@ -37,7 +36,6 @@ import com.woho.service.UserService;
 import com.woho.vo.MenuItemVO;
 import com.woho.vo.RestaurantMenuVO;
 import com.woho.vo.RestaurantSetupVO;
-import com.woho.vo.UserVO;
 
 @Service
 @Transactional
@@ -74,10 +72,10 @@ public class RegistrationServiceImpl implements RegistrationService{
 	@Autowired
 	StorageService storageService;
 	
-	@Override
+	/*@Override
 	public UserVO register(UserInformation userInformation) throws Exception {
 		return userService.addUser(userInformation);
-	}
+	}*/
 
 	@Override
 	public RestaurantDetails saveRestaurantDetails(RestaurantDetails restaurantDetails) {

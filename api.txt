@@ -27,6 +27,11 @@ OR
   "loginType":"FACEBOOK"
 }
 
+Get User By Email:
+GET: http://127.0.0.1:8090/api/user/{emailId}
+GET: http://127.0.0.1:8090/api/user/noor.fatima078@gmail.com
+
+
 2. Add Restaurant Details
 POST: http://127.0.0.1:8090/api/restaurant/details
 {
@@ -224,6 +229,9 @@ POST: http://127.0.0.1:8090/api/user/placeorder
 GET: http://127.0.0.1:8090/api/user/getpastorders/{userId}
 GET: http://127.0.0.1:8090/api/user/getpastorders/2
 
+GET: http://127.0.0.1:8090/api/user/myorders/{emailId}
+GET:http://127.0.0.1:8090/api/user/myorders/nana.patekar@gmail.com
+
 17. Reorder
 GET: http://127.0.0.1:8090/api/user/reorder/{orderId}
 GET: http://127.0.0.1:8090/api/user/reorder/BM9TN9
@@ -239,8 +247,8 @@ POST: http://127.0.0.1:8090/api/user/savecarddetails
 }
 
 19. Get User Profile
-GET: http://127.0.0.1:8090/api/user/getmyprofile/{userId}
-GET: http://127.0.0.1:8090/api/user/getmyprofile/2
+GET: http://127.0.0.1:8090/api/user/getmyprofile/{emailId}
+GET: http://127.0.0.1:8090/api/user/getmyprofile/nana.patekar@gmail.com
 
 20. Login:
 POST: http://127.0.0.1:8090/api/login
@@ -258,3 +266,42 @@ POST: http://127.0.0.1:8090/api/getravelerpick
 	"entity":"food"
 }
 
+------------------------------------
+User Address APIs:
+1. Add Address
+
+POST: http://127.0.0.1:8090/api/user/address
+{
+  "emailId": "nana.patekar1@gmail.com",
+  "address": {
+  	"flatNo":"E111",
+  	"societyName":"Pristine",
+  	"locality":"Wakad",
+  	"road":"Wakad road",
+  	"city":"Pune",
+  	"state":"Maharashtra",
+  	"country":"India",	
+  	"pinCode": 411057,
+  	"type":"user"
+  }
+}
+---
+2. Get User Addresses
+GET: http://127.0.0.1:8090/api/user/address/{emailId}
+GET: http://127.0.0.1:8090/api/user/address/nana.patekar1@gmail.com
+---
+3. Update Address using address id
+PUT: http://127.0.0.1:8090/api/user/address/{id}
+PUT: http://127.0.0.1:8090/api/user/address/6
+{
+  	"flatNo":"D556",
+  	"societyName":"Gayatri",
+  	"locality":"Thergaon",
+  	"road":"Ravet road",
+  	"city":"Pune",
+  	"state":"Maharashtra",
+  	"country":"India",	
+  	"pinCode": 411057,
+  	"type":"user"
+}
+-----------------------------------

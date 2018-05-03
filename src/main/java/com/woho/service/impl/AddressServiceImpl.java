@@ -37,7 +37,34 @@ public class AddressServiceImpl implements AddressService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Address get(Long id) {
 		return addressDao.get(id);
+	}
+
+	@Override
+	public Address add(Address address) {
+		return addressDao.add(address);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Address> list() {
+		return addressDao.list();
+	}
+
+	@Override
+	public void delete(Long id) {
+		addressDao.delete(id);
+	}
+
+	@Override
+	public void update(Long id, Address address) {
+		addressDao.update(id, address);
+	}
+
+	@Override
+	public boolean isAddressExist(Long id) {
+		return addressDao.isAddressExist(id);
 	}
 }

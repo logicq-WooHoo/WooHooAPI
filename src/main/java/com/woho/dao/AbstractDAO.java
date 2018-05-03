@@ -135,6 +135,11 @@ public class AbstractDAO<T> implements Serializable {
 		return t;
 	}
 
+	public T loadRecordById(Class clazz, Object id) {
+		T t = (T) getSession().load(clazz, (Serializable) id);
+		return t;
+	}
+	
 	/**
 	 * This method executes mysql smart alarm procedures based on configured policy.
 	 */
