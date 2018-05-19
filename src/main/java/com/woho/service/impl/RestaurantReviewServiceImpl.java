@@ -23,7 +23,6 @@ public class RestaurantReviewServiceImpl implements RestaurantReviewService {
 		return restaurantReviewDao.getByRestaurantId(restaurantId);
 	}
 
-
 	@Override
 	public List<RestaurantReview> get(Double rating, List<RestaurantDetails> restaurants) {
 		return restaurantReviewDao.get(rating, restaurants);

@@ -9,6 +9,11 @@ import com.woho.dao.RestaurantReviewDao;
 import com.woho.model.RestaurantDetails;
 import com.woho.model.RestaurantReview;
 
+/**
+ * 
+ * @author Pankaj Labade
+ *
+ */
 @Repository
 public class RestaurantReviewDaoImpl extends AbstractDAO<RestaurantReview> implements RestaurantReviewDao {
 
