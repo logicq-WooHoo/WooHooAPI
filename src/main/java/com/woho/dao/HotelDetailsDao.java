@@ -17,7 +17,7 @@ public interface HotelDetailsDao {
 	HotelDetails get(Long id);
 
 	HotelDetails getByRegistrationNumber(String registrationNumber);
-
+	
 	List<HotelDetails> list();
 
 	void delete(Long id);
@@ -31,4 +31,6 @@ public interface HotelDetailsDao {
 	List<HotelDetails> getByIdList(List<Long> ids);
 
 	List<HotelDetails> findByHotelName(String hotelName);
+	
+	List<HotelDetails> findByType(String type);
 }

@@ -14,10 +14,6 @@ public class HotelVO extends AddressVO {
 
 	private String hotelName;
 
-	private String city;
-
-	private String area;
-
 	private String type;
 
 	private Integer recommendationCount;
@@ -42,22 +38,6 @@ public class HotelVO extends AddressVO {
 
 	public void setHotelName(String hotelName) {
 		this.hotelName = hotelName;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getArea() {
-		return area;
-	}
-
-	public void setArea(String area) {
-		this.area = area;
 	}
 
 	public String getType() {
@@ -102,9 +82,8 @@ public class HotelVO extends AddressVO {
 
 	@Override
 	public String toString() {
-		return "HotelVO [id=" + id + ", hotelName=" + hotelName + ", city=" + city + ", area=" + area + ", type=" + type
-				+ ", recommendationCount=" + recommendationCount + ", rating=" + rating + ", amenities=" + amenities
-				+ ", outServices=" + outServices + "]";
+		return "HotelVO [id=" + id + ", hotelName=" + hotelName + ", type=" + type + ", recommendationCount="
+				+ recommendationCount + ", rating=" + rating + ", amenities=" + amenities + ", outServices="
+				+ outServices + "]";
 	}
-
 }

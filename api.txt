@@ -324,3 +324,33 @@ POST: http://127.0.0.1:8090/api/user/hotel/search
 	"latitude":18.5075353,
 	"longitude":73.807182
 }
+
+1.3: hotelName key used as hotel name or hotel type
+{
+	"latitude":18.5075353,
+	"longitude":73.807182,
+	"hotelName":"botique"
+}
+
+OR
+
+{
+	"latitude":18.5075353,
+	"longitude":73.807182,
+	"hotelName":"Hotel Sagar"
+}
+
+OR
+
+{
+	"city":"Pune",
+	"hotelName":"botique"
+}
+
+OR
+
+{
+	"city":"Pune",
+	"hotelName":"Hotel Sagar"
+}
+

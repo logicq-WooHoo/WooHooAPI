@@ -87,8 +87,14 @@ public class HotelDetailsDaoImpl extends AbstractDAO<HotelDetails> implements Ho
 
 	@Override
 	public List<HotelDetails> findByHotelName(String hotelName) {
-		// TODO Auto-generated method stub
-		return null;
+		String hql = "from HotelDetails where hotelName like :hotelName";
+		return selectWithLikeClause(hql, "hotelName", hotelName);
+	}
+
+	@Override
+	public List<HotelDetails> findByType(String type) {
+		String hql = "from HotelDetails where type.name like :type";
+		return selectWithLikeClause(hql, "type", type);
 	}
 
 }

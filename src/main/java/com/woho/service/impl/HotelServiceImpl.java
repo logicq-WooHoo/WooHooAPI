@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -54,6 +55,24 @@ public class HotelServiceImpl implements HotelService {
 		List<Address> addresses = addressService.searchAddress(hotelVO);
 		if (!CollectionUtils.isEmpty(addresses)) {
 			hotelDetailsList = hotelDetailsDao.getByAddressList(addresses);
+		}
+		if (!CollectionUtils.isEmpty(hotelDetailsList) && !StringUtils.isEmpty(hotelVO.getHotelName())) {
+			List<HotelDetails> hds = hotelDetailsDao.findByHotelName(hotelVO.getHotelName());
+			if (!CollectionUtils.isEmpty(hotelDetailsList) && !CollectionUtils.isEmpty(hds)) {
+				hotelDetailsList = hotelDetailsList.stream().filter(
+						hotelDetails -> hds.stream().anyMatch(hdsbyname -> hdsbyname.getId() == hotelDetails.getId()))
+						.collect(Collectors.toList());
+			}
+			if (CollectionUtils.isEmpty(hds)) {
+				List<HotelDetails> hdsByType = hotelDetailsDao.findByType(hotelVO.getHotelName());	
+				if (!CollectionUtils.isEmpty(hotelDetailsList) && !CollectionUtils.isEmpty(hdsByType)) {
+					hotelDetailsList = hotelDetailsList.stream().filter(
+							hotelDetails -> hdsByType.stream().anyMatch(hdByType -> hdByType.getId() == hotelDetails.getId()))
+							.collect(Collectors.toList());
+				} else {
+					hotelDetailsList.clear();
+				}
+			}
 		}
 		return generateRestaurantVOList(hotelDetailsList);
 	}
