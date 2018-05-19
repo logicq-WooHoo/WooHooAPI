@@ -41,7 +41,7 @@ CREATE TABLE `address` (
   `state_code` varchar(100) DEFAULT NULL,
   `country_code` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -50,8 +50,32 @@ CREATE TABLE `address` (
 
 LOCK TABLES `address` WRITE;
 /*!40000 ALTER TABLE `address` DISABLE KEYS */;
-INSERT INTO `address` VALUES (1,'Pune','India',NULL,'B301',NULL,NULL,NULL,NULL,'411005','F.C. Road','Karishma','Maharashtra',NULL,'user',NULL,NULL),(2,'Pune','India',NULL,'D306',NULL,NULL,NULL,NULL,'411005','J.M. Road','Gandharva','Maharashtra',NULL,'owner',NULL,NULL),(3,'Pune','India',NULL,NULL,NULL,18.507535,'Kothrud',73.771311,'411038','F.C. Road',NULL,'Maharashtra',NULL,'restaurant',NULL,NULL),(4,'Pune','India',NULL,NULL,NULL,18.507593,'Kothrud',73.806104,'411038','M.G. Road',NULL,'Maharashtra',NULL,'restaurant',NULL,NULL);
+INSERT INTO `address` VALUES (1,'Pune','India',NULL,'B301',NULL,NULL,NULL,NULL,'411005','F.C. Road','Karishma','Maharashtra',NULL,'user',NULL,NULL),(2,'Pune','India',NULL,'D306',NULL,NULL,NULL,NULL,'411005','J.M. Road','Gandharva','Maharashtra',NULL,'owner',NULL,NULL),(3,'Pune','India',NULL,NULL,NULL,18.507535,'Kothrud',73.771311,'411038','F.C. Road',NULL,'Maharashtra',NULL,'restaurant',NULL,NULL),(4,'Pune','India',NULL,NULL,NULL,18.507593,'Kothrud',73.806104,'411038','M.G. Road',NULL,'Maharashtra',NULL,'restaurant',NULL,NULL),(5,'Pune','India',NULL,'D555',NULL,NULL,'Thergaon',NULL,'411057','Ravet road','Gayatri','Maharashtra',NULL,'user',NULL,NULL),(6,'Pune','India',NULL,'D556',NULL,NULL,'Thergaon',NULL,'411057','Ravet road','Gayatri','Maharashtra',NULL,'user',NULL,NULL),(7,'Pune','India',NULL,NULL,NULL,18.507535,'Kothrud',73.771311,'411038','Paud ROad',NULL,'Maharashtra',NULL,'hotel',NULL,NULL);
 /*!40000 ALTER TABLE `address` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `amenity`
+--
+
+DROP TABLE IF EXISTS `amenity`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `amenity` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `amenity`
+--
+
+LOCK TABLES `amenity` WRITE;
+/*!40000 ALTER TABLE `amenity` DISABLE KEYS */;
+INSERT INTO `amenity` VALUES (1,'RoomService'),(2,'Gym/Spa'),(3,'Restaurant'),(4,'SwimmingPool'),(5,'Internet');
+/*!40000 ALTER TABLE `amenity` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -153,6 +177,126 @@ LOCK TABLES `food_service_type` WRITE;
 /*!40000 ALTER TABLE `food_service_type` DISABLE KEYS */;
 INSERT INTO `food_service_type` VALUES (1,'','Breakfast'),(2,'','Lunch'),(3,'','Snacks'),(4,'','Dinner');
 /*!40000 ALTER TABLE `food_service_type` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `hotel_details`
+--
+
+DROP TABLE IF EXISTS `hotel_details`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `hotel_details` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `hotel_name` varchar(100) NOT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `registration_number` varchar(100) DEFAULT NULL,
+  `website` varchar(255) DEFAULT NULL,
+  `address_id` bigint(20) DEFAULT NULL,
+  `document_id` bigint(20) DEFAULT NULL,
+  `type_id` bigint(20) DEFAULT NULL,
+  `user_information_id` bigint(20) DEFAULT NULL,
+  `out_services` longblob,
+  PRIMARY KEY (`id`),
+  KEY `FKrbopi3yivggtk9yxfe6id9119` (`address_id`),
+  KEY `FKs40bqdfp5rqvvo5y1rt8ppicf` (`document_id`),
+  KEY `FKaech0lk4efl9r0uog74eq31o2` (`type_id`),
+  KEY `FK679wrdviscmw01jubg3ird6ur` (`user_information_id`),
+  CONSTRAINT `FK679wrdviscmw01jubg3ird6ur` FOREIGN KEY (`user_information_id`) REFERENCES `userinformation` (`id`),
+  CONSTRAINT `FKaech0lk4efl9r0uog74eq31o2` FOREIGN KEY (`type_id`) REFERENCES `hotel_type` (`id`),
+  CONSTRAINT `FKrbopi3yivggtk9yxfe6id9119` FOREIGN KEY (`address_id`) REFERENCES `address` (`id`),
+  CONSTRAINT `FKs40bqdfp5rqvvo5y1rt8ppicf` FOREIGN KEY (`document_id`) REFERENCES `document` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `hotel_details`
+--
+
+LOCK TABLES `hotel_details` WRITE;
+/*!40000 ALTER TABLE `hotel_details` DISABLE KEYS */;
+INSERT INTO `hotel_details` VALUES (1,'Hotel Sagar Plaza',NULL,'2099',NULL,7,NULL,1,2,'{\"Airpot\":5.3,\"ATM\":0.3,\"Medical\":2.3,\"Mall\":0.4}');
+/*!40000 ALTER TABLE `hotel_details` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `hotel_details_amenities`
+--
+
+DROP TABLE IF EXISTS `hotel_details_amenities`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `hotel_details_amenities` (
+  `hotel_details_id` bigint(20) NOT NULL,
+  `amenities_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`hotel_details_id`,`amenities_id`),
+  KEY `FK1ewie4oek7786ln81oeg4loan` (`amenities_id`),
+  CONSTRAINT `FK1ewie4oek7786ln81oeg4loan` FOREIGN KEY (`amenities_id`) REFERENCES `amenity` (`id`),
+  CONSTRAINT `FK55cimnid35x4ap7pmj8eu3pf7` FOREIGN KEY (`hotel_details_id`) REFERENCES `hotel_details` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `hotel_details_amenities`
+--
+
+LOCK TABLES `hotel_details_amenities` WRITE;
+/*!40000 ALTER TABLE `hotel_details_amenities` DISABLE KEYS */;
+INSERT INTO `hotel_details_amenities` VALUES (1,1),(1,2),(1,3),(1,4),(1,5);
+/*!40000 ALTER TABLE `hotel_details_amenities` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `hotel_review`
+--
+
+DROP TABLE IF EXISTS `hotel_review`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `hotel_review` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `comment` varchar(255) DEFAULT NULL,
+  `rating` double DEFAULT NULL,
+  `recommendation_count` int(11) DEFAULT NULL,
+  `hotel_details_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKa8ju34wvhjqv4w3kfpv5yi1f5` (`hotel_details_id`),
+  CONSTRAINT `FKa8ju34wvhjqv4w3kfpv5yi1f5` FOREIGN KEY (`hotel_details_id`) REFERENCES `hotel_details` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `hotel_review`
+--
+
+LOCK TABLES `hotel_review` WRITE;
+/*!40000 ALTER TABLE `hotel_review` DISABLE KEYS */;
+INSERT INTO `hotel_review` VALUES (1,NULL,4.2,230,1);
+/*!40000 ALTER TABLE `hotel_review` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `hotel_type`
+--
+
+DROP TABLE IF EXISTS `hotel_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `hotel_type` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `hotel_type`
+--
+
+LOCK TABLES `hotel_type` WRITE;
+/*!40000 ALTER TABLE `hotel_type` DISABLE KEYS */;
+INSERT INTO `hotel_type` VALUES (1,'Botique'),(2,'Economy'),(3,'Luxurious'),(4,'FullService'),(5,'Microstay'),(6,'Motel');
+/*!40000 ALTER TABLE `hotel_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -655,7 +799,7 @@ CREATE TABLE `userinformation` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `UKedrx00j2n90pb2pfb032o9cqm` (`email`),
   UNIQUE KEY `UK_2sleax4wwkko4tkea1k8qwjvi` (`mobileno`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -664,7 +808,7 @@ CREATE TABLE `userinformation` (
 
 LOCK TABLES `userinformation` WRITE;
 /*!40000 ALTER TABLE `userinformation` DISABLE KEYS */;
-INSERT INTO `userinformation` VALUES (1,'nana.patekar@gmail.com','Nana','Patekar','customer','woohoo',NULL,NULL),(2,'sunil.shetty@gmail.com','Sunil','Shetty','owner','woohoo',NULL,NULL),(3,'noor.fatima078@gmail.com','Noor','Fatima','customer','FACEBOOK',NULL,NULL);
+INSERT INTO `userinformation` VALUES (1,'nana.patekar@gmail.com','Nana','Patekar','customer','woohoo',NULL,NULL),(2,'sunil.shetty@gmail.com','Sunil','Shetty','owner','woohoo',NULL,NULL),(3,'noor.fatima078@gmail.com','Noor','Fatima','customer','FACEBOOK',NULL,NULL),(6,'noor.fatima0781@gmail.com','Noor1','Fatima1','customer','FACEBOOK',NULL,NULL),(7,'nana.patekar1@gmail.com','Nana1','Patekar1','customer','FACEBOOK',NULL,NULL);
 /*!40000 ALTER TABLE `userinformation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -691,7 +835,7 @@ CREATE TABLE `userinformation_addresses` (
 
 LOCK TABLES `userinformation_addresses` WRITE;
 /*!40000 ALTER TABLE `userinformation_addresses` DISABLE KEYS */;
-INSERT INTO `userinformation_addresses` VALUES (1,1),(2,2);
+INSERT INTO `userinformation_addresses` VALUES (1,1),(2,2),(7,5),(7,6);
 /*!40000 ALTER TABLE `userinformation_addresses` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -704,4 +848,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-03  2:06:18
+-- Dump completed on 2018-05-20  2:58:05
