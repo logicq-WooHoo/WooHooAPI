@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,13 +42,13 @@ public class LoginController {
 	 */
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<UserInformation> login() throws Exception {
+	public ResponseEntity<UserInformation> login(@RequestBody UserInformation userinfo) throws Exception {
 		// UserVO userVO = new UserVO();
-		UserInformation validUser = null;
+	//	UserInformation validUser = null;
 
-		String username = (String) request.getHeader("username");
-		String password = (String) request.getHeader("password");
-		validUser = userService.authenticateUser(username, password);
+		//String username = (String) request.getHeader("username");
+		//String password = (String) request.getHeader("password");
+		UserInformation validUser = userService.authenticateUser(userinfo.getEmailId(), userinfo.getPassword());
 		if (!ObjectUtils.isEmpty(validUser)) {
 			validUser.setPassword(null);
 		} else {
